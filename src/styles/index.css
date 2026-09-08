@@ -1,0 +1,249 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   PixRock VFX Academy — Design System
+   Single source of truth for colour, type, spacing, radius and elevation.
+   Components must consume these tokens rather than declaring one-off values.
+   ========================================================================== */
+
+@theme {
+  /* --- Colour: cinematic "orange & teal" grade on a deep neutral base ----- */
+  --color-ink-950: #07080b;
+  --color-ink-900: #0b0d12;
+  --color-ink-850: #0f1218;
+  --color-ink-800: #141821;
+  --color-ink-700: #1c212c;
+  --color-ink-600: #262c39;
+  --color-ink-500: #3a4252;
+
+  --color-ember-50: #fff3ec;
+  --color-ember-100: #ffe0cd;
+  --color-ember-300: #ffab7a;
+  --color-ember-400: #ff8b4d;
+  --color-ember-500: #ff6a2b;
+  --color-ember-600: #ed4f0d;
+  --color-ember-700: #c33c07;
+
+  --color-signal-300: #6ff0e3;
+  --color-signal-400: #2fdccb;
+  --color-signal-500: #14c3b2;
+  --color-signal-600: #0d9a8d;
+
+  --color-chalk: #f6f7f9;
+  --color-mist: #b7bfcd;
+  --color-slate-muted: #8a93a5;
+
+  /* --- Typography -------------------------------------------------------- */
+  --font-display: 'Sora', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --text-hero: clamp(2.5rem, 1.4rem + 4.6vw, 5.25rem);
+  --text-hero--line-height: 1.02;
+  --text-hero--letter-spacing: -0.03em;
+
+  --text-display: clamp(2rem, 1.3rem + 2.9vw, 3.5rem);
+  --text-display--line-height: 1.08;
+  --text-display--letter-spacing: -0.025em;
+
+  --text-title: clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem);
+  --text-title--line-height: 1.15;
+  --text-title--letter-spacing: -0.02em;
+
+  /* --- Radius ------------------------------------------------------------ */
+  --radius-card: 1.125rem;
+  --radius-panel: 1.75rem;
+
+  /* --- Elevation --------------------------------------------------------- */
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.5);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.35), 0 24px 48px -20px rgb(0 0 0 / 0.65);
+  --shadow-glow: 0 0 0 1px --alpha(var(--color-ember-500) / 30%), 0 18px 60px -24px --alpha(var(--color-ember-500) / 45%);
+
+  /* --- Motion ------------------------------------------------------------ */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-drift: drift 18s var(--ease-out-soft) infinite alternate;
+  --animate-sheen: sheen 2.6s linear infinite;
+}
+
+@keyframes drift {
+  from { transform: translate3d(-2%, -1%, 0) scale(1.02); }
+  to { transform: translate3d(2%, 2%, 0) scale(1.08); }
+}
+
+@keyframes sheen {
+  from { background-position: -160% 0; }
+  to { background-position: 260% 0; }
+}
+
+/* ==========================================================================
+   Base layer
+   ========================================================================== */
+
+@layer base {
+  * {
+    border-color: var(--color-ink-700);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: var(--color-chalk);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* A single, consistent focus treatment across every interactive element. */
+  :focus-visible {
+    outline: 2px solid var(--color-ember-400);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: --alpha(var(--color-ember-500) / 35%);
+    color: var(--color-chalk);
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-color: var(--color-ink-600) var(--color-ink-950);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-ink-950);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ink-600);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ink-500);
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ==========================================================================
+   Reusable component classes
+   ========================================================================== */
+
+@layer components {
+  .container-page {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 84rem;
+    padding-inline: 1.25rem;
+  }
+
+  @media (width >= 48rem) {
+    .container-page { padding-inline: 2rem; }
+  }
+
+  @media (width >= 80rem) {
+    .container-page { padding-inline: 2.5rem; }
+  }
+
+  .section {
+    padding-block: clamp(3.5rem, 2rem + 6vw, 7rem);
+  }
+
+  /* Frosted panel used for cards, nav and overlays. */
+  .glass {
+    background-color: --alpha(var(--color-ink-850) / 72%);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid --alpha(var(--color-ink-600) / 80%);
+  }
+
+  .hairline {
+    border-top: 1px solid --alpha(var(--color-ink-600) / 70%);
+  }
+
+  /* Emphasis gradient for headline words.
+     Deliberately warm-only: ramping all the way to the cool accent turned the
+     middle of short words (a three-letter word gets the whole ramp) into a
+     muddy grey-green. The ember/signal duality lives in backdrops, badges and
+     icons instead, where it has room to read. */
+  .text-grade {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-ember-600) 0%,
+      var(--color-ember-500) 34%,
+      var(--color-ember-300) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  .skeleton {
+    background-image: linear-gradient(
+      100deg,
+      --alpha(var(--color-ink-800) / 100%) 20%,
+      --alpha(var(--color-ink-700) / 100%) 45%,
+      --alpha(var(--color-ink-800) / 100%) 70%
+    );
+    background-size: 220% 100%;
+    animation: var(--animate-sheen);
+  }
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+@utility grid-lines {
+  background-image:
+    linear-gradient(to right, --alpha(var(--color-ink-600) / 45%) 1px, transparent 1px),
+    linear-gradient(to bottom, --alpha(var(--color-ink-600) / 45%) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+@utility mask-fade-b {
+  mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+}
+
+/* ==========================================================================
+   Reduced motion — honour the user's OS preference everywhere.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

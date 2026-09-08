@@ -1,0 +1,98 @@
+# =============================================================================
+# PixRock VFX Academy — Apache / Hostinger configuration
+# This file is copied verbatim into dist/ by Vite and must sit next to
+# index.html in public_html on the server.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# 1. SPA routing: serve index.html for any path that is not a real file.
+#    Without this, refreshing /courses/compositing returns a 404 from Apache.
+# -----------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Force HTTPS (Hostinger issues free SSL; comment out if not yet active).
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Never rewrite existing files or directories (assets, .htaccess, robots.txt).
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Everything else is handled by the React router.
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# 2. Compression
+# -----------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml font/woff2 application/font-woff2
+</IfModule>
+
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/xml
+  AddOutputFilterByType BROTLI_COMPRESS application/javascript application/json
+  AddOutputFilterByType BROTLI_COMPRESS image/svg+xml
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# 3. Caching. Vite fingerprints filenames under /assets, so those are immutable.
+#    index.html must never be cached or users get a stale app shell.
+# -----------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(?:js|css|woff2|webp|avif|svg|png|jpe?g)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  <FilesMatch "\.(?:html|json)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  # -------------------------------------------------------------------------
+  # 4. Security headers
+  # -------------------------------------------------------------------------
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+  Header always unset X-Powered-By
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# 5. MIME types some shared hosts still miss
+# -----------------------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType application/javascript .js .mjs
+  AddType image/svg+xml .svg
+  AddType image/webp .webp
+  AddType image/avif .avif
+  AddType font/woff2 .woff2
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# 6. Hardening: block access to dotfiles and source maps
+# -----------------------------------------------------------------------------
+<FilesMatch "(^\.|\.(env|map|log|bak|config|json\.bak)$)">
+  Require all denied
+</FilesMatch>
+
+Options -Indexes
+ErrorDocument 404 /index.html
