@@ -8,6 +8,9 @@ dist
 dist-ssr
 build
 
+# TypeScript incremental build cache
+*.tsbuildinfo
+
 # local env files — never commit secrets
 .env
 .env.local
