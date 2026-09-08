@@ -60,13 +60,13 @@ Other scripts:
    own 404 instead of the app. `.htaccess` is included in `public/` and is copied into `dist/`
    automatically by the build.
 
-5. **Enable SSL** in hPanel. The `.htaccess` already redirects HTTP to HTTPS; if you deploy
-   before the certificate is issued, comment out the *Force HTTPS* block until it is active.
+5. **Enable SSL** in hPanel (*Websites → Security → SSL*), then turn on **Force HTTPS**
+   there. The redirect is deliberately commented out in `.htaccess` — enabling it before the
+   certificate is active causes an infinite redirect loop and the site stops loading.
 
 ### What `.htaccess` handles
 
 - SPA routing — any unknown path is served `index.html` so React Router can resolve it
-- HTTPS redirect
 - Gzip / Brotli compression
 - Long-lived immutable caching for fingerprinted `assets/`, no-cache for `index.html`
 - Security headers (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
@@ -78,6 +78,61 @@ Other scripts:
 If the site will live at `https://example.com/academy/` rather than a domain root, set
 `base: '/academy/'` in `vite.config.ts` and `RewriteBase /academy/` in `public/.htaccess`
 before building.
+
+---
+
+## Troubleshooting a Hostinger deployment
+
+Work down this list — the symptom tells you which one it is.
+
+### Blank white page, but the browser tab says "PixRock VFX Academy"
+
+The HTML loaded and the JavaScript did not. Open DevTools → Console/Network and look at what
+404s. Two causes cover almost every case:
+
+1. **You uploaded the `dist` folder instead of its contents.** The site is then at
+   `example.com/dist/`, and `index.html` at the root asks for `/assets/…` which does not exist.
+   `public_html/` must contain `index.html` directly — not `public_html/dist/index.html`.
+
+2. **You uploaded the project source instead of the build.** If `public_html` contains
+   `src/`, `package.json` and `vite.config.ts`, that is the repository, not the build. Hostinger
+   cannot compile it. Run `npm run build` and upload what lands in `dist/`.
+
+The same blank page appears if you open `dist/index.html` by double-clicking it. Browsers block
+scripts loaded over `file://`, so it must be served over `http(s)://` — that is expected, not a
+bug in the site.
+
+### 500 Internal Server Error
+
+Almost always `.htaccess` using a directive this host does not permit. Rename it to
+`htaccess.bak`; if the home page then loads, put back the four-line minimal version documented
+at the top of `public/.htaccess` and add sections from there.
+
+### `ERR_TOO_MANY_REDIRECTS`
+
+The force-HTTPS rule is on while SSL is not yet active. It ships commented out — if you
+uncommented it, comment it out again and use hPanel's *Force HTTPS* instead.
+
+### Home page works, but `/courses` or a refresh gives a 404
+
+`.htaccess` did not upload. It is a hidden dotfile: in File Manager enable **Settings → Show
+hidden files**, and confirm it sits next to `index.html`.
+
+### Directory listing instead of the site
+
+`index.html` is not in the directory being served, or the domain's document root points
+somewhere other than `public_html`. Check *Websites → Domains* in hPanel.
+
+### The site loads but styling looks wrong / fonts are plain
+
+Fonts come from Google Fonts over the network and are non-blocking, so the site stays fully
+readable in its fallback stack if that request fails. To remove the external dependency
+entirely, self-host the two families and drop the `<link>` tags in `index.html`.
+
+### Still stuck
+
+Send the exact URL, what you see, and the Console + Network tabs from DevTools. The error text
+identifies the cause immediately; without it any answer is a guess.
 
 ---
 

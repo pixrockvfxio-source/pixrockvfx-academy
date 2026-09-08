@@ -1,23 +1,46 @@
 # =============================================================================
-# PixRock VFX Academy — Apache / Hostinger configuration
+# PixRock VFX Academy — Apache / LiteSpeed configuration for Hostinger
+#
 # This file is copied verbatim into dist/ by Vite and must sit next to
 # index.html in public_html on the server.
+#
+# IF THE SITE RETURNS 500 INTERNAL SERVER ERROR, the cause is almost always a
+# directive this host does not allow. Every block below is guarded by
+# <IfModule> so that should not happen — but to isolate it, replace this whole
+# file with just these four lines, which are all the site strictly needs:
+#
+#   RewriteEngine On
+#   RewriteCond %{REQUEST_FILENAME} -f [OR]
+#   RewriteCond %{REQUEST_FILENAME} -d
+#   RewriteRule ^ - [L]
+#   RewriteRule ^ index.html [L]
+#
+# If that works, add the sections below back one at a time.
 # =============================================================================
 
 # -----------------------------------------------------------------------------
 # 1. SPA routing: serve index.html for any path that is not a real file.
-#    Without this, refreshing /courses/compositing returns a 404 from Apache.
+#    Without this, refreshing /courses/compositing returns the host's own 404
+#    instead of the app.
 # -----------------------------------------------------------------------------
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Force HTTPS (Hostinger issues free SSL; comment out if not yet active).
-  RewriteCond %{HTTPS} !=on
-  RewriteCond %{HTTP:X-Forwarded-Proto} !https
-  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # --- Force HTTPS ---------------------------------------------------------
+  # DISABLED BY DEFAULT ON PURPOSE. Turn HTTPS on in hPanel instead
+  # (Websites → Security → SSL, then "Force HTTPS"), which is safer.
+  #
+  # Enabling the rule below before the certificate is active — or on a host
+  # that terminates TLS at a proxy without setting these variables — produces
+  # an infinite redirect loop (ERR_TOO_MANY_REDIRECTS) and the site stops
+  # loading entirely. Only uncomment once HTTPS is confirmed working.
+  #
+  # RewriteCond %{HTTPS} !=on
+  # RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # Never rewrite existing files or directories (assets, .htaccess, robots.txt).
+  # Never rewrite existing files or directories (assets, robots.txt, sitemap).
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
@@ -44,7 +67,7 @@
 
 # -----------------------------------------------------------------------------
 # 3. Caching. Vite fingerprints filenames under /assets, so those are immutable.
-#    index.html must never be cached or users get a stale app shell.
+#    index.html must never be cached or visitors get a stale app shell.
 # -----------------------------------------------------------------------------
 <IfModule mod_expires.c>
   ExpiresActive On
@@ -61,17 +84,17 @@
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
 
-  <FilesMatch "\.(?:html|json)$">
+  <FilesMatch "\.(?:html|json|webmanifest)$">
     Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
 
-  # -------------------------------------------------------------------------
+  # ---------------------------------------------------------------------------
   # 4. Security headers
-  # -------------------------------------------------------------------------
+  # ---------------------------------------------------------------------------
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
-  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
   Header always unset X-Powered-By
 </IfModule>
 
@@ -88,11 +111,24 @@
 </IfModule>
 
 # -----------------------------------------------------------------------------
-# 6. Hardening: block access to dotfiles and source maps
+# 6. Hardening: block dotfiles and source maps.
+#    Guarded both ways — bare Apache 2.4 "Require" syntax on a 2.2 server, or
+#    2.2 "Order/Deny" on 2.4 without mod_access_compat, returns 500.
 # -----------------------------------------------------------------------------
-<FilesMatch "(^\.|\.(env|map|log|bak|config|json\.bak)$)">
-  Require all denied
+<FilesMatch "(^\.|\.(env|map|log|bak)$)">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    <IfModule mod_authz_host.c>
+      Order allow,deny
+      Deny from all
+    </IfModule>
+  </IfModule>
 </FilesMatch>
 
-Options -Indexes
-ErrorDocument 404 /index.html
+# Disable directory listings. Guarded because some hosts forbid Options in
+# .htaccess (AllowOverride), which would 500 the whole site.
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>
