@@ -3,24 +3,41 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { fileURLToPath, URL } from 'node:url';
 
+/**
+ * SINGLE_FILE=1 produces a fallback build: one self-contained index.html with
+ * every stylesheet, script and asset inlined, and no code splitting. It drops
+ * into any folder on any host and works without .htaccess, without a correct
+ * document root, and without /assets resolving. Paired with VITE_ROUTER=hash
+ * it needs no server rewrite rules at all.
+ *
+ * The normal build (dist/) stays the recommended output — it is smaller,
+ * cached far better, and keeps clean URLs.
+ */
+const singleFile = process.env.SINGLE_FILE === '1';
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  // Relative base keeps assets resolvable whether the site is served from the
-  // domain root or a subfolder on Hostinger.
-  base: '/',
+  // Single-file builds use relative paths so the page works from any folder,
+  // and even when opened directly from disk. Normal builds serve from the
+  // domain root, where absolute paths are correct for deep links.
+  base: singleFile ? './' : '/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   build: {
-    outDir: 'dist',
+    outDir: singleFile ? 'dist-single' : 'dist',
     target: 'es2020',
-    cssCodeSplit: true,
+    cssCodeSplit: !singleFile,
     sourcemap: false,
+    // Inline every asset as a data URI in single-file mode.
+    assetsInlineLimit: singleFile ? Number.MAX_SAFE_INTEGER : 4096,
     rollupOptions: {
-      output: {
+      output: singleFile
+        ? { inlineDynamicImports: true }
+        : {
         // Split the long-lived vendor code out of the app bundle so a content
         // change does not invalidate the framework chunk in visitors' caches.
         manualChunks(id) {

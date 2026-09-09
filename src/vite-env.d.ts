@@ -2,6 +2,8 @@
 
 interface ImportMetaEnv {
   readonly VITE_SITE_URL?: string;
+  /** 'hash' switches the app to HashRouter for hosts with no rewrite rules. */
+  readonly VITE_ROUTER?: string;
   readonly VITE_CONTACT_PHONE?: string;
   readonly VITE_CONTACT_EMAIL?: string;
   readonly VITE_WHATSAPP_NUMBER?: string;
