@@ -15,8 +15,10 @@ import type { Course } from '@/types/content';
  *   1. "Placement assistance" — never "placement guarantee", "100% placement"
  *      or "assured job". There is no exception. See scripts/check-language.mjs,
  *      which fails the build if such a phrase appears anywhere in the site.
- *   2. Every fee shown is GST-INCLUSIVE. Only `feeInclGst` is stored, so an
- *      ex-GST figure cannot reach a page by accident.
+ *   2. Fees are NOT published on this site. They are a counselling
+ *      conversation, where the full GST-inclusive cost and instalment options
+ *      can be explained properly. No amount is stored here, so none can reach
+ *      the page — or the JavaScript bundle — by accident.
  *   3. The academy has no graduates yet — first intake April 2027. Nothing
  *      here may imply a placement record, salary outcome or alumni result.
  *
@@ -45,7 +47,6 @@ export const courses: Course[] = [
     duration: '3 months',
     weeks: 12,
     contactHours: 180,
-    feeInclGst: 47200,
     level: 'Entry level',
     bestFor:
       'A student who has finished 12th and wants to enter the industry quickly, or a college student building a skill alongside a degree. No drawing background required.',
@@ -138,7 +139,7 @@ export const courses: Course[] = [
       {
         question: 'Can I upgrade to the Prep Artist course afterwards?',
         answer:
-          'Yes. Roto graduates enter the Prep Artist course at Month 3 and pay a bridge upgrade fee of ₹47,200 (incl. GST) rather than the full course fee.',
+          'Yes. Roto graduates enter the Prep Artist course at Month 3 on a bridge upgrade rather than paying the full course fee. Our counsellors will confirm the current figure.',
       },
     ],
     featured: true,
@@ -163,8 +164,6 @@ export const courses: Course[] = [
     duration: '4 months',
     weeks: 16,
     contactHours: 240,
-    feeInclGst: 88500,
-    feeNote: 'Roto Artist graduates continue at a bridge upgrade fee of ₹47,200 (incl. GST).',
     level: 'Entry to intermediate',
     bestFor: 'A student who wants a stronger entry point and a wider skill set from the start.',
     leavesWith:
@@ -240,7 +239,7 @@ export const courses: Course[] = [
       {
         question: 'I finished the Roto Artist course. Do I repeat the roto content?',
         answer:
-          'No. You join at Month 3, straight into paint and cleanup, and pay the bridge upgrade fee of ₹47,200 (incl. GST) rather than the full ₹88,500.',
+          'No. You join at Month 3, straight into paint and cleanup, on a bridge upgrade rather than the full course fee.',
       },
     ],
     featured: true,
@@ -265,7 +264,6 @@ export const courses: Course[] = [
     duration: '6 months',
     weeks: 24,
     contactHours: 360,
-    feeInclGst: 141600,
     level: 'Intermediate',
     bestFor:
       'A student who is serious about VFX as a long-term career, or a graduate of our Foundation courses moving up. It suits patience and an eye for detail.',
@@ -402,7 +400,6 @@ export const courses: Course[] = [
     duration: '6 months',
     weeks: 24,
     contactHours: 360,
-    feeInclGst: 141600,
     level: 'Intermediate',
     bestFor: 'A student who is technically minded and comfortable with spatial and mathematical thinking.',
     leavesWith:
@@ -537,7 +534,6 @@ export const courses: Course[] = [
     duration: '6 months',
     weeks: 24,
     contactHours: 360,
-    feeInclGst: 188800,
     level: 'Entry to intermediate',
     bestFor:
       'A student drawn to games as well as film, or one who wants the widest range of employers. Art, 3D or gaming literacy helps.',
@@ -670,7 +666,6 @@ export const courses: Course[] = [
     duration: '12 months',
     weeks: 48,
     contactHours: 720,
-    feeInclGst: 188800,
     level: 'Advanced',
     bestFor:
       'A student committed to VFX as a career, and a family able to support a full year of study.',
@@ -788,8 +783,3 @@ export const courseOptions = [
   ...publishedCourses.map((course) => ({ value: course.slug, label: course.title })),
   { value: 'not-sure', label: 'Not sure yet — please advise' },
 ];
-
-/** Formats a fee as a GST-inclusive rupee figure, e.g. "₹47,200". */
-export function formatFee(amount: number): string {
-  return `₹${amount.toLocaleString('en-IN')}`;
-}

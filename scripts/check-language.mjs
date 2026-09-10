@@ -62,6 +62,14 @@ const RULES = [
     reason: 'Claims a placement record. The academy has no graduates yet.',
     instead: 'the founding-batch framing: no graduate record yet, stated plainly',
   },
+  {
+    // Fees are a counselling conversation, not website copy. This also stops a
+    // figure reaching the JavaScript bundle, where it would be readable even
+    // if no component rendered it.
+    pattern: /₹\s?[\d,]{3,}|\bRs\.?\s?[\d,]{3,}|\bINR\s?[\d,]{3,}/i,
+    reason: 'A rupee amount. Fees are not published on this site.',
+    instead: 'a prompt to speak to a counsellor about the full cost',
+  },
 ];
 
 /**
@@ -113,7 +121,10 @@ for (const file of files) {
       /\b(?:do|does|will|can)\s+not\b/i.test(line);
 
     for (const rule of RULES) {
-      if (rule.pattern.test(line) && !denies) {
+      // Denial only excuses guarantee-style claims. A published fee is banned
+      // outright, so it ignores the negation check.
+      const excusable = !/₹/.test(String(rule.pattern));
+      if (rule.pattern.test(line) && !(denies && excusable)) {
         failures.push({ rel, line: i + 1, text: line.trim(), rule });
       }
     }

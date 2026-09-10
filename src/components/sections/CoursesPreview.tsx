@@ -18,7 +18,7 @@ export function CoursesPreview() {
 Courses that map to real <span className="text-grade">studio roles</span>
               </>
             }
-            description="Start with a foundation craft, specialise in a discipline, or take the twelve-month flagship. Every fee shown is inclusive of GST."
+            description="Start with a foundation craft, specialise in a discipline, or take the twelve-month flagship."
           />
           <Reveal delay={0.1} className="shrink-0">
             <Button to="/courses" variant="outline">

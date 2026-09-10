@@ -33,14 +33,16 @@ export type Course = {
   weeks: number;
   contactHours: number;
 
-  /**
-   * Fee in rupees, GST INCLUSIVE. Only the inclusive figure is stored, so an
-   * ex-GST number can never reach the page by accident — a hard rule from the
-   * brochure: a parent who is quoted ₹40,000 and invoiced ₹47,200 loses trust.
+  /*
+   * NO FEE FIELD, DELIBERATELY.
+   *
+   * Fees are not published on this site — they are a counselling conversation,
+   * where the full GST-inclusive cost and any instalment options can be
+   * explained properly. Storing an amount here would put it in the shipped
+   * JavaScript bundle even if no component rendered it, so the field does not
+   * exist at all. scripts/check-language.mjs fails the build if a rupee figure
+   * reappears anywhere in src/.
    */
-  feeInclGst: number;
-  /** Extra fee context, e.g. the Roto → Prep bridge upgrade. */
-  feeNote?: string;
 
   level: CourseLevel;
   /** Who the course suits, in the parent-facing wording. */

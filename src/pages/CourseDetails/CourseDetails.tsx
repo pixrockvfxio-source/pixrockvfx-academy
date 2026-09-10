@@ -7,10 +7,10 @@ import {
   Briefcase,
   ClipboardList,
   ArrowRight,
-  IndianRupee,
+  CalendarDays,
   Users,
 } from 'lucide-react';
-import { getCourseBySlug, publishedCourses, formatFee } from '@/data/courses';
+import { getCourseBySlug, publishedCourses } from '@/data/courses';
 import { media } from '@/config/media';
 import { Seo } from '@/components/Seo/Seo';
 import { Media } from '@/components/ui/Media';
@@ -59,11 +59,7 @@ export default function CourseDetails() {
     { icon: Clock, label: 'Duration', value: course.duration },
     { icon: ClipboardList, label: 'Contact hours', value: `${course.contactHours} hrs` },
     { icon: Signal, label: 'Level', value: course.level },
-    {
-      icon: IndianRupee,
-      label: 'Fee (incl. GST)',
-      value: formatFee(course.feeInclGst),
-    },
+    { icon: CalendarDays, label: 'Batches', value: 'Morning & evening' },
   ];
 
   return (
@@ -197,16 +193,16 @@ export default function CourseDetails() {
           <div className="lg:col-span-5">
             <Reveal delay={0.1} className="lg:sticky lg:top-28">
               <div className="rounded-panel border border-ink-700 bg-ink-900/60 p-6 sm:p-7">
-                <h2 className="font-display text-lg font-semibold text-chalk">Fee</h2>
-                <p className="mt-3 font-display text-2xl font-bold text-chalk">
-                  {formatFee(course.feeInclGst)}{' '}
-                  <span className="text-sm font-medium text-slate-muted">inclusive of GST</span>
+                <h2 className="font-display text-lg font-semibold text-chalk">Fees</h2>
+                <p className="mt-3 text-sm/relaxed text-mist">
+                  We discuss fees with you directly, so we can walk through the full cost including GST, any
+                  instalment options, and what is included — with nothing added later.
                 </p>
-                {course.feeNote ? <p className="mt-2 text-sm/relaxed text-ember-300">{course.feeNote}</p> : null}
-                <p className="mt-2 text-xs/relaxed text-slate-muted">
-                  Instalment options are available through our finance partner. Our counsellors will walk you through
-                  the full cost, with no charges added later.
-                </p>
+                <div className="mt-4">
+                  <Button href="#enquire" variant="outline" size="sm">
+                    Ask about fees
+                  </Button>
+                </div>
 
                 <h2 className="mt-8 font-display text-lg font-semibold text-chalk">Software you will use</h2>
                 <ul className="mt-4 flex flex-wrap gap-2">

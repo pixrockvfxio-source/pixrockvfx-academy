@@ -49,9 +49,10 @@ export default function Terms() {
 
         <h2>Fees</h2>
         <p>
-          Fees published on this site are shown inclusive of GST. Instalment options, where available, are provided
-          through a third-party finance partner on that partner’s terms. The fee, schedule and inclusions confirmed to
-          you in writing at admission take precedence over anything published here.
+          Fees are not published on this website. They are confirmed to you in writing during admission, inclusive of
+          GST, together with any instalment options and what each course includes. Instalment facilities, where
+          available, are provided by a third-party finance partner on that partner’s terms. Only the figures confirmed
+          to you in writing apply.
         </p>
 
         <h2>Enquiries</h2>
