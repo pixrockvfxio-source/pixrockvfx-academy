@@ -57,11 +57,17 @@ export const siteConfig = {
   },
 
   /**
-   * Endpoint that receives enquiry submissions. Point this at your own server
-   * route or form service. When unset the form runs in "preview" mode: it
-   * validates and confirms locally without transmitting anything.
+   * Endpoint that receives enquiry submissions.
+   *
+   * Defaults to the PHP handler deployed alongside index.html (see
+   * `server/enquiry.php`), which stores each enquiry in MySQL and emails a
+   * notification. Same-origin, so no CORS and no key in the browser.
+   *
+   * In local development there is no PHP server, so the form falls back to
+   * preview mode: it validates and confirms without transmitting anything.
+   * Set VITE_ENQUIRY_ENDPOINT to override either behaviour.
    */
-  enquiryEndpoint: fromEnv(env.VITE_ENQUIRY_ENDPOINT),
+  enquiryEndpoint: fromEnv(env.VITE_ENQUIRY_ENDPOINT, env.DEV ? null : '/enquiry.php'),
 
   socials: [
     { label: 'Instagram', href: fromEnv(env.VITE_SOCIAL_INSTAGRAM), icon: 'instagram' },

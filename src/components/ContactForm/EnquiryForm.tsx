@@ -94,6 +94,7 @@ export function EnquiryForm({ defaultCourse, className, title = 'Enquire about a
           phone: values.phone.trim(),
           email: values.email.trim(),
           course: values.course,
+          courseLabel: courseOptions.find((option) => option.value === values.course)?.label ?? values.course,
           qualification: values.qualification.trim(),
           city: values.city.trim(),
           preferredContact: values.preferredContact,
@@ -102,12 +103,25 @@ export function EnquiryForm({ defaultCourse, className, title = 'Enquire about a
         }),
       });
 
-      if (!response.ok) throw new Error(`Request failed with status ${response.status}`);
+      if (!response.ok) {
+        // The server validates independently. Show its field errors rather
+        // than a generic failure, so the visitor can actually fix the problem.
+        const payload = await response.json().catch(() => null);
+        if (response.status === 422 && payload?.fields) {
+          setErrors(payload.fields as EnquiryErrors);
+          setStatus('idle');
+          requestAnimationFrame(() => firstErrorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }));
+          return;
+        }
+        throw new Error(payload?.error ?? `Request failed with status ${response.status}`);
+      }
       setStatus('success');
-    } catch {
+    } catch (error) {
       setStatus('error');
       setServerMessage(
-        'We could not send your enquiry just now. Please check your connection and try again, or reach us directly.',
+        error instanceof Error && error.message && !/failed to fetch/i.test(error.message)
+          ? error.message
+          : 'We could not send your enquiry just now. Please check your connection and try again, or reach us directly.',
       );
     }
   }

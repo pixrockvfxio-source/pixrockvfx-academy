@@ -29,6 +29,11 @@ export default function PrivacyPolicy() {
           and message.
         </p>
         <p>
+          When you submit an enquiry we also record the date and time, your IP address and your browser's user-agent
+          string. These are kept for security and abuse prevention — they let us identify automated submissions — and
+          are not used for advertising, profiling or tracking you across sites.
+        </p>
+        <p>
           This website does not set advertising cookies. Any analytics or third-party embeds — such as a map or a
           hosted showreel video — are loaded only where that feature is enabled, and those providers apply their own
           privacy terms.
@@ -38,6 +43,12 @@ export default function PrivacyPolicy() {
         <p>
           We use your details for one purpose: to respond to your enquiry and to talk with you about our programmes,
           batch timings and admissions. We do not sell, rent or trade personal information.
+        </p>
+
+        <h2>Where it is stored</h2>
+        <p>
+          Enquiries are stored in a database on our own hosting, and a notification is emailed to our admissions team
+          so that we can respond. Your details are not shared with any third party for marketing.
         </p>
 
         <h2>How long we keep it</h2>

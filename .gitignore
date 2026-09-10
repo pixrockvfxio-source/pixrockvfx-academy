@@ -11,6 +11,10 @@ build
 # TypeScript incremental build cache
 *.tsbuildinfo
 
+# server credentials — never commit
+server/enquiry-config.php
+enquiry-config.php
+
 # local env files — never commit secrets
 .env
 .env.local

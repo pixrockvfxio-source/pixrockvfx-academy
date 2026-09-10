@@ -115,7 +115,21 @@
 #    Guarded both ways — bare Apache 2.4 "Require" syntax on a 2.2 server, or
 #    2.2 "Order/Deny" on 2.4 without mod_access_compat, returns 500.
 # -----------------------------------------------------------------------------
-<FilesMatch "(^\.|\.(env|map|log|bak)$)">
+# The enquiry configuration holds database credentials. It should live above
+# public_html; if it cannot, this stops it being served directly.
+<Files "enquiry-config.php">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    <IfModule mod_authz_host.c>
+      Order allow,deny
+      Deny from all
+    </IfModule>
+  </IfModule>
+</Files>
+
+<FilesMatch "(^\.|\.(env|map|log|bak|sql)$)">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>

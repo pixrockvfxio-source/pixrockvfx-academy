@@ -187,9 +187,24 @@ image.
 
 ---
 
-## The enquiry form and security
+## The enquiry form
 
-`EnquiryForm` never holds a credential. It POSTs JSON to `VITE_ENQUIRY_ENDPOINT`:
+Submissions are stored in MySQL and a notification is emailed for each one.
+The server side lives in `server/` — see **[server/SETUP.md](server/SETUP.md)**
+for the fifteen-minute Hostinger setup.
+
+| File | Purpose |
+| --- | --- |
+| `server/enquiry.php` | The endpoint. Goes in `public_html` next to `index.html`. |
+| `server/enquiry-config.example.php` | Credentials template. Copy to `enquiry-config.php`, fill in, and place **above** `public_html`. Never committed. |
+| `server/schema.sql` | The `enquiries` table. Run once in phpMyAdmin. |
+
+The database is the record and the email is only the notification: the insert
+happens first, and a failed send leaves `notified_at` NULL rather than losing
+the enquiry.
+
+`EnquiryForm` never holds a credential. It POSTs JSON to `VITE_ENQUIRY_ENDPOINT`,
+which defaults to the same-origin `/enquiry.php`:
 
 ```json
 {
@@ -204,8 +219,8 @@ That endpoint must be a server route or form service **you control** — a small
 any other secret live there, never in this repository and never in a `VITE_*` variable
 (those are compiled into the public bundle and readable by anyone).
 
-If `VITE_ENQUIRY_ENDPOINT` is unset the form runs in **preview mode**: it validates, shows the
-success state and transmits nothing — so the site can go live before the backend exists.
+In local development there is no PHP server, so the form falls back to **preview mode**: it
+validates, shows the success state and transmits nothing.
 
 Built-in protections: client-side validation with per-field errors, a honeypot field, an
 explicit consent checkbox, and network-failure handling that offers a mailto fallback.
