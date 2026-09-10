@@ -12,10 +12,10 @@ export function WhyUs() {
           eyebrow="Why PixRock"
           title={
             <>
-              Built around what studios actually <span className="text-grade">hire for</span>
+Four reasons this is <span className="text-grade">not a franchise</span>
             </>
           }
-          description="Eight commitments that shape every batch, every review and every shot you hand in."
+          description="What a studio can offer that a training centre cannot."
         />
 
         <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

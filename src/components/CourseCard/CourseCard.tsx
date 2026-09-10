@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Clock, Signal, Monitor } from 'lucide-react';
+import { ArrowRight, Clock, Signal, Monitor, IndianRupee } from 'lucide-react';
 import type { Course } from '@/types/content';
 import { media } from '@/config/media';
 import { Media } from '@/components/ui/Media';
 import { Badge } from '@/components/ui/Badge';
+import { formatFee } from '@/data/courses';
 import { cn } from '@/lib/cn';
 
 type Props = {
@@ -40,14 +41,14 @@ export function CourseCard({ course, className }: Props) {
           className="absolute inset-0 bg-linear-to-t from-ink-900 via-ink-900/25 to-transparent"
         />
         <div className="absolute top-3.5 left-3.5">
-          <Badge tone={accent}>{course.track}</Badge>
+          <Badge tone={accent}>{course.tierLabel}</Badge>
         </div>
       </div>
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <h3 className="font-display text-xl font-bold tracking-tight text-chalk">
           <Link to={`/courses/${course.slug}`} className="before:absolute before:inset-0 before:content-['']">
-            {course.title}
+            {course.shortTitle}
           </Link>
         </h3>
         <p className="mt-2.5 flex-1 text-sm/relaxed text-mist">{course.summary}</p>
@@ -63,10 +64,17 @@ export function CourseCard({ course, className }: Props) {
             <dt className="sr-only">Level</dt>
             <dd>{course.level}</dd>
           </div>
-          <div className="flex items-center gap-2 sm:col-span-2">
+          <div className="flex items-center gap-2">
             <Monitor aria-hidden="true" className="size-3.5 text-ember-400" />
-            <dt className="sr-only">Software</dt>
-            <dd className="truncate">{course.software.slice(0, 3).join(' · ')}</dd>
+            <dt className="sr-only">Contact hours</dt>
+            <dd>{course.contactHours} hrs</dd>
+          </div>
+          <div className="flex items-center gap-2">
+            <IndianRupee aria-hidden="true" className="size-3.5 text-ember-400" />
+            <dt className="sr-only">Fee, inclusive of GST</dt>
+            <dd className="font-medium text-mist">
+              {formatFee(course.feeInclGst)} <span className="text-slate-muted">incl. GST</span>
+            </dd>
           </div>
         </dl>
 

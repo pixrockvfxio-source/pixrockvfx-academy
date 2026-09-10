@@ -1,7 +1,10 @@
 /**
- * Academy-level content: differentiators, the learning journey, career support
- * and the About page narrative. Kept out of components so copy can be edited
- * (or later served from a CMS) without touching UI code.
+ * Academy-level content, drawn from the Parent Brochure Copy v1.0 and
+ * Curriculum v3.0.
+ *
+ * Every claim here is one the source documents permit. Claims marked [VERIFY]
+ * in those documents — salary bands, EMI terms, named film credits, the — language-ok
+ * Career Pro internship specifics — are deliberately absent.
  */
 
 export type Feature = {
@@ -18,56 +21,74 @@ export type FeatureIcon =
   | 'cpu'
   | 'compass'
   | 'folder'
-  | 'building';
+  | 'building'
+  | 'shield';
 
+/** The four proof points from the brochure, §3. */
 export const differentiators: Feature[] = [
   {
-    title: 'Industry-oriented training',
+    title: 'A working studio, not a training centre',
     description:
-      'Curriculum written around the shots a facility actually delivers — not around software menus. Every module ends in something you could show a supervisor.',
-    icon: 'clapperboard',
+      'PixRock delivers VFX for feature films, series and commercials from this facility, for major studios and streaming platforms. You train in the same building, to the same standards.',
+    icon: 'building',
   },
   {
-    title: 'Experienced mentors',
+    title: 'Instructors who are still artists',
     description:
-      'Taught by artists who have worked to studio deadlines and given notes in dailies. Feedback comes in production language, not classroom language.',
+      'Our faculty are on live production this week — not people who left the industry years ago. You learn current practice, not what the industry looked like a decade ago.',
     icon: 'users',
   },
   {
-    title: 'Practical projects',
+    title: 'TPN Gold+ certified',
     description:
-      'You work on plates with real problems in them: fast motion, defocus, awkward lighting, missing information. Clean tutorial footage teaches clean tutorial habits.',
-    icon: 'layers',
+      'The content security standard international studios require before they will send work to a facility. Very few studios in India hold it, and it tells you what kind of operation this is.',
+    icon: 'shield',
   },
   {
-    title: 'Production workflow',
+    title: 'We hire from our own students',
     description:
-      'Versioning, naming conventions, handovers, QC passes and delivery specs are taught from week one, because that is what makes an artist easy to hire.',
+      'PixRock recruits artists continuously, and graduates of this academy are considered for our own teams first. That is not a promise of a job — it is an advantage no franchise institute can offer.',
+    icon: 'clapperboard',
+  },
+];
+
+/** How the training is actually run — the second block on the home page. */
+export const trainingApproach: Feature[] = [
+  {
+    title: 'Built backwards from delivery',
+    description:
+      'Every module maps to work the studio actually ships. Exercises use anonymised shot types from completed projects, not generic tutorial footage.',
     icon: 'workflow',
   },
   {
-    title: 'Modern VFX tools',
+    title: 'Reviewed by working supervisors',
     description:
-      'Node-based compositing, planar tracking, camera solving, PBR texturing and physically based lighting — the current toolset, taught as principles first.',
-    icon: 'cpu',
-  },
-  {
-    title: 'Career guidance',
-    description:
-      'Reel curation, breakdown writing, interview preparation and honest assessment of where your work stands against a junior hiring bar.',
+      'Monthly gate reviews are run by a PixRock supervisor on live production, using the same standards applied on a show.',
     icon: 'compass',
   },
   {
-    title: 'Portfolio development',
+    title: 'Portfolio is the deliverable',
     description:
-      'A small number of genuinely finished shots, edited and broken down properly, beats a long reel of half-solved ones. We prune aggressively.',
+      'Your exit artefact is a reel reviewed to studio standard. Nobody is hired on a marksheet — they are hired on a portfolio and a practical test.',
     icon: 'folder',
   },
   {
-    title: 'Industry exposure',
+    title: 'Production discipline from week one',
     description:
-      'Guest reviews, studio-format dailies and breakdown sessions on published work, so the standard you are aiming at is never abstract.',
-    icon: 'building',
+      'Shot naming, versioning, WIP versus publish, submission checklists and dailies etiquette. The habits that make a junior artist easy to hire.',
+    icon: 'layers',
+  },
+  {
+    title: 'Two shifts, so a degree still fits',
+    description:
+      'Morning 9 am–12 pm and evening 6 pm–9 pm. Students studying for a degree alongside use the evening batch rather than choosing between the two.',
+    icon: 'cpu',
+  },
+  {
+    title: 'Told early if it is not working',
+    description:
+      'If a student is falling behind we assign extra lab hours and tell the family at the first monthly review — not at the end of the course.',
+    icon: 'users',
   },
 ];
 
@@ -82,129 +103,132 @@ export const learningJourney: JourneyStep[] = [
     step: '01',
     title: 'Learn',
     description:
-      'Concepts taught against real footage, with the reasoning made explicit. You always know why a technique exists before you use it.',
+      'Image, colour and pipeline literacy first, so you understand how a shot moves through a studio before you touch a tool.',
   },
   {
     step: '02',
-    title: 'Practice',
+    title: 'Practise',
     description:
-      'Supervised repetition on graded exercises until accuracy and speed both hold. Craft is built through volume, not through watching.',
+      'Supervised repetition on anonymised shot types from completed projects — plates with real problems, not clean tutorial footage.',
   },
   {
     step: '03',
-    title: 'Create',
+    title: 'Review',
     description:
-      'Full shots assigned as briefs — with constraints, a deadline and a defined deliverable, exactly as a facility would issue them.',
+      'Weekly submissions with faculty feedback, and a monthly gate review by a working PixRock supervisor against a five-point rubric.',
   },
   {
     step: '04',
-    title: 'Review',
+    title: 'Deliver',
     description:
-      'Studio-format dailies. You present your shot, take notes in production language and turn the next version around.',
+      'A final block of supervised shots cut to studio specification, with the naming, versioning and delivery discipline that goes with it.',
   },
   {
     step: '05',
-    title: 'Build portfolio',
+    title: 'Build the reel',
     description:
-      'The strongest work is refined, edited into a reel and paired with breakdowns that explain your contribution precisely.',
+      'A demo reel and a breakdown reel, edited and targeted at specific roles, approved by the review panel.',
   },
   {
     step: '06',
-    title: 'Career',
+    title: 'Apply',
     description:
-      'Interview preparation, reel review, studio expectations and guidance on which roles your current work genuinely fits.',
+      'Test-shot preparation under time pressure, interview practice, and CV circulation through our placement assistance.',
   },
 ];
 
-export const careerSupport: Feature[] = [
-  {
-    title: 'Skill development',
-    description:
-      'Structured progression from craft accuracy to speed to judgement — the three things a junior is assessed on.',
-    icon: 'layers',
-  },
-  {
-    title: 'Portfolio building',
-    description:
-      'Reel curation and breakdown writing, with an honest edit that removes anything that would weaken the whole.',
-    icon: 'folder',
-  },
-  {
-    title: 'Interview preparation',
-    description:
-      'Mock reviews, technical questions, and practice explaining your decisions the way a supervisor will ask you to.',
-    icon: 'users',
-  },
-  {
-    title: 'Industry workflow',
-    description:
-      'Naming, versioning, dailies etiquette and handover discipline, so your first week on a floor is not a shock.',
-    icon: 'workflow',
-  },
-  {
-    title: 'Career guidance',
-    description:
-      'A clear read on where your work stands, which roles to target first and what to strengthen before applying.',
-    icon: 'compass',
-  },
-];
+/** Placement assistance — brochure §5. This wording is deliberate. */
+export const placementAssistance = {
+  headline: 'What we do — and what we do not promise',
+  statement:
+    'We provide placement assistance. We do not guarantee employment, and we want to be completely clear about that, because you will encounter institutes that promise otherwise.',
+  includes: [
+    'Your portfolio and CV circulated to PixRock’s own hiring teams and to partner studios',
+    'Interview and practical test preparation — most studios hire on a test, and we prepare you for that specific format',
+    'Referrals to studios in Chennai, Hyderabad, Bengaluru, Mumbai and Pune',
+    'Guidance on portfolio presentation and industry applications',
+  ],
+  eligibility: [
+    'Maintain at least 80% attendance',
+    'Clear every monthly review',
+    'Complete a final portfolio approved by our review panel',
+  ],
+  eligibilityNote:
+    'These conditions are stated in the enrollment agreement you sign, and we apply them consistently. A student who does not meet the standard does not receive assistance — and we say so well before that point is reached.',
+  foundingBatch:
+    'PixRock Academy opens in April 2027. Our studio has been placing and developing artists for years, but the academy itself has no graduate record yet, because it has had no graduates yet. We would rather tell you that plainly than show you numbers that belong to someone else.',
+};
 
 export const academyStory = {
   vision:
-    'To make world-class visual effects training accessible to artists who are willing to do the work — and to raise the standard of the junior artists entering the industry from our region.',
+    'To train VFX artists the way a studio actually needs them — on real pipeline, to real standards — so that the artists entering the industry from this region arrive genuinely employable.',
   mission:
-    'Teach visual effects the way it is practised: on real plates, under real constraints, with feedback that is specific, technical and honest.',
+    'Teach the job, not the software. Every module maps to work PixRock ships, every review is run by a working supervisor, and every student leaves with a portfolio reviewed to studio standard.',
   story: [
-    'PixRock VFX Academy grew out of a straightforward observation. Studios were interviewing plenty of graduates who could follow a tutorial, and very few who could open a difficult plate, plan an approach and deliver it on time.',
-    'The gap was never talent. It was the absence of production context — no deadlines, no supervisor notes, no versioning, no handover to another department, and no honest assessment of whether a shot was actually finished.',
-    'So we built the academy around that missing context. Small batches, mentors from the floor, footage with genuine problems in it, and a review format borrowed directly from studio dailies. What you present in class is what you would present to a supervisor.',
-    'That is the whole idea. Learn the craft properly, practise it under pressure, and leave with work you can defend in a room full of people who make this for a living.',
+    'VFX is a real industry with real employment. Indian studios do post-production for films, series and advertising watched around the world, and they hire steadily — particularly for roles like roto, prep and compositing, where demand for trained artists consistently exceeds supply.',
+    'But it is a skills industry, not a certificate industry. Nobody is hired on a marksheet. They are hired on a portfolio, on a practical test, and on whether they can work to a deadline. That is why so many students finish a course and still cannot find work: they were taught software, not the job.',
+    'PixRock Academy exists because we are a studio first. PixRock is a TPN Gold+ certified production facility in Coimbatore employing around 400 artists. Our instructors are working artists. Our students train on the same pipeline, the same review process and the same standards our production teams work to every day.',
+    'We will be honest about two things. This is demanding work — students who do not put in the hours do not build a portfolio, and we will say so early. And we offer placement assistance, not a placement guarantee. Anyone who guarantees your child a job is not being straight with you.',
   ],
   philosophy: [
     {
-      title: 'Fundamentals before features',
+      title: 'Built backwards from delivery',
       description:
-        'Software changes; premultiplication, parallax and weight do not. We teach the principle first so the tool becomes interchangeable.',
+        'Every module maps to work the studio actually ships. If it does not appear on a real shot, it does not take up teaching time.',
     },
     {
       title: 'Real plates, real problems',
       description:
-        'Clean tutorial footage produces artists who freeze when a plate is defocused, underexposed or moving fast. Ours are not clean.',
+        'Exercises use anonymised shot types from completed projects. Clean tutorial footage produces artists who freeze on a difficult plate.',
     },
     {
       title: 'Notes, not applause',
       description:
-        'Feedback is specific and technical. Comfortable praise does not prepare anyone for a supervisor with fifty shots to review.',
+        'Monthly reviews are run by working supervisors to the standard they apply on a show. Comfortable praise prepares nobody.',
     },
     {
-      title: 'Finished beats plentiful',
+      title: 'Honesty over persuasion',
       description:
-        'One shot taken all the way to delivery teaches more — and hires better — than five abandoned at eighty percent.',
+        'We have no graduate record yet, and we say so. We offer assistance, not guarantees, and we say that too.',
     },
   ],
 };
 
+/** Admissions — brochure §7. */
 export const admissionSteps = [
   {
     step: '01',
-    title: 'Enquire',
-    description: 'Send us your details and the discipline you are drawn to. No portfolio needed at this stage.',
+    title: 'Visit us',
+    description:
+      'Come and see the facility. Bring your family. There is no obligation, and we would rather you saw the place first.',
   },
   {
     step: '02',
-    title: 'Counselling call',
+    title: 'Talk to a counsellor',
     description:
-      'We talk through your background, your goals and which programme genuinely fits — including telling you when none of them do.',
+      'We explain the courses, the full fees including GST, and which option suits you. Ask us anything.',
   },
   {
     step: '03',
-    title: 'Assessment',
+    title: 'Aptitude conversation',
     description:
-      'Foundation courses need no prior work. Advanced programmes involve a short task or a portfolio review.',
+      'For Career Pro, a short interview. We are looking for commitment, not existing skill.',
   },
   {
     step: '04',
-    title: 'Enrol & begin',
-    description: 'Confirm your batch, receive your system requirements and joining pack, and start.',
+    title: 'Enrol',
+    description: 'Seats are limited and the April intake fills first.',
   },
 ];
+
+/** Facts safe to state publicly. */
+export const academyFacts = {
+  firstIntake: 'April 2027',
+  city: 'Coimbatore',
+  studioArtists: '400',
+  certification: 'TPN Gold+',
+  shifts: [
+    { label: 'Morning batch', time: '9:00 am – 12:00 pm' },
+    { label: 'Evening batch', time: '6:00 pm – 9:00 pm' },
+  ],
+};

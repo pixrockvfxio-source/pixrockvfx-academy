@@ -3,11 +3,13 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { Media } from '@/components/ui/Media';
 import { media } from '@/config/media';
+import { academyFacts } from '@/data/academy';
 
+/** Only facts the source documents allow us to state publicly. */
 const stats = [
-  { value: '8', label: 'Specialised programmes' },
-  { value: '12+', label: 'Industry tools covered' },
-  { value: '1:1', label: 'Mentor shot reviews' },
+  { value: `~${academyFacts.studioArtists}`, label: 'Artists in the building' },
+  { value: academyFacts.certification, label: 'Certified production facility' },
+  { value: academyFacts.firstIntake, label: 'First intake' },
 ];
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -43,20 +45,21 @@ export function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-ink-600 bg-ink-900/60 px-3.5 py-1.5 text-xs font-medium tracking-wide text-mist backdrop-blur-sm"
           >
             <Sparkles aria-hidden="true" className="size-3.5 text-ember-400" />
-            Industry-focused VFX training · Admissions open
+            {academyFacts.city} · First intake {academyFacts.firstIntake}
           </motion.p>
 
           <motion.h1 {...rise(0.14)} id="hero-heading" className="mt-7 text-hero text-chalk">
-            Learn VFX.
+            Learn VFX
             <br />
-            <span className="text-grade">Create worlds.</span>
+            inside a
             <br />
-            Build your career.
+            <span className="text-grade">working studio.</span>
           </motion.h1>
 
           <motion.p {...rise(0.24)} className="mt-7 max-w-xl text-base/relaxed text-mist sm:text-lg/relaxed">
-            PixRock VFX Academy trains artists the way facilities actually work — real plates, production workflows
-            and mentor-led reviews, until your work meets the standard a studio hires on.
+            PixRock Academy is the training arm of PixRock — a TPN Gold+ certified VFX facility in Coimbatore with
+            around 400 artists. You train on our pipeline, to our standards, taught by people who are on live
+            production this week.
           </motion.p>
 
           <motion.div {...rise(0.34)} className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">

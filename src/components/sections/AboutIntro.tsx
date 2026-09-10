@@ -6,9 +6,18 @@ import { Button } from '@/components/ui/Button';
 import { SectionTitle } from '@/components/SectionTitle/SectionTitle';
 
 const pillars = [
-  { label: 'Real plates', detail: 'Footage with genuine problems in it, not clean tutorial clips.' },
-  { label: 'Studio reviews', detail: 'Dailies-format feedback in production language, every week.' },
-  { label: 'Small batches', detail: 'Enough mentor time for your work to actually be looked at.' },
+  {
+    label: 'Real shot types',
+    detail: 'Exercises use anonymised shot types from completed PixRock projects, not generic tutorial footage.',
+  },
+  {
+    label: 'Supervisor reviews',
+    detail: 'Monthly gate reviews run by a PixRock supervisor who is on live production.',
+  },
+  {
+    label: 'Two shifts',
+    detail: 'Morning and evening batches, so a student studying for a degree does not have to choose.',
+  },
 ];
 
 export function AboutIntro() {
@@ -45,19 +54,19 @@ export function AboutIntro() {
             eyebrow="About the academy"
             title={
               <>
-                A VFX academy run like a <span className="text-grade">production floor</span>
+We are a <span className="text-grade">studio first</span>
               </>
             }
             description={
               <>
                 <p>
-                  PixRock VFX Academy exists to close a specific gap: plenty of graduates can follow a tutorial, and
-                  very few can open a difficult plate, plan an approach and deliver it on a deadline.
+                  VFX is a skills industry, not a certificate industry. Nobody is hired on a marksheet — they are
+                  hired on a portfolio, on a practical test, and on whether they can work to a deadline. That is why
+                  so many students finish a course and still cannot find work: they were taught software, not the job.
                 </p>
                 <p className="mt-4">
-                  So we teach in production context. Mentors who have worked to studio schedules, footage that
-                  misbehaves, versioning and handovers from week one, and reviews where you present your shot and
-                  defend your decisions.
+                  PixRock Academy exists because we are a studio first. Every module maps to work this facility
+                  actually ships, and the people teaching it are the people doing it.
                 </p>
               </>
             }

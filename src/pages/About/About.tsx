@@ -14,17 +14,17 @@ const experience = [
   {
     title: 'Taught by working artists',
     detail:
-      'Our mentors have delivered shots to studio deadlines. They teach the compromises and shortcuts that only show up on a real schedule.',
+      'Our faculty are on live production this week. They teach the compromises and shortcuts that only show up on a real schedule.',
   },
   {
     title: 'Pipeline-shaped curriculum',
     detail:
-      'Each course maps to a role a facility actually staffs, and to the handovers that role depends on either side of it.',
+      'Each course maps to a role this facility actually staffs, and to the handovers that role depends on either side of it.',
   },
   {
-    title: 'Reviewed like dailies',
+    title: 'Reviewed by supervisors',
     detail:
-      'You present your shot, take notes and turn a version around. By graduation the review room holds no surprises.',
+      'Monthly gate reviews are run by a PixRock supervisor to the standard applied on a show. By graduation the review room holds no surprises.',
   },
 ];
 
@@ -33,7 +33,7 @@ export default function About() {
     <>
       <Seo
         title="About the Academy"
-        description="PixRock VFX Academy trains visual effects artists in production context — real plates, studio-format reviews, small batches and mentors who have worked to facility deadlines."
+        description="PixRock Academy is the training arm of PixRock, a TPN Gold+ certified VFX facility in Coimbatore employing around 400 artists. Our instructors are working artists and our students train on the studio's own pipeline."
         path="/about"
       />
 
@@ -44,7 +44,7 @@ export default function About() {
             We teach VFX the way it is <span className="text-grade">practised</span>
           </>
         }
-        description="Not the way it is demonstrated. There is a difference, and it is the whole reason this academy exists."
+        description="PixRock is a TPN Gold+ certified VFX facility in Coimbatore with around 400 artists. The academy trains on the same pipeline, to the same standards."
         crumbs={[{ label: 'Home', to: '/' }, { label: 'About' }]}
       />
 
@@ -158,10 +158,10 @@ export default function About() {
             eyebrow="Why students choose us"
             title={
               <>
-                Eight reasons, and none of them are a <span className="text-grade">placement promise</span>
+Four things a franchise <span className="text-grade">cannot offer</span>
               </>
             }
-            description="We commit to the things that are genuinely within our control — and we are specific about them."
+            description="We commit only to what is genuinely within our control, and we are specific about it."
           />
 
           <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -189,7 +189,8 @@ export default function About() {
       <CTASection
         eyebrow="Admissions"
         title="Come and see how we teach"
-        description="Talk to a counsellor about your background, look at what current students are producing, and decide from there."
+        description="Talk to a counsellor about your background, walk the facility, and decide from there. First intake April 2027."
+        primaryLabel="Book a visit"
       />
     </>
   );

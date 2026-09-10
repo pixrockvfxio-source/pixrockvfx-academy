@@ -32,7 +32,7 @@ export function Logo({ className, compact = false }: Props) {
             PixRock
           </span>
           <span className="mt-0.5 text-[0.6rem] font-semibold tracking-[0.28em] text-slate-muted uppercase">
-            VFX Academy
+            Academy
           </span>
         </span>
       )}

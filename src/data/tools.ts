@@ -1,94 +1,93 @@
 import type { Tool } from '@/types/content';
 
 /**
- * Software taught across the academy.
+ * Software taught across the academy, from Curriculum v3.0 §10.
  *
- * `status` is deliberate and should be kept accurate:
- *   core      — taught directly, hands-on, in at least one programme
- *   elective  — available in specific batches or as an optional module
- *   exposure  — introduced conceptually; not a full hands-on module
+ * `status` is deliberate and must stay accurate:
+ *   core       — taught hands-on in at least one course
+ *   supporting — used alongside the core tools, or free/included
+ *   onHold     — belongs to a course that is not yet open for enrolment
  *
- * Never promote a tool to `core` unless a batch genuinely has licences and
- * teaching time for it. The Software section renders this distinction to
- * visitors, so the page stays honest as the curriculum changes.
+ * Houdini (FX) was removed from the lineup entirely — highest faculty and
+ * hardware cost, narrowest local hiring base — and is not listed here.
  */
 export const tools: Tool[] = [
   {
-    name: 'Nuke',
+    name: 'Nuke / NukeX',
     discipline: 'Compositing',
     status: 'core',
-    note: 'The node-based compositor used across the compositing and production programmes.',
+    note: 'The node-based compositor used across every VFX tier, and by essentially every major studio.',
   },
   {
     name: 'Silhouette',
     discipline: 'Roto & Paint',
     status: 'core',
-    note: 'Primary tool for rotoscopy, paint and matte preparation work.',
+    note: 'Primary tool for rotoscopy and paint work — Silhouette for volume, Nuke for comp-integrated work.',
   },
   {
     name: 'Mocha Pro',
     discipline: 'Planar Tracking',
     status: 'core',
-    note: 'Planar tracking used to drive shapes, patches and screen replacements.',
+    note: 'Planar tracking used to drive roto shapes and support patch and projection cleanup.',
   },
   {
-    name: 'Autodesk Maya',
-    discipline: '3D & Animation',
+    name: 'Maya',
+    discipline: '3D & Rotomation',
     status: 'core',
-    note: 'Modelling, layout, animation and scene assembly for the 3D track.',
-  },
-  {
-    name: 'Blender',
-    discipline: '3D & Animation',
-    status: 'core',
-    note: 'Open-source 3D suite taught alongside Maya for modelling and rendering.',
-  },
-  {
-    name: 'Adobe After Effects',
-    discipline: 'Motion Graphics',
-    status: 'core',
-    note: 'Motion design, kinetic typography and 2.5D compositing.',
-  },
-  {
-    name: 'Adobe Photoshop',
-    discipline: 'Texturing & Paint',
-    status: 'core',
-    note: 'Matte painting elements, texture authoring and still clean-up.',
-  },
-  {
-    name: 'Adobe Illustrator',
-    discipline: 'Design',
-    status: 'core',
-    note: 'Vector design and asset preparation for the motion graphics track.',
+    note: 'Matchmove, layout and rotomation, and the DCC side of the Unreal pipeline.',
   },
   {
     name: '3DEqualizer',
     discipline: 'Matchmove',
-    status: 'elective',
-    note: 'Camera solving and matchmove; availability confirmed per batch.',
+    status: 'core',
+    note: 'The primary camera-solving package on the Matchmove & Layout course.',
   },
   {
-    name: 'PFTrack',
-    discipline: 'Matchmove',
-    status: 'elective',
-    note: 'Alternative tracking package offered in selected matchmove batches.',
+    name: 'Adobe Photoshop',
+    discipline: 'Paint & Texturing',
+    status: 'core',
+    note: 'Image fundamentals, matte painting elements and still cleanup.',
   },
   {
-    name: 'Substance 3D Painter',
-    discipline: 'Texturing',
-    status: 'elective',
-    note: 'PBR texture authoring; offered as an optional module in the 3D track.',
+    name: 'Adobe After Effects',
+    discipline: 'Foundation & Reel',
+    status: 'supporting',
+    note: 'Used in the foundation block and for reel editing.',
   },
   {
-    name: 'Houdini',
-    discipline: 'FX & Simulation',
-    status: 'exposure',
-    note: 'Introduced conceptually so you understand FX handover — not a full hands-on module.',
+    name: 'Adobe Premiere',
+    discipline: 'Reel Edit',
+    status: 'supporting',
+    note: 'Cutting the demo reel and breakdown reel.',
+  },
+  {
+    name: 'Blender',
+    discipline: '3D',
+    status: 'supporting',
+    note: 'Free 3D suite used alongside Maya, particularly for the Unreal asset pipeline.',
+  },
+  {
+    name: 'DaVinci Resolve',
+    discipline: 'Colour & Finishing',
+    status: 'supporting',
+    note: 'Colour and finishing context for compositing students.',
+  },
+  {
+    name: 'Unreal Engine 5',
+    discipline: 'Real-Time',
+    status: 'onHold',
+    note: 'Core to the Unreal Engine course, which opens once faculty appointment is confirmed.',
+  },
+  {
+    name: 'Quixel Megascans',
+    discipline: 'Real-Time Assets',
+    status: 'onHold',
+    note: 'Environment library used on the Unreal course.',
   },
 ];
 
 export const toolStatusLabels: Record<Tool['status'], string> = {
   core: 'Taught hands-on',
-  elective: 'Batch-dependent',
-  exposure: 'Introduced only',
+  supporting: 'Used alongside',
+  onHold: 'With the Unreal course',
 };

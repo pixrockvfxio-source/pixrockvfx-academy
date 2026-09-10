@@ -7,6 +7,7 @@ import {
   Compass,
   FolderOpen,
   Building2,
+  ShieldCheck,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { FeatureIcon as FeatureIconName } from '@/data/academy';
@@ -21,6 +22,7 @@ const icons: Record<FeatureIconName, LucideIcon> = {
   compass: Compass,
   folder: FolderOpen,
   building: Building2,
+  shield: ShieldCheck,
 };
 
 export function FeatureIcon({ name, className }: { name: FeatureIconName; className?: string }) {

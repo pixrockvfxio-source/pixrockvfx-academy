@@ -1,42 +1,45 @@
+import { Check, Info } from 'lucide-react';
 import { Seo } from '@/components/Seo/Seo';
 import { PageHero } from '@/components/ui/PageHero';
 import { SectionTitle } from '@/components/SectionTitle/SectionTitle';
 import { Reveal } from '@/components/ui/Reveal';
-import { FeatureIcon } from '@/components/ui/FeatureIcon';
-import { careerSupport, learningJourney } from '@/data/academy';
-import { courses } from '@/data/courses';
+import { placementAssistance, learningJourney } from '@/data/academy';
+import { publishedCourses } from '@/data/courses';
 import { CTASection } from '@/components/CTASection/CTASection';
 import { Button } from '@/components/ui/Button';
-import { Media } from '@/components/ui/Media';
-import { media } from '@/config/media';
 import { Accordion } from '@/components/ui/Accordion';
 
-const roleMap = courses.map((course) => ({
+const roleMap = publishedCourses.map((course) => ({
   slug: course.slug,
-  title: course.title,
+  title: course.shortTitle,
   roles: course.careers.slice(0, 3),
 }));
 
-const hiringFaqs = [
+const careerFaqs = [
   {
-    question: 'Do you guarantee placement?',
+    question: 'Is there really employment in this field, or is it just a hobby?',
     answer:
-      'No. Any academy that guarantees a studio job is selling something it does not control. What we control is the quality of your portfolio, your working habits and your readiness for an interview — and we push hard on all three.',
+      'There is real employment. Indian studios handle post-production for international films, streaming series and advertising, and they hire continuously — particularly at junior level, where trained artists are consistently in short supply. It is not a large industry compared to IT, but the demand is steady and the skills are portable across studios and cities.',
+  },
+  {
+    question: 'Do I still need a degree?',
+    answer:
+      'For a VFX job, no — studios hire on portfolio and practical test. But many of our students are studying for a degree alongside, using the evening batch, and we think that is a sensible choice. A degree keeps options open, which is why we run sessions from 6 to 9 pm: so nobody has to choose.',
   },
   {
     question: 'What does a studio actually assess?',
     answer:
-      'For junior roles: the weakest shot on your reel, how cleanly you work, how you take a note, and whether you can explain a decision. Speed matters, but only once accuracy is already there.',
+      'Your portfolio, a practical test, and whether you can work to a deadline and take a note. Most Indian studios hire on a test shot, which is why test-shot preparation under time pressure is built into our career readiness sessions.',
   },
   {
-    question: 'How long does the first role usually take?',
+    question: 'Is this the same as animation?',
     answer:
-      'It varies with your discipline, your reel and the hiring cycle. Foundation roles such as roto and prep tend to open more frequently than specialist ones, which is one reason we recommend starting there.',
+      'No, though they are related. Animation creates characters and movement from scratch. VFX works with real filmed footage — enhancing it, cleaning it, and combining it with digital elements. Most of the employment in India is in VFX rather than animation, which is one reason we teach it.',
   },
   {
-    question: 'Do you help after the programme ends?',
+    question: 'What if I fall behind?',
     answer:
-      'Reel reviews and guidance continue after graduation. We would rather you came back for a second look at your reel than applied with something that was not ready.',
+      'Every student is reviewed monthly by a working PixRock supervisor. If you are falling behind we assign additional lab hours and tell you — and your family — at that review. We would rather have a difficult conversation in month two than an unhappy family at the end.',
   },
 ];
 
@@ -44,8 +47,8 @@ export default function Careers() {
   return (
     <>
       <Seo
-        title="Careers & Outcomes"
-        description="How PixRock VFX Academy prepares artists for the visual effects industry — skill development, portfolio building, interview preparation, production workflow and honest career guidance."
+        title="Careers & Placement Assistance"
+        description="What placement assistance means at PixRock Academy, what it includes, the eligibility conditions, and an honest statement of where the academy stands before its first intake in April 2027."
         path="/careers"
       />
 
@@ -53,84 +56,107 @@ export default function Careers() {
         eyebrow="Careers"
         title={
           <>
-            From training to <span className="text-grade">industry</span>
+            Placement assistance, <span className="text-grade">not a promise</span>
           </>
         }
-        description="What we do to get you ready, what a studio actually looks at, and what we will not promise you."
+        description="What we do to prepare you, what a studio actually assesses, and what we will not claim. Anyone who guarantees a job is not being straight with you."
         crumbs={[{ label: 'Home', to: '/' }, { label: 'Careers' }]}
         actions={
           <>
-            <Button to="/enquiry">Talk about your goals</Button>
-            <Button to="/student-work" variant="secondary">
-              See student work
+            <Button to="/enquiry">Talk to a counsellor</Button>
+            <Button to="/courses" variant="secondary">
+              See the courses
             </Button>
           </>
         }
       />
 
-      {/* Support pillars */}
-      <section className="section" aria-labelledby="support-heading">
+      {/* Honest position — deliberately first on the page. */}
+      <section className="section pt-12 lg:pt-16" aria-labelledby="founding-heading">
         <div className="container-page">
-          <SectionTitle
-            id="support-heading"
-            eyebrow="Career support"
-            title="Five things we work on with every student"
-          />
-
-          <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-            {careerSupport.map((item, index) => (
-              <Reveal as="li" key={item.title} index={index}>
-                <div className="h-full rounded-card border border-ink-700 bg-ink-900/60 p-6">
-                  <span className="inline-flex size-11 items-center justify-center rounded-xl border border-ink-600 bg-ink-850 text-ember-400">
-                    <FeatureIcon name={item.icon} className="size-5" />
-                  </span>
-                  <h3 className="mt-5 font-display text-base font-semibold text-chalk">{item.title}</h3>
-                  <p className="mt-2 text-sm/relaxed text-mist">{item.description}</p>
-                </div>
-              </Reveal>
-            ))}
-          </ul>
+          <Reveal className="rounded-panel border border-ember-500/30 bg-ember-500/5 p-6 sm:p-9">
+            <div className="flex gap-4">
+              <Info aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-ember-400" />
+              <div>
+                <h2 id="founding-heading" className="font-display text-lg font-semibold text-chalk">
+                  On our first batch
+                </h2>
+                <p className="mt-3 max-w-3xl text-base/relaxed text-mist">{placementAssistance.foundingBatch}</p>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Journey recap */}
-      <section className="section border-y border-ink-800/80 bg-ink-900/40" aria-labelledby="path-heading">
-        <div className="container-page grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-5">
-            <SectionTitle
-              id="path-heading"
-              eyebrow="The path"
-              title={
-                <>
-                  Six stages, run in <span className="text-grade">order</span>
-                </>
-              }
-              description="Craft, then speed, then judgement. Skipping a stage is the most common reason a promising reel stalls."
-            />
-            <Reveal delay={0.1}>
-              <Media
-                media={media.aboutMentors}
-                aspect="aspect-[4/3]"
-                sizes="(min-width: 1024px) 40vw, 92vw"
-                className="mt-9 rounded-panel border border-ink-700"
-              />
-            </Reveal>
-          </div>
+      {/* What assistance includes + eligibility */}
+      <section className="section pt-0" aria-labelledby="assistance-heading">
+        <div className="container-page grid gap-10 lg:grid-cols-2 lg:gap-14">
+          <Reveal>
+            <h2 id="assistance-heading" className="text-title text-chalk">
+              What placement assistance includes
+            </h2>
+            <p className="mt-4 text-base/relaxed text-mist">{placementAssistance.statement}</p>
+            <ul className="mt-7 space-y-3.5">
+              {placementAssistance.includes.map((item) => (
+                <li
+                  key={item}
+                  className="flex gap-3.5 rounded-card border border-ink-700 bg-ink-900/60 px-5 py-4 text-sm/relaxed text-mist"
+                >
+                  <Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-signal-400" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
 
-          <ol className="lg:col-span-7">
+          <Reveal delay={0.08}>
+            <h2 className="text-title text-chalk">Eligibility</h2>
+            <p className="mt-4 text-base/relaxed text-mist">
+              Assistance is earned, not automatic. These conditions appear in the enrollment agreement you sign, and
+              we apply them consistently.
+            </p>
+            <ul className="mt-7 space-y-3.5">
+              {placementAssistance.eligibility.map((item) => (
+                <li
+                  key={item}
+                  className="flex gap-3.5 rounded-card border border-ink-700 bg-ink-900/60 px-5 py-4 text-sm/relaxed text-chalk"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="mt-2 size-1.5 shrink-0 rounded-full bg-ember-500 ring-4 ring-ember-500/15"
+                  />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 text-xs/relaxed text-slate-muted">{placementAssistance.eligibilityNote}</p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Journey */}
+      <section className="section border-y border-ink-800/80 bg-ink-900/40" aria-labelledby="path-heading">
+        <div className="container-page">
+          <SectionTitle
+            id="path-heading"
+            eyebrow="How you get there"
+            title={
+              <>
+                Six stages, run in <span className="text-grade">order</span>
+              </>
+            }
+            description="Craft, then speed, then judgement. The reel is the deliverable, and everything before it is preparation for the review that approves it."
+          />
+
+          <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {learningJourney.map((stage, index) => (
-              <Reveal
-                as="li"
-                key={stage.step}
-                index={index}
-                className="flex gap-5 border-b border-ink-800 py-5 first:pt-0 last:border-b-0 last:pb-0"
-              >
-                <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-ink-600 bg-ink-950 font-display text-sm font-bold text-ember-400">
-                  {stage.step}
-                </span>
-                <div>
-                  <h3 className="font-display text-lg font-semibold text-chalk">{stage.title}</h3>
-                  <p className="mt-1.5 text-sm/relaxed text-mist">{stage.description}</p>
+              <Reveal as="li" key={stage.step} index={index % 3}>
+                <div className="h-full rounded-card border border-ink-700 bg-ink-950/60 p-6">
+                  <span className="inline-flex size-11 items-center justify-center rounded-full border border-ink-600 bg-ink-950 font-display text-sm font-bold text-ember-400">
+                    {stage.step}
+                  </span>
+                  <h3 className="mt-4 font-display text-lg font-semibold text-chalk">{stage.title}</h3>
+                  <p className="mt-2 text-sm/relaxed text-mist">{stage.description}</p>
                 </div>
               </Reveal>
             ))}
@@ -138,23 +164,23 @@ export default function Careers() {
         </div>
       </section>
 
-      {/* Roles by programme */}
+      {/* Roles by course */}
       <section className="section" aria-labelledby="roles-heading">
         <div className="container-page">
           <SectionTitle
             id="roles-heading"
             eyebrow="Roles"
-            title="Which programme targets which job"
-            description="Each course is built around a role a facility staffs. These are the positions the training prepares you to apply for."
+            title="Which course targets which job"
+            description="Each course is built around a role studios actually staff. These are the positions the training prepares you to apply for."
           />
 
           <div className="mt-12 overflow-x-auto rounded-panel border border-ink-700">
             <table className="w-full min-w-[36rem] border-collapse text-left text-sm">
-              <caption className="sr-only">Programmes and the roles they prepare you for</caption>
+              <caption className="sr-only">Courses and the roles they prepare you for</caption>
               <thead>
                 <tr className="bg-ink-850">
                   <th scope="col" className="px-5 py-4 font-display text-sm font-semibold text-chalk">
-                    Programme
+                    Course
                   </th>
                   <th scope="col" className="px-5 py-4 font-display text-sm font-semibold text-chalk">
                     Roles it targets
@@ -177,8 +203,8 @@ export default function Careers() {
           </div>
 
           <p className="mt-6 max-w-2xl text-xs/relaxed text-slate-muted">
-            These are target roles, not offers. Hiring depends on your portfolio, the studio and the market at the time
-            you apply.
+            These are target roles, not offers. Hiring depends on your portfolio, the studio and the market at the
+            time you apply.
           </p>
         </div>
       </section>
@@ -186,16 +212,17 @@ export default function Careers() {
       {/* FAQ */}
       <section className="section border-t border-ink-800/80" aria-labelledby="career-faq-heading">
         <div className="container-page max-w-3xl">
-          <SectionTitle id="career-faq-heading" eyebrow="Honest answers" title="What students ask us about jobs" />
+          <SectionTitle id="career-faq-heading" eyebrow="Honest answers" title="Questions families actually ask" />
           <Reveal delay={0.08} className="mt-9">
-            <Accordion items={hiringFaqs} />
+            <Accordion items={careerFaqs} />
           </Reveal>
         </div>
       </section>
 
       <CTASection
-        title="Let's talk about where you want to end up"
-        description="Bring your goals and, if you have one, your current work. We will tell you what it needs and how long that realistically takes."
+        title="Come and see the facility"
+        description="Bring your family, meet the faculty and ask the awkward questions. There is no obligation, and we would rather you saw the place before deciding."
+        primaryLabel="Book a visit"
       />
     </>
   );

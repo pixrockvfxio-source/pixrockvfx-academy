@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Instagram, Youtube, Linkedin, Facebook, Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
-import { courses } from '@/data/courses';
+import { publishedCourses } from '@/data/courses';
 import { siteConfig, formattedAddress, mailtoLink, telLink, whatsappLink } from '@/config/site';
 
 const socialIcons: Record<string, LucideIcon> = {
@@ -41,8 +41,8 @@ export function Footer() {
           <div className="lg:col-span-4">
             <Logo />
             <p className="mt-5 max-w-sm text-sm/relaxed text-mist">
-              Industry-focused visual effects training. Real plates, production workflows and mentor-led reviews —
-              built to get your work to a standard a studio will hire.
+              The training arm of PixRock — a TPN Gold+ certified VFX studio in Coimbatore. You train on the
+              studio&rsquo;s own pipeline, taught by artists on live production.
             </p>
 
             {activeSocials.length > 0 ? (
@@ -89,13 +89,13 @@ export function Footer() {
           <div className="lg:col-span-3">
             <h2 className="text-sm font-semibold tracking-wide text-chalk">Courses</h2>
             <ul className="mt-4 space-y-2.5">
-              {courses.map((course) => (
+              {publishedCourses.map((course) => (
                 <li key={course.slug}>
                   <Link
                     to={`/courses/${course.slug}`}
                     className="text-sm text-mist transition-colors hover:text-ember-300"
                   >
-                    {course.title}
+                    {course.shortTitle}
                   </Link>
                 </li>
               ))}

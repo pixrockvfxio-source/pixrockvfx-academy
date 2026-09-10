@@ -52,22 +52,18 @@ export const media = {
   /** Course banners, keyed by course slug. */
   courses: {
     roto: ref('pixrock-course-roto', 'Rotoscoping shapes animated over a live-action plate', 'signal'),
-    'paint-prep': ref('pixrock-course-paint', 'Clean plate paint work removing rigs from a frame', 'ember'),
+    prep: ref('pixrock-course-prep', 'Clean plate paint work removing rigs from a frame', 'ember'),
+    compositing: ref('pixrock-course-compositing', 'Multi-layer composite assembled in a Nuke node graph', 'ember'),
     matchmove: ref('pixrock-course-matchmove', '3D camera solve tracked to a filmed environment', 'signal'),
-    compositing: ref('pixrock-course-compositing', 'Multi-layer composite assembled in a node graph', 'ember'),
-    '3d-generalist': ref('pixrock-course-3d', 'Hard-surface 3D asset lit inside a render viewport', 'ink'),
-    animation: ref('pixrock-course-animation', 'Character animation blocking pass on a rigged model', 'ember'),
-    'vfx-production': ref('pixrock-course-production', 'Shot tracking board across a VFX production pipeline', 'signal'),
-    'motion-graphics': ref('pixrock-course-motion', 'Kinetic typography and motion design composition', 'mixed'),
+    unreal: ref('pixrock-course-unreal', 'Real-time environment lit inside an Unreal Engine viewport', 'mixed'),
+    'career-pro': ref('pixrock-course-careerpro', 'Shot review session across a VFX production pipeline', 'ember'),
   } as Record<string, MediaRef>,
 
-  /** Student project stills, keyed by project id. */
-  projects: {
-    'p-01': ref('pixrock-project-01', 'Set extension turning a rooftop plate into a future skyline', 'ember'),
-    'p-02': ref('pixrock-project-02', 'Creature integration shot with matched lighting', 'signal'),
-    'p-03': ref('pixrock-project-03', 'Full CG environment fly-through', 'ink'),
-    'p-04': ref('pixrock-project-04', 'Wire and rig removal breakdown across a stunt shot', 'ember'),
-    'p-05': ref('pixrock-project-05', 'Title sequence combining motion design and live action', 'mixed'),
-    'p-06': ref('pixrock-project-06', 'Vehicle destruction simulation composited into a street plate', 'signal'),
-  } as Record<string, MediaRef>,
+  /**
+   * Student project stills, keyed by project id.
+   *
+   * Empty until there is real student work — see src/data/projects.ts. Add an
+   * entry here with the same id as the project when you publish one.
+   */
+  projects: {} as Record<string, MediaRef>,
 } as const;

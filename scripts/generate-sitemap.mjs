@@ -26,11 +26,27 @@ const staticRoutes = [
   { path: '/terms', priority: '0.3', changefreq: 'yearly' },
 ];
 
+/**
+ * Only PUBLISHED courses get a URL. A course with `published: false` has no
+ * route — the detail page redirects it to /404 — so listing it here would
+ * advertise a dead link to search engines.
+ */
 const catalogue = readFileSync(resolve(root, 'src/data/courses.ts'), 'utf8');
-const slugs = [...catalogue.matchAll(/^\s{4}slug: '([a-z0-9-]+)',$/gm)].map((match) => match[1]);
+const slugs = [];
+const slugRe = /^\s{4}slug: '([a-z0-9-]+)',$/gm;
+let match;
+while ((match = slugRe.exec(catalogue)) !== null) {
+  // Look ahead only as far as the next course object.
+  const rest = catalogue.slice(match.index);
+  const nextSlug = rest.indexOf("\n    slug: '", 1);
+  const block = nextSlug === -1 ? rest : rest.slice(0, nextSlug);
+  const published = /^\s{4}published: (true|false),$/m.exec(block);
+  if (published && published[1] === 'true') slugs.push(match[1]);
+  else if (!published) slugs.push(match[1]);
+}
 
 if (slugs.length === 0) {
-  console.warn('[sitemap] No course slugs found — emitting static routes only.');
+  console.warn('[sitemap] No published course slugs found — emitting static routes only.');
 }
 
 const today = new Date().toISOString().slice(0, 10);

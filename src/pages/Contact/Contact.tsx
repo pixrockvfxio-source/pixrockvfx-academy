@@ -25,7 +25,7 @@ export default function Contact() {
     <>
       <Seo
         title="Contact & Admissions"
-        description="Get in touch with PixRock VFX Academy. Send an enquiry, call, message us on WhatsApp or visit the campus to talk through programmes and batch timings."
+        description="Get in touch with PixRock Academy in Coimbatore. Send an enquiry, call, message us on WhatsApp or book a visit to the facility. Morning and evening batches; first intake April 2027."
         path="/contact"
         jsonLd={organisationJsonLd()}
       />
@@ -37,7 +37,7 @@ export default function Contact() {
             Talk to someone who has done the <span className="text-grade">job</span>
           </>
         }
-        description="Counselling conversations are with people who have worked in production, not a call centre. Ask the awkward questions."
+        description="Bring your family, meet the faculty and look at how we work. There is no obligation, and counselling conversations are with people who have worked in production."
         crumbs={[{ label: 'Home', to: '/' }, { label: 'Contact' }]}
       />
 
@@ -66,9 +66,11 @@ export default function Contact() {
                         ))}
                       </address>
                     ) : (
-                      <p className="mt-1.5 text-sm/relaxed text-slate-muted">
-                        Our campus address will be published here once confirmed. Send an enquiry and we will share
-                        directions directly.
+                      <p className="mt-1.5 text-sm/relaxed text-mist">
+                        {siteConfig.contact.city}
+                        <span className="mt-1 block text-slate-muted">
+                          Full street address published once confirmed — send an enquiry and we will share directions.
+                        </span>
                       </p>
                     )}
                   </div>
@@ -114,8 +116,9 @@ export default function Contact() {
                     <Clock aria-hidden="true" className="size-5" />
                   </span>
                   <div>
-                    <h3 className="font-display text-sm font-semibold text-chalk">Office hours</h3>
-                    <p className="mt-1.5 text-sm text-mist">{siteConfig.contact.officeHours}</p>
+                    <h3 className="font-display text-sm font-semibold text-chalk">Batches &amp; office hours</h3>
+                    <p className="mt-1.5 text-sm text-mist">{siteConfig.contact.batchTimings}</p>
+                    <p className="mt-1 text-sm text-slate-muted">{siteConfig.contact.officeHours}</p>
                   </div>
                 </li>
               </ul>

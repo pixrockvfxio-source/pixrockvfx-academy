@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { Seo } from '@/components/Seo/Seo';
 import { PageHero } from '@/components/ui/PageHero';
 import { CourseGrid } from '@/components/CourseGrid/CourseGrid';
-import { courses, courseTracks } from '@/data/courses';
+import { publishedCourses, courseTiers } from '@/data/courses';
 import { admissionSteps } from '@/data/academy';
 import { SectionTitle } from '@/components/SectionTitle/SectionTitle';
 import { Reveal } from '@/components/ui/Reveal';
@@ -10,23 +10,23 @@ import { CTASection } from '@/components/CTASection/CTASection';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/cn';
 
-const ALL = 'All programmes';
+const ALL = 'All courses';
 
 export default function Courses() {
   const [track, setTrack] = useState<string>(ALL);
 
   const filtered = useMemo(
-    () => (track === ALL ? courses : courses.filter((course) => course.track === track)),
+    () => (track === ALL ? publishedCourses : publishedCourses.filter((course) => course.tierLabel === track)),
     [track],
   );
 
-  const filters = [ALL, ...courseTracks];
+  const filters = [ALL, ...courseTiers];
 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'Courses at PixRock VFX Academy',
-    itemListElement: courses.map((course, index) => ({
+    itemListElement: publishedCourses.map((course, index) => ({
       '@type': 'ListItem',
       position: index + 1,
       name: course.title,
@@ -63,7 +63,7 @@ export default function Courses() {
           <Reveal>
             <div
               role="group"
-              aria-label="Filter courses by track"
+              aria-label="Filter courses by tier"
               className="flex flex-wrap gap-2.5 border-b border-ink-800 pb-6"
             >
               {filters.map((option) => {
@@ -89,13 +89,13 @@ export default function Courses() {
           </Reveal>
 
           <p className="mt-6 text-sm text-slate-muted" aria-live="polite">
-            Showing {filtered.length} of {courses.length} programmes
+            Showing {filtered.length} of {publishedCourses.length} courses
           </p>
 
           <CourseGrid
             courses={filtered}
             className="mt-8"
-            emptyMessage="No programme in that track yet — select “All programmes” to see everything we run."
+            emptyMessage="Nothing in that tier yet — select “All courses” to see the full catalogue."
           />
         </div>
       </section>

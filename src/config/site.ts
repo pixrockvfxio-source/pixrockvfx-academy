@@ -24,11 +24,11 @@ export type SocialLink = {
 };
 
 export const siteConfig = {
-  name: 'PixRock VFX Academy',
+  name: 'PixRock Academy',
   shortName: 'PixRock',
-  tagline: 'Learn VFX. Create Worlds. Build Your Career.',
+  tagline: 'VFX training inside a working production studio.',
   description:
-    'PixRock VFX Academy trains artists for the visual effects industry with production-style workflows, mentor-led reviews and a portfolio built on real project briefs.',
+    'PixRock Academy is the training arm of PixRock, a TPN Gold+ certified VFX studio in Coimbatore. Industry-focused courses in roto, prep, compositing, matchmove and real-time, taught by working artists. First intake April 2027.',
 
   /** Absolute origin, used to build canonical URLs and structured data. */
   url: fromEnv(env.VITE_SITE_URL, 'https://www.pixrockvfx.com') as string,
@@ -47,9 +47,13 @@ export const siteConfig = {
       postalCode: fromEnv(env.VITE_ADDRESS_POSTCODE),
       country: fromEnv(env.VITE_ADDRESS_COUNTRY, 'India'),
     },
+    /** Published city — safe to state without the full street address. */
+    city: 'Coimbatore, Tamil Nadu',
     /** Google Maps embed URL (Share → Embed a map → copy the src attribute). */
     mapEmbedUrl: fromEnv(env.VITE_MAP_EMBED_URL),
     officeHours: 'Monday – Saturday, 10:00 – 19:00',
+    /** Class timings, from the brochure. Two shifts share the same lab. */
+    batchTimings: 'Morning 9:00 am – 12:00 pm · Evening 6:00 pm – 9:00 pm',
   },
 
   /**
@@ -81,7 +85,7 @@ export function formattedAddress(): string[] {
 }
 
 /** `wa.me` deep link, or null when no number has been configured yet. */
-export function whatsappLink(message = "Hi PixRock, I'd like to know more about your VFX courses."): string | null {
+export function whatsappLink(message = "Hi PixRock Academy, I'd like to know more about your VFX courses."): string | null {
   const number = siteConfig.contact.whatsapp?.replace(/\D/g, '');
   if (!number) return null;
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;

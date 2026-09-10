@@ -16,7 +16,8 @@ const assurances = [
   {
     icon: UserCheck,
     title: 'An honest recommendation',
-    description: 'Including telling you when a different path — or a different academy — suits you better.',
+    description:
+      'Including telling you when a different course — or a different path entirely — suits you better.',
   },
   {
     icon: ShieldCheck,
@@ -35,7 +36,7 @@ export default function Enquiry() {
     <>
       <Seo
         title="Admissions & Enquiry"
-        description="Send an admissions enquiry to PixRock VFX Academy. Tell us your background and the discipline you are drawn to, and a counsellor will map out the right programme."
+        description="Send an admissions enquiry to PixRock Academy, Coimbatore. Tell us your background and the discipline you are drawn to, and a counsellor will recommend the course that fits. First intake April 2027."
         path="/enquiry"
       />
 
@@ -46,7 +47,7 @@ export default function Enquiry() {
             Start with a <span className="text-grade">conversation</span>
           </>
         }
-        description="No portfolio needed at this stage. Tell us where you are now and what you want to build, and we will take it from there."
+        description="No portfolio needed at this stage. Tell us where you are now and what you want to build. We will explain the courses, the full fee including GST, and which option actually suits you."
         crumbs={[{ label: 'Home', to: '/' }, { label: 'Admissions' }]}
       />
 

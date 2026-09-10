@@ -35,15 +35,23 @@ export default function Terms() {
 
         <h2>No guarantee of employment</h2>
         <p>
-          We provide training, mentoring, portfolio guidance and interview preparation. We do not guarantee employment,
-          placement, salary or any specific career outcome, and no statement on this website should be read as such a
-          guarantee.
+          We provide training, mentoring, portfolio guidance, interview preparation and placement assistance as
+          described on our Careers page. We do not guarantee employment, placement, salary or any specific career
+          outcome, and no statement on this website should be read as such a commitment. Placement assistance is
+          subject to the eligibility conditions set out in your enrollment agreement.
         </p>
 
         <h2>Student work</h2>
         <p>
-          Work shown in the student gallery is published with the artist’s permission and remains the work of that
+          Any work shown in the student gallery is published with the artist’s permission and remains the work of that
           artist. Please do not reproduce it without consent.
+        </p>
+
+        <h2>Fees</h2>
+        <p>
+          Fees published on this site are shown inclusive of GST. Instalment options, where available, are provided
+          through a third-party finance partner on that partner’s terms. The fee, schedule and inclusions confirmed to
+          you in writing at admission take precedence over anything published here.
         </p>
 
         <h2>Enquiries</h2>

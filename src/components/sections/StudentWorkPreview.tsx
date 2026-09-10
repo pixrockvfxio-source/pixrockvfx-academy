@@ -8,9 +8,15 @@ import { ProjectDialog } from '@/components/ProjectCard/ProjectDialog';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
 
+/**
+ * Renders nothing until there is real student work to show. See the note in
+ * src/data/projects.ts — the first cohort starts in April 2027.
+ */
 export function StudentWorkPreview() {
   const [active, setActive] = useState<Project | null>(null);
   const showcase = projects.slice(0, 3);
+
+  if (projects.length === 0) return null;
 
   return (
     <section className="section border-t border-ink-800/80" aria-labelledby="work-heading">

@@ -3,13 +3,14 @@ import {
   Clock,
   Signal,
   Monitor,
-  GraduationCap,
   CheckCircle2,
   Briefcase,
   ClipboardList,
   ArrowRight,
+  IndianRupee,
+  Users,
 } from 'lucide-react';
-import { getCourseBySlug, courses } from '@/data/courses';
+import { getCourseBySlug, publishedCourses, formatFee } from '@/data/courses';
 import { media } from '@/config/media';
 import { Seo } from '@/components/Seo/Seo';
 import { Media } from '@/components/ui/Media';
@@ -28,8 +29,10 @@ export default function CourseDetails() {
   // Unknown slug → 404 rather than an empty shell.
   if (!course) return <Navigate to="/404" replace />;
 
-  const related = courses.filter((item) => item.slug !== course.slug && item.track === course.track).slice(0, 3);
-  const fallbackRelated = courses.filter((item) => item.slug !== course.slug).slice(0, 3);
+  const related = publishedCourses
+    .filter((item) => item.slug !== course.slug && item.tier === course.tier)
+    .slice(0, 3);
+  const fallbackRelated = publishedCourses.filter((item) => item.slug !== course.slug).slice(0, 3);
   const suggestions = related.length > 0 ? related : fallbackRelated;
 
   const jsonLd = {
@@ -54,9 +57,13 @@ export default function CourseDetails() {
 
   const facts = [
     { icon: Clock, label: 'Duration', value: course.duration },
-    { icon: ClipboardList, label: 'Commitment', value: course.commitment },
+    { icon: ClipboardList, label: 'Contact hours', value: `${course.contactHours} hrs` },
     { icon: Signal, label: 'Level', value: course.level },
-    { icon: GraduationCap, label: 'Format', value: course.format },
+    {
+      icon: IndianRupee,
+      label: 'Fee (incl. GST)',
+      value: formatFee(course.feeInclGst),
+    },
   ];
 
   return (
@@ -98,16 +105,23 @@ export default function CourseDetails() {
               </li>
               <li aria-hidden="true">/</li>
               <li aria-current="page" className="text-mist">
-                {course.title}
+                {course.shortTitle}
               </li>
             </ol>
           </nav>
 
           <Reveal className="max-w-3xl">
-            <Badge tone={course.accent}>{course.track}</Badge>
+            <Badge tone={course.accent}>{course.tierLabel}</Badge>
             <h1 className="mt-5 text-display text-chalk">{course.title}</h1>
             <p className="mt-4 text-lg/relaxed text-ember-300 sm:text-xl/relaxed">{course.tagline}</p>
             <p className="mt-5 max-w-2xl text-base/relaxed text-mist">{course.summary}</p>
+
+            {course.cohortCap ? (
+              <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-ember-500/35 bg-ember-500/10 px-3.5 py-1.5 text-sm text-ember-200">
+                <Users aria-hidden="true" className="size-4" />
+                Limited to {course.cohortCap} students per intake
+              </p>
+            ) : null}
 
             <div className="mt-9 flex flex-wrap gap-3">
               <Button href="#enquire" size="lg">
@@ -151,6 +165,21 @@ export default function CourseDetails() {
               </div>
             </Reveal>
 
+            <Reveal delay={0.06} className="mt-10 grid gap-5 sm:grid-cols-2">
+              <div className="rounded-card border border-ink-700 bg-ink-900/60 p-5">
+                <h3 className="font-display text-sm font-semibold tracking-wide text-ember-400 uppercase">
+                  Best for
+                </h3>
+                <p className="mt-2.5 text-sm/relaxed text-mist">{course.bestFor}</p>
+              </div>
+              <div className="rounded-card border border-ink-700 bg-ink-900/60 p-5">
+                <h3 className="font-display text-sm font-semibold tracking-wide text-signal-400 uppercase">
+                  What you leave with
+                </h3>
+                <p className="mt-2.5 text-sm/relaxed text-mist">{course.leavesWith}</p>
+              </div>
+            </Reveal>
+
             <Reveal delay={0.08} className="mt-12">
               <h2 className="text-title text-chalk">What you will learn</h2>
               <ul className="mt-6 grid gap-3.5 sm:grid-cols-2">
@@ -168,7 +197,18 @@ export default function CourseDetails() {
           <div className="lg:col-span-5">
             <Reveal delay={0.1} className="lg:sticky lg:top-28">
               <div className="rounded-panel border border-ink-700 bg-ink-900/60 p-6 sm:p-7">
-                <h2 className="font-display text-lg font-semibold text-chalk">Software you will use</h2>
+                <h2 className="font-display text-lg font-semibold text-chalk">Fee</h2>
+                <p className="mt-3 font-display text-2xl font-bold text-chalk">
+                  {formatFee(course.feeInclGst)}{' '}
+                  <span className="text-sm font-medium text-slate-muted">inclusive of GST</span>
+                </p>
+                {course.feeNote ? <p className="mt-2 text-sm/relaxed text-ember-300">{course.feeNote}</p> : null}
+                <p className="mt-2 text-xs/relaxed text-slate-muted">
+                  Instalment options are available through our finance partner. Our counsellors will walk you through
+                  the full cost, with no charges added later.
+                </p>
+
+                <h2 className="mt-8 font-display text-lg font-semibold text-chalk">Software you will use</h2>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {course.software.map((item) => (
                     <li key={item}>
@@ -180,7 +220,7 @@ export default function CourseDetails() {
                   ))}
                 </ul>
                 <p className="mt-4 text-xs/relaxed text-slate-muted">
-                  Exact tool coverage is confirmed for your batch at admission.
+                  Tool coverage is confirmed for your batch at admission.
                 </p>
 
                 <h2 className="mt-8 font-display text-lg font-semibold text-chalk">Eligibility</h2>
@@ -234,7 +274,12 @@ export default function CourseDetails() {
                     <span className="font-display text-sm font-bold text-ember-500">
                       {String(index + 1).padStart(2, '0')}
                     </span>
-                    <h3 className="font-display text-lg font-semibold text-chalk">{module.title}</h3>
+                    <div>
+                      <h3 className="font-display text-lg font-semibold text-chalk">{module.title}</h3>
+                      {module.meta ? (
+                        <p className="mt-0.5 text-xs tracking-wide text-slate-muted">{module.meta}</p>
+                      ) : null}
+                    </div>
                   </div>
                   <ul className="mt-4 space-y-2">
                     {module.topics.map((topic) => (
@@ -293,8 +338,8 @@ export default function CourseDetails() {
               ))}
             </ul>
             <p className="mt-5 text-xs/relaxed text-slate-muted">
-              Roles listed are the positions this training targets. We prepare you for them; we do not guarantee
-              employment.
+              These are the roles this training targets. We provide placement assistance — CV circulation, referrals
+              and test preparation — and we are clear that this is not the same as a promise of employment.
             </p>
           </Reveal>
         </div>

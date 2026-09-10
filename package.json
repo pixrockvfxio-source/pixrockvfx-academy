@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-sitemap.mjs && tsc -b --noEmit && vite build",
+    "build": "node scripts/check-language.mjs && node scripts/generate-sitemap.mjs && tsc -b --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
     "sitemap": "node scripts/generate-sitemap.mjs",
-    "build:single": "node scripts/generate-sitemap.mjs && tsc -b --noEmit && node scripts/build-singlefile.mjs"
+    "build:single": "node scripts/check-language.mjs && node scripts/generate-sitemap.mjs && tsc -b --noEmit && node scripts/build-singlefile.mjs",
+    "check:language": "node scripts/check-language.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.23.12",
