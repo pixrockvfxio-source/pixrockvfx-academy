@@ -48,7 +48,7 @@ export default function Careers() {
     <>
       <Seo
         title="Careers & Placement Assistance"
-        description="What placement assistance means at PixRock Academy, what it includes, the eligibility conditions, and an honest statement of where the academy stands before its first intake in April 2027."
+        description="What placement assistance means at PixRock Academy, what it includes, the eligibility conditions, and an honest statement of where the academy stands before its first intake in January 2027."
         path="/careers"
       />
 

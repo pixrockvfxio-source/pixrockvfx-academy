@@ -3,7 +3,7 @@ import type { Project } from '@/types/content';
 /**
  * INTENTIONALLY EMPTY.
  *
- * There is no student work to show yet — the first intake is April 2027. Per
+ * There is no student work to show yet — the first intake is January 2027. Per
  * the Parent Brochure Copy, nothing on this site may imply a track record the
  * academy does not have.
  *

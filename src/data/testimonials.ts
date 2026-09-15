@@ -3,7 +3,7 @@ import type { Testimonial } from '@/types/content';
 /**
  * INTENTIONALLY EMPTY.
  *
- * PixRock Academy opens in April 2027 and has no graduates yet. The Parent
+ * PixRock Academy opens in January 2027 and has no graduates yet. The Parent
  * Brochure Copy is explicit about this (rule 3, and §5 "On our first batch"):
  *
  *   "We do not have placement results yet. The first batch has no track

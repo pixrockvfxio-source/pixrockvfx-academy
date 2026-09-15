@@ -28,7 +28,7 @@ export const siteConfig = {
   shortName: 'PixRock',
   tagline: 'VFX training inside a working production studio.',
   description:
-    'PixRock Academy is the training arm of PixRock, a TPN Gold+ certified VFX studio in Coimbatore. Industry-focused courses in roto, prep, compositing, matchmove and real-time, taught by working artists. First intake April 2027.',
+    'PixRock Academy is the training arm of PixRock, a TPN Gold+ certified VFX studio in Salem. Industry-focused courses in roto, prep, compositing, matchmove and real-time, taught by working artists. First intake January 2027.',
 
   /** Absolute origin, used to build canonical URLs and structured data. */
   url: fromEnv(env.VITE_SITE_URL, 'https://www.pixrockvfx.com') as string,
@@ -48,7 +48,7 @@ export const siteConfig = {
       country: fromEnv(env.VITE_ADDRESS_COUNTRY, 'India'),
     },
     /** Published city — safe to state without the full street address. */
-    city: 'Coimbatore, Tamil Nadu',
+    city: 'Salem, Tamil Nadu',
     /** Google Maps embed URL (Share → Embed a map → copy the src attribute). */
     mapEmbedUrl: fromEnv(env.VITE_MAP_EMBED_URL),
     officeHours: 'Monday – Saturday, 10:00 – 19:00',

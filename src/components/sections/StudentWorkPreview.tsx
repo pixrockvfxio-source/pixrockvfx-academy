@@ -10,7 +10,7 @@ import { Reveal } from '@/components/ui/Reveal';
 
 /**
  * Renders nothing until there is real student work to show. See the note in
- * src/data/projects.ts — the first cohort starts in April 2027.
+ * src/data/projects.ts — the first cohort starts in January 2027.
  */
 export function StudentWorkPreview() {
   const [active, setActive] = useState<Project | null>(null);

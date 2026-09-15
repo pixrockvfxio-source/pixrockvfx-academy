@@ -156,7 +156,7 @@ export const placementAssistance = {
   eligibilityNote:
     'These conditions are stated in the enrollment agreement you sign, and we apply them consistently. A student who does not meet the standard does not receive assistance — and we say so well before that point is reached.',
   foundingBatch:
-    'PixRock Academy opens in April 2027. Our studio has been placing and developing artists for years, but the academy itself has no graduate record yet, because it has had no graduates yet. We would rather tell you that plainly than show you numbers that belong to someone else.',
+    'PixRock Academy opens in January 2027. Our studio has been placing and developing artists for years, but the academy itself has no graduate record yet, because it has had no graduates yet. We would rather tell you that plainly than show you numbers that belong to someone else.',
 };
 
 export const academyStory = {
@@ -167,7 +167,7 @@ export const academyStory = {
   story: [
     'VFX is a real industry with real employment. Indian studios do post-production for films, series and advertising watched around the world, and they hire steadily — particularly for roles like roto, prep and compositing, where demand for trained artists consistently exceeds supply.',
     'But it is a skills industry, not a certificate industry. Nobody is hired on a marksheet. They are hired on a portfolio, on a practical test, and on whether they can work to a deadline. That is why so many students finish a course and still cannot find work: they were taught software, not the job.',
-    'PixRock Academy exists because we are a studio first. PixRock is a TPN Gold+ certified production facility in Coimbatore employing around 400 artists. Our instructors are working artists. Our students train on the same pipeline, the same review process and the same standards our production teams work to every day.',
+    'PixRock Academy exists because we are a studio first. PixRock is a TPN Gold+ certified production facility in Salem employing around 400 artists. Our instructors are working artists. Our students train on the same pipeline, the same review process and the same standards our production teams work to every day.',
     'We will be honest about two things. This is demanding work — students who do not put in the hours do not build a portfolio, and we will say so early. And we offer placement assistance, not a placement guarantee. Anyone who guarantees your child a job is not being straight with you.',
   ],
   philosophy: [
@@ -217,14 +217,14 @@ export const admissionSteps = [
   {
     step: '04',
     title: 'Enrol',
-    description: 'Seats are limited and the April intake fills first.',
+    description: 'Seats are limited and the January intake fills first.',
   },
 ];
 
 /** Facts safe to state publicly. */
 export const academyFacts = {
-  firstIntake: 'April 2027',
-  city: 'Coimbatore',
+  firstIntake: 'January 2027',
+  city: 'Salem',
   studioArtists: '400',
   certification: 'TPN Gold+',
   shifts: [

@@ -7,7 +7,7 @@ import { academyFacts } from '@/data/academy';
 
 /** Only facts the source documents allow us to state publicly. */
 const stats = [
-  { value: `~${academyFacts.studioArtists}`, label: 'Artists in the building' },
+  { value: academyFacts.studioArtists, label: 'Artists in the building' },
   { value: academyFacts.certification, label: 'Certified production facility' },
   { value: academyFacts.firstIntake, label: 'First intake' },
 ];
@@ -57,7 +57,7 @@ export function Hero() {
           </motion.h1>
 
           <motion.p {...rise(0.24)} className="mt-7 max-w-xl text-base/relaxed text-mist sm:text-lg/relaxed">
-            PixRock Academy is the training arm of PixRock — a TPN Gold+ certified VFX facility in Coimbatore with
+            PixRock Academy is the training arm of PixRock — a TPN Gold+ certified VFX facility in Salem with
             around 400 artists. You train on our pipeline, to our standards, taught by people who are on live
             production this week.
           </motion.p>

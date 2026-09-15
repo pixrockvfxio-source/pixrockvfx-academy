@@ -33,7 +33,7 @@ export default function About() {
     <>
       <Seo
         title="About the Academy"
-        description="PixRock Academy is the training arm of PixRock, a TPN Gold+ certified VFX facility in Coimbatore employing around 400 artists. Our instructors are working artists and our students train on the studio's own pipeline."
+        description="PixRock Academy is the training arm of PixRock, a TPN Gold+ certified VFX facility in Salem employing around 400 artists. Our instructors are working artists and our students train on the studio's own pipeline."
         path="/about"
       />
 
@@ -44,7 +44,7 @@ export default function About() {
             We teach VFX the way it is <span className="text-grade">practised</span>
           </>
         }
-        description="PixRock is a TPN Gold+ certified VFX facility in Coimbatore with around 400 artists. The academy trains on the same pipeline, to the same standards."
+        description="PixRock is a TPN Gold+ certified VFX facility in Salem with around 400 artists. The academy trains on the same pipeline, to the same standards."
         crumbs={[{ label: 'Home', to: '/' }, { label: 'About' }]}
       />
 
@@ -189,7 +189,7 @@ Four things a franchise <span className="text-grade">cannot offer</span>
       <CTASection
         eyebrow="Admissions"
         title="Come and see how we teach"
-        description="Talk to a counsellor about your background, walk the facility, and decide from there. First intake April 2027."
+        description="Talk to a counsellor about your background, walk the facility, and decide from there. First intake January 2027."
         primaryLabel="Book a visit"
       />
     </>

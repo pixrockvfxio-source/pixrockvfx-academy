@@ -25,7 +25,7 @@ export default function Contact() {
     <>
       <Seo
         title="Contact & Admissions"
-        description="Get in touch with PixRock Academy in Coimbatore. Send an enquiry, call, message us on WhatsApp or book a visit to the facility. Morning and evening batches; first intake April 2027."
+        description="Get in touch with PixRock Academy in Salem. Send an enquiry, call, message us on WhatsApp or book a visit to the facility. Morning and evening batches; first intake January 2027."
         path="/contact"
         jsonLd={organisationJsonLd()}
       />

@@ -19,7 +19,7 @@ import type { Course } from '@/types/content';
  *      conversation, where the full GST-inclusive cost and instalment options
  *      can be explained properly. No amount is stored here, so none can reach
  *      the page — or the JavaScript bundle — by accident.
- *   3. The academy has no graduates yet — first intake April 2027. Nothing
+ *   3. The academy has no graduates yet — first intake January 2027. Nothing
  *      here may imply a placement record, salary outcome or alumni result.
  *
  * Deliberately NOT included, per [VERIFY] markers in the source documents:

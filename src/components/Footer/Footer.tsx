@@ -41,7 +41,7 @@ export function Footer() {
           <div className="lg:col-span-4">
             <Logo />
             <p className="mt-5 max-w-sm text-sm/relaxed text-mist">
-              The training arm of PixRock — a TPN Gold+ certified VFX studio in Coimbatore. You train on the
+              The training arm of PixRock — a TPN Gold+ certified VFX studio in Salem. You train on the
               studio&rsquo;s own pipeline, taught by artists on live production.
             </p>
 

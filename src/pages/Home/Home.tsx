@@ -16,7 +16,7 @@ export default function Home() {
     <>
       <Seo
         title="PixRock Academy | VFX Training Inside a Working Studio"
-        description="PixRock Academy is the training arm of PixRock, a TPN Gold+ certified VFX studio in Coimbatore. Courses in roto, prep, compositing and matchmove, taught by working artists. First intake April 2027."
+        description="PixRock Academy is the training arm of PixRock, a TPN Gold+ certified VFX studio in Salem. Courses in roto, prep, compositing and matchmove, taught by working artists. First intake January 2027."
         path="/"
         jsonLd={organisationJsonLd()}
       />

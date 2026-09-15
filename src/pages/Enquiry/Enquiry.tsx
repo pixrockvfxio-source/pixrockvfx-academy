@@ -36,7 +36,7 @@ export default function Enquiry() {
     <>
       <Seo
         title="Admissions & Enquiry"
-        description="Send an admissions enquiry to PixRock Academy, Coimbatore. Tell us your background and the discipline you are drawn to, and a counsellor will recommend the course that fits. First intake April 2027."
+        description="Send an admissions enquiry to PixRock Academy, Salem. Tell us your background and the discipline you are drawn to, and a counsellor will recommend the course that fits. First intake January 2027."
         path="/enquiry"
       />
 

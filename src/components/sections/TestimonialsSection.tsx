@@ -6,7 +6,7 @@ import { Reveal } from '@/components/ui/Reveal';
 /**
  * Renders nothing until there are real testimonials.
  *
- * The academy has no graduates yet (first intake April 2027), and the brochure
+ * The academy has no graduates yet (first intake January 2027), and the brochure
  * forbids any copy implying a track record. An empty heading with no quotes
  * under it would imply one, so the whole section is withheld — and returns on
  * its own the moment src/data/testimonials.ts has entries.
