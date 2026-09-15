@@ -58,7 +58,7 @@ export function ProjectDialog({ project, onClose }: Props) {
     <AnimatePresence>
       {project ? (
         <motion.div
-          className="fixed inset-0 z-60 flex items-center justify-center overflow-y-auto bg-ink-950/85 p-4 backdrop-blur-md sm:p-8"
+          className="fixed inset-0 z-60 flex items-center justify-center overflow-y-auto bg-canvas/85 p-4 backdrop-blur-md sm:p-8"
           initial={reduceMotion ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={reduceMotion ? {} : { opacity: 0 }}
@@ -106,7 +106,7 @@ export function ProjectDialog({ project, onClose }: Props) {
                 type="button"
                 onClick={onClose}
                 aria-label="Close project"
-                className="absolute top-3 right-3 inline-flex size-10 items-center justify-center rounded-full border border-ink-600 bg-ink-950/80 text-chalk transition-colors hover:bg-ink-800"
+                className="absolute top-3 right-3 inline-flex size-10 items-center justify-center rounded-full border border-line-strong bg-canvas/80 text-ink transition-colors hover:shadow-lift"
               >
                 <X aria-hidden="true" className="size-5" />
               </button>
@@ -117,22 +117,22 @@ export function ProjectDialog({ project, onClose }: Props) {
                 <Badge tone="signal">{project.category}</Badge>
                 <Badge>{project.year}</Badge>
               </div>
-              <h2 id="project-dialog-title" className="mt-4 text-title text-chalk">
+              <h2 id="project-dialog-title" className="mt-4 text-title text-ink">
                 {project.title}
               </h2>
-              <p className="mt-3 text-sm/relaxed text-mist sm:text-base/relaxed">{project.description}</p>
-              <dl className="mt-6 grid gap-4 border-t border-ink-700 pt-5 text-sm sm:grid-cols-2">
+              <p className="mt-3 text-sm/relaxed text-body sm:text-base/relaxed">{project.description}</p>
+              <dl className="mt-6 grid gap-4 border-t border-line pt-5 text-sm sm:grid-cols-2">
                 <div>
-                  <dt className="text-xs tracking-wider text-slate-muted uppercase">Artist</dt>
-                  <dd className="mt-1 text-chalk">{project.student}</dd>
+                  <dt className="text-xs tracking-wider text-subtle uppercase">Artist</dt>
+                  <dd className="mt-1 text-ink">{project.student}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs tracking-wider text-slate-muted uppercase">Programme</dt>
-                  <dd className="mt-1 text-chalk">{project.course}</dd>
+                  <dt className="text-xs tracking-wider text-subtle uppercase">Programme</dt>
+                  <dd className="mt-1 text-ink">{project.course}</dd>
                 </div>
               </dl>
               {!project.videoUrl ? (
-                <p className="mt-5 text-xs text-slate-muted">
+                <p className="mt-5 text-xs text-subtle">
                   Showreel video for this project will be published shortly.
                 </p>
               ) : null}

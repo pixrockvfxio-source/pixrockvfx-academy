@@ -54,7 +54,7 @@ export default function Enquiry() {
       <section className="section" aria-labelledby="enquiry-heading">
         <div className="container-page grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <h2 id="enquiry-heading" className="text-title text-chalk">
+            <h2 id="enquiry-heading" className="text-title text-ink">
               What happens next
             </h2>
 
@@ -62,23 +62,23 @@ export default function Enquiry() {
               <ol className="mt-8 space-y-6">
                 {admissionSteps.map((step) => (
                   <li key={step.step} className="flex gap-4">
-                    <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-ink-600 bg-ink-850 font-display text-xs font-bold text-ember-400">
+                    <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-line-strong bg-raised font-display text-xs font-bold text-ember-600">
                       {step.step}
                     </span>
                     <div>
-                      <h3 className="font-display text-base font-semibold text-chalk">{step.title}</h3>
-                      <p className="mt-1.5 text-sm/relaxed text-mist">{step.description}</p>
+                      <h3 className="font-display text-base font-semibold text-ink">{step.title}</h3>
+                      <p className="mt-1.5 text-sm/relaxed text-body">{step.description}</p>
                     </div>
                   </li>
                 ))}
               </ol>
 
-              <ul className="mt-10 space-y-4 border-t border-ink-800 pt-8">
+              <ul className="mt-10 space-y-4 border-t border-line pt-8">
                 {assurances.map((item) => (
                   <li key={item.title} className="flex gap-3.5">
-                    <item.icon aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-signal-400" />
-                    <p className="text-sm/relaxed text-mist">
-                      <span className="font-semibold text-chalk">{item.title}.</span> {item.description}
+                    <item.icon aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-signal-500" />
+                    <p className="text-sm/relaxed text-body">
+                      <span className="font-semibold text-ink">{item.title}.</span> {item.description}
                     </p>
                   </li>
                 ))}

@@ -10,7 +10,7 @@ type Props = {
 export function Logo({ className, compact = false }: Props) {
   return (
     <span className={cn('inline-flex items-center gap-2.5', className)}>
-      <span className="relative inline-flex size-9 items-center justify-center overflow-hidden rounded-xl bg-ink-850 ring-1 ring-ink-600">
+      <span className="relative inline-flex size-9 items-center justify-center overflow-hidden rounded-xl bg-raised ring-1 ring-line-strong">
         <svg viewBox="0 0 64 64" className="size-9" aria-hidden="true" focusable="false">
           <defs>
             <linearGradient id="pixrock-mark" x1="0" y1="0" x2="1" y2="1">
@@ -28,10 +28,10 @@ export function Logo({ className, compact = false }: Props) {
       </span>
       {compact ? null : (
         <span className="flex flex-col leading-none">
-          <span className="font-display text-[0.98rem] font-extrabold tracking-tight text-chalk">
+          <span className="font-display text-[0.98rem] font-extrabold tracking-tight text-ink">
             PixRock
           </span>
-          <span className="mt-0.5 text-[0.6rem] font-semibold tracking-[0.28em] text-slate-muted uppercase">
+          <span className="mt-0.5 text-[0.6rem] font-semibold tracking-[0.28em] text-subtle uppercase">
             Academy
           </span>
         </span>

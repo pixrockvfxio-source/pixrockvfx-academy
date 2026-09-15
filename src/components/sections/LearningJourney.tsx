@@ -9,7 +9,7 @@ import { Reveal } from '@/components/ui/Reveal';
  */
 export function LearningJourney() {
   return (
-    <section className="section relative overflow-hidden border-y border-ink-800/80 bg-ink-900/40" aria-labelledby="journey-heading">
+    <section className="section relative overflow-hidden border-y border-line/80 bg-raised" aria-labelledby="journey-heading">
       <div aria-hidden="true" className="grid-lines pointer-events-none absolute inset-0 opacity-20" />
 
       <div className="container-page relative">
@@ -29,16 +29,16 @@ export function LearningJourney() {
           {/* Connector line — decorative only. */}
           <span
             aria-hidden="true"
-            className="absolute top-6 right-0 left-0 hidden h-px bg-linear-to-r from-ember-500/50 via-ink-600 to-signal-500/50 lg:block"
+            className="absolute top-6 right-0 left-0 hidden h-px bg-linear-to-r from-ember-500/50 via-line-strong to-signal-500/50 lg:block"
           />
 
           {learningJourney.map((stage, index) => (
             <Reveal as="li" key={stage.step} index={index} className="relative lg:pt-0">
-              <span className="relative z-10 inline-flex size-12 items-center justify-center rounded-full border border-ink-600 bg-ink-950 font-display text-sm font-bold text-ember-400">
+              <span className="relative z-10 inline-flex size-12 items-center justify-center rounded-full border border-line-strong bg-canvas font-display text-sm font-bold text-ember-600">
                 {stage.step}
               </span>
-              <h3 className="mt-4 font-display text-lg font-semibold text-chalk">{stage.title}</h3>
-              <p className="mt-2 text-sm/relaxed text-mist lg:text-[0.8125rem]/relaxed">{stage.description}</p>
+              <h3 className="mt-4 font-display text-lg font-semibold text-ink">{stage.title}</h3>
+              <p className="mt-2 text-sm/relaxed text-body lg:text-[0.8125rem]/relaxed">{stage.description}</p>
             </Reveal>
           ))}
         </ol>

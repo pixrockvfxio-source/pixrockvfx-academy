@@ -58,22 +58,22 @@ export default function StudentWork() {
           {/* Honest position, stated before anything else. */}
           <section className="section pt-12 lg:pt-16" aria-labelledby="pending-heading">
             <div className="container-page">
-              <Reveal className="relative overflow-hidden rounded-panel border border-ink-700 bg-ink-900">
+              <Reveal className="relative overflow-hidden rounded-panel border border-line bg-surface">
                 <div className="grid items-center gap-8 p-8 sm:p-12 lg:grid-cols-2 lg:gap-12">
                   <div>
-                    <p className="inline-flex items-center gap-2 rounded-full border border-ember-500/35 bg-ember-500/10 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-ember-200 uppercase">
+                    <p className="inline-flex items-center gap-2 rounded-full border border-ember-500/35 bg-ember-500/10 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-ember-700 uppercase">
                       <Clock aria-hidden="true" className="size-3.5" />
                       First intake {academyFacts.firstIntake}
                     </p>
-                    <h2 id="pending-heading" className="mt-5 text-title text-chalk">
+                    <h2 id="pending-heading" className="mt-5 text-title text-ink">
                       We have no student work to show yet
                     </h2>
-                    <p className="mt-4 text-base/relaxed text-mist">
+                    <p className="mt-4 text-base/relaxed text-body">
                       The academy opens in {academyFacts.firstIntake}, so there are no graduates and no student reels
                       yet. We would rather say that plainly than fill this page with work that belongs to someone
                       else.
                     </p>
-                    <p className="mt-4 text-sm/relaxed text-slate-muted">
+                    <p className="mt-4 text-sm/relaxed text-subtle">
                       What we can show you is exactly what each course requires you to deliver. That is set out below,
                       and it is the same specification our review panel will assess.
                     </p>
@@ -84,13 +84,13 @@ export default function StudentWork() {
                     </div>
                   </div>
 
-                  <div className="relative flex aspect-video items-center justify-center rounded-card border border-dashed border-ink-600 bg-ink-950/60">
+                  <div className="relative flex aspect-video items-center justify-center rounded-card border border-dashed border-line-strong bg-raised">
                     <div aria-hidden="true" className="grid-lines absolute inset-0 rounded-card opacity-30" />
                     <div className="relative flex flex-col items-center gap-3 px-6 text-center">
-                      <span className="inline-flex size-14 items-center justify-center rounded-full border border-ink-600 bg-ink-900 text-ember-400">
+                      <span className="inline-flex size-14 items-center justify-center rounded-full border border-line-strong bg-surface text-ember-600">
                         <Film aria-hidden="true" className="size-6" />
                       </span>
-                      <p className="text-sm font-medium text-mist">First reels expected from the {academyFacts.firstIntake} cohort</p>
+                      <p className="text-sm font-medium text-body">First reels expected from the {academyFacts.firstIntake} cohort</p>
                     </div>
                   </div>
                 </div>
@@ -99,13 +99,13 @@ export default function StudentWork() {
           </section>
 
           {/* What students will produce — drawn from the curriculum. */}
-          <section className="section border-t border-ink-800/80 pt-14" aria-labelledby="deliverables-heading">
+          <section className="section border-t border-line/80 pt-14" aria-labelledby="deliverables-heading">
             <div className="container-page">
               <Reveal>
-                <h2 id="deliverables-heading" className="text-display text-chalk">
+                <h2 id="deliverables-heading" className="text-display text-ink">
                   What you will produce
                 </h2>
-                <p className="mt-4 max-w-2xl text-base/relaxed text-mist">
+                <p className="mt-4 max-w-2xl text-base/relaxed text-body">
                   Every course ends in a supervised final block, reviewed by a working PixRock supervisor against the
                   standards used on a show.
                 </p>
@@ -114,16 +114,16 @@ export default function StudentWork() {
               <ul className="mt-12 grid gap-6 lg:grid-cols-2">
                 {publishedCourses.map((course, index) => (
                   <Reveal as="li" key={course.slug} index={index % 2}>
-                    <div className="h-full rounded-card border border-ink-700 bg-ink-900/60 p-6 sm:p-7">
-                      <p className="text-xs font-semibold tracking-[0.2em] text-ember-400 uppercase">
+                    <div className="h-full rounded-card border border-line bg-surface shadow-soft p-6 sm:p-7">
+                      <p className="text-xs font-semibold tracking-[0.2em] text-ember-600 uppercase">
                         {course.tierLabel}
                       </p>
-                      <h3 className="mt-3 font-display text-lg font-semibold text-chalk">{course.shortTitle}</h3>
-                      <p className="mt-2.5 text-sm/relaxed text-signal-300">{course.leavesWith}</p>
-                      <ul className="mt-5 space-y-2.5 border-t border-ink-800 pt-4">
+                      <h3 className="mt-3 font-display text-lg font-semibold text-ink">{course.shortTitle}</h3>
+                      <p className="mt-2.5 text-sm/relaxed text-signal-600">{course.leavesWith}</p>
+                      <ul className="mt-5 space-y-2.5 border-t border-line pt-4">
                         {course.projects.map((project) => (
-                          <li key={project} className="flex gap-2.5 text-sm/relaxed text-mist">
-                            <span aria-hidden="true" className="mt-2 size-1 shrink-0 rounded-full bg-ink-500" />
+                          <li key={project} className="flex gap-2.5 text-sm/relaxed text-body">
+                            <span aria-hidden="true" className="mt-2 size-1 shrink-0 rounded-full bg-line-strong" />
                             {project}
                           </li>
                         ))}
@@ -155,8 +155,8 @@ export default function StudentWork() {
                       className={cn(
                         'rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200',
                         isActive
-                          ? 'border-ember-500/60 bg-ember-500/12 text-ember-200'
-                          : 'border-ink-600 text-mist hover:border-ink-500 hover:text-chalk',
+                          ? 'border-ember-600/50 bg-ember-50 text-ember-700'
+                          : 'border-line-strong text-body hover:border-line-strong hover:text-ink',
                       )}
                     >
                       {option}
@@ -166,7 +166,7 @@ export default function StudentWork() {
               </div>
             </Reveal>
 
-            <p className="mt-6 text-sm text-slate-muted" aria-live="polite">
+            <p className="mt-6 text-sm text-subtle" aria-live="polite">
               Showing {filtered.length} of {projects.length} projects
             </p>
 
@@ -178,7 +178,7 @@ export default function StudentWork() {
               ))}
             </ul>
 
-            <p className="mt-10 max-w-2xl text-xs/relaxed text-slate-muted">
+            <p className="mt-10 max-w-2xl text-xs/relaxed text-subtle">
               Work is published with the artist’s permission. Shots covered by a client NDA are not shown.
             </p>
           </div>

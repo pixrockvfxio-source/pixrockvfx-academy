@@ -28,8 +28,8 @@ export class ErrorBoundary extends Component<Props, State> {
     return (
       <div className="flex min-h-[70vh] flex-col items-center justify-center gap-6 px-6 text-center">
         <div>
-          <h1 className="text-title text-chalk">Something broke in the render</h1>
-          <p className="mt-3 max-w-md text-mist">
+          <h1 className="text-title text-ink">Something broke in the render</h1>
+          <p className="mt-3 max-w-md text-body">
             An unexpected error stopped this section from loading. Reloading usually clears it.
           </p>
         </div>

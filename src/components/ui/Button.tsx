@@ -11,14 +11,17 @@ const base =
   'transition-[transform,background-color,border-color,box-shadow,color] duration-200 ease-out ' +
   'disabled:pointer-events-none disabled:opacity-50 active:translate-y-px whitespace-nowrap';
 
+/**
+ * Contrast is the constraint here, not taste. The bright brand orange carries
+ * only ~2.9:1 against white, so the solid button uses ember-600 (5.4:1 with
+ * white text) and the outline variant puts its label in ember-700 (7.4:1 on
+ * canvas). The bright tones stay for decoration.
+ */
 const variants: Record<ButtonVariant, string> = {
-  primary:
-    'bg-ember-500 text-ink-950 font-semibold shadow-soft hover:bg-ember-400 hover:shadow-glow',
-  secondary:
-    'bg-ink-800/80 text-chalk border border-ink-600 backdrop-blur-sm hover:bg-ink-700 hover:border-ink-500',
-  outline:
-    'border border-ember-500/45 text-ember-300 hover:border-ember-400 hover:bg-ember-500/10 hover:text-ember-100',
-  ghost: 'text-mist hover:text-chalk hover:bg-ink-800/70',
+  primary: 'bg-ember-600 text-white font-semibold shadow-soft hover:bg-ember-700 hover:shadow-glow',
+  secondary: 'bg-surface text-ink border border-line-strong shadow-soft hover:border-subtle hover:bg-raised',
+  outline: 'border border-ember-600/40 text-ember-700 hover:border-ember-600 hover:bg-ember-50',
+  ghost: 'text-body hover:text-ink hover:bg-raised',
 };
 
 const sizes: Record<ButtonSize, string> = {

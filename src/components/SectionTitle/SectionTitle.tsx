@@ -26,15 +26,15 @@ export function SectionTitle({
   return (
     <Reveal className={cn('max-w-2xl', align === 'center' && 'mx-auto text-center', className)}>
       {eyebrow ? (
-        <p className="mb-3 flex items-center gap-2.5 text-xs font-semibold tracking-[0.22em] text-ember-400 uppercase">
+        <p className="mb-3 flex items-center gap-2.5 text-xs font-semibold tracking-[0.22em] text-ember-600 uppercase">
           <span aria-hidden="true" className="h-px w-6 bg-ember-500/60" />
           {eyebrow}
         </p>
       ) : null}
-      <Heading id={id} className="text-display text-chalk">
+      <Heading id={id} className="text-display text-ink">
         {title}
       </Heading>
-      {description ? <div className="mt-4 text-base/relaxed text-mist sm:text-lg/relaxed">{description}</div> : null}
+      {description ? <div className="mt-4 text-base/relaxed text-body sm:text-lg/relaxed">{description}</div> : null}
     </Reveal>
   );
 }

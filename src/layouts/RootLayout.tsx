@@ -10,7 +10,7 @@ import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 /** Shared chrome for every page: navigation, main landmark, footer, utilities. */
 export function RootLayout() {
   return (
-    <div className="flex min-h-dvh flex-col bg-ink-950">
+    <div className="flex min-h-dvh flex-col bg-canvas">
       <ScrollToTop />
       <Navbar />
       <main id="main" className="flex-1">

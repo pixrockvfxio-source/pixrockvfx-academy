@@ -7,7 +7,7 @@ import { Reveal } from '@/components/ui/Reveal';
 
 export function CoursesPreview() {
   return (
-    <section className="section border-t border-ink-800/80" aria-labelledby="courses-heading">
+    <section className="section border-t border-line/80" aria-labelledby="courses-heading">
       <div className="container-page">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionTitle

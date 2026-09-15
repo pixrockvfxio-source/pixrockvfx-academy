@@ -3,12 +3,12 @@ import { AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/cn';
 
 const controlBase =
-  'w-full rounded-xl border bg-ink-900/70 px-4 py-3 text-[0.95rem] text-chalk placeholder:text-slate-muted/70 ' +
-  'transition-colors duration-200 outline-none focus:border-ember-500/70 focus:bg-ink-900 ' +
+  'w-full rounded-xl border bg-surface shadow-soft px-4 py-3 text-[0.95rem] text-ink placeholder:text-subtle/70 ' +
+  'transition-colors duration-200 outline-none focus:border-ember-500/70 focus:bg-surface ' +
   'disabled:cursor-not-allowed disabled:opacity-60';
 
 function stateClasses(invalid?: boolean) {
-  return invalid ? 'border-red-500/70' : 'border-ink-600 hover:border-ink-500';
+  return invalid ? 'border-red-500/70' : 'border-line-strong hover:border-line-strong';
 }
 
 type LabelProps = {
@@ -21,17 +21,17 @@ type LabelProps = {
 function FieldLabel({ htmlFor, label, required, hint }: LabelProps) {
   return (
     <span className="mb-2 flex items-baseline justify-between gap-3">
-      <label htmlFor={htmlFor} className="text-sm font-medium text-chalk">
+      <label htmlFor={htmlFor} className="text-sm font-medium text-ink">
         {label}
         {required ? (
-          <span className="ml-1 text-ember-400" aria-hidden="true">
+          <span className="ml-1 text-ember-600" aria-hidden="true">
             *
           </span>
         ) : (
-          <span className="ml-1.5 text-xs font-normal text-slate-muted">(optional)</span>
+          <span className="ml-1.5 text-xs font-normal text-subtle">(optional)</span>
         )}
       </label>
-      {hint ? <span className="text-xs text-slate-muted">{hint}</span> : null}
+      {hint ? <span className="text-xs text-subtle">{hint}</span> : null}
     </span>
   );
 }
@@ -149,7 +149,7 @@ type RadioGroupProps = {
 export function RadioGroup({ name, legend, value, options, onChange, className }: RadioGroupProps) {
   return (
     <fieldset className={cn('flex flex-col', className)}>
-      <legend className="mb-2 text-sm font-medium text-chalk">{legend}</legend>
+      <legend className="mb-2 text-sm font-medium text-ink">{legend}</legend>
       <div className="flex flex-wrap gap-2.5">
         {options.map((option) => {
           const id = `${name}-${option.value}`;
@@ -171,8 +171,8 @@ export function RadioGroup({ name, legend, value, options, onChange, className }
                   'inline-flex cursor-pointer items-center rounded-full border px-4 py-2 text-sm transition-colors',
                   'peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ember-400',
                   selected
-                    ? 'border-ember-500/60 bg-ember-500/12 text-ember-200'
-                    : 'border-ink-600 text-mist hover:border-ink-500 hover:text-chalk',
+                    ? 'border-ember-600/50 bg-ember-50 text-ember-700'
+                    : 'border-line-strong text-body hover:border-line-strong hover:text-ink',
                 )}
               >
                 {option.label}

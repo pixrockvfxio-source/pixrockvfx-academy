@@ -45,20 +45,20 @@ export default function Contact() {
         <div className="container-page grid gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Details */}
           <div className="lg:col-span-5">
-            <h2 id="contact-heading" className="text-title text-chalk">
+            <h2 id="contact-heading" className="text-title text-ink">
               Academy details
             </h2>
 
             <Reveal delay={0.06}>
               <ul className="mt-8 space-y-6">
                 <li className="flex gap-4">
-                  <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl border border-ink-600 bg-ink-850 text-ember-400">
+                  <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl border border-line-strong bg-raised text-ember-600">
                     <MapPin aria-hidden="true" className="size-5" />
                   </span>
                   <div>
-                    <h3 className="font-display text-sm font-semibold text-chalk">Campus</h3>
+                    <h3 className="font-display text-sm font-semibold text-ink">Campus</h3>
                     {address.length > 0 ? (
-                      <address className="mt-1.5 text-sm/relaxed text-mist not-italic">
+                      <address className="mt-1.5 text-sm/relaxed text-body not-italic">
                         {address.map((line) => (
                           <span key={line} className="block">
                             {line}
@@ -66,9 +66,9 @@ export default function Contact() {
                         ))}
                       </address>
                     ) : (
-                      <p className="mt-1.5 text-sm/relaxed text-mist">
+                      <p className="mt-1.5 text-sm/relaxed text-body">
                         {siteConfig.contact.city}
-                        <span className="mt-1 block text-slate-muted">
+                        <span className="mt-1 block text-subtle">
                           Full street address published once confirmed — send an enquiry and we will share directions.
                         </span>
                       </p>
@@ -77,48 +77,48 @@ export default function Contact() {
                 </li>
 
                 <li className="flex gap-4">
-                  <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl border border-ink-600 bg-ink-850 text-ember-400">
+                  <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl border border-line-strong bg-raised text-ember-600">
                     <Phone aria-hidden="true" className="size-5" />
                   </span>
                   <div>
-                    <h3 className="font-display text-sm font-semibold text-chalk">Phone</h3>
+                    <h3 className="font-display text-sm font-semibold text-ink">Phone</h3>
                     {tel ? (
-                      <a href={tel} className="mt-1.5 block text-sm text-mist transition-colors hover:text-ember-300">
+                      <a href={tel} className="mt-1.5 block text-sm text-body transition-colors hover:text-ember-700">
                         {siteConfig.contact.phone}
                       </a>
                     ) : (
-                      <p className="mt-1.5 text-sm text-slate-muted">Phone number coming soon.</p>
+                      <p className="mt-1.5 text-sm text-subtle">Phone number coming soon.</p>
                     )}
                   </div>
                 </li>
 
                 <li className="flex gap-4">
-                  <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl border border-ink-600 bg-ink-850 text-ember-400">
+                  <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl border border-line-strong bg-raised text-ember-600">
                     <Mail aria-hidden="true" className="size-5" />
                   </span>
                   <div className="min-w-0">
-                    <h3 className="font-display text-sm font-semibold text-chalk">Email</h3>
+                    <h3 className="font-display text-sm font-semibold text-ink">Email</h3>
                     {mail ? (
                       <a
                         href={mail}
-                        className="mt-1.5 block break-all text-sm text-mist transition-colors hover:text-ember-300"
+                        className="mt-1.5 block break-all text-sm text-body transition-colors hover:text-ember-700"
                       >
                         {siteConfig.contact.email}
                       </a>
                     ) : (
-                      <p className="mt-1.5 text-sm text-slate-muted">Email address coming soon.</p>
+                      <p className="mt-1.5 text-sm text-subtle">Email address coming soon.</p>
                     )}
                   </div>
                 </li>
 
                 <li className="flex gap-4">
-                  <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl border border-ink-600 bg-ink-850 text-ember-400">
+                  <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-xl border border-line-strong bg-raised text-ember-600">
                     <Clock aria-hidden="true" className="size-5" />
                   </span>
                   <div>
-                    <h3 className="font-display text-sm font-semibold text-chalk">Batches &amp; office hours</h3>
-                    <p className="mt-1.5 text-sm text-mist">{siteConfig.contact.batchTimings}</p>
-                    <p className="mt-1 text-sm text-slate-muted">{siteConfig.contact.officeHours}</p>
+                    <h3 className="font-display text-sm font-semibold text-ink">Batches &amp; office hours</h3>
+                    <p className="mt-1.5 text-sm text-body">{siteConfig.contact.batchTimings}</p>
+                    <p className="mt-1 text-sm text-subtle">{siteConfig.contact.officeHours}</p>
                   </div>
                 </li>
               </ul>
@@ -131,15 +131,16 @@ export default function Contact() {
                   </Button>
                 </div>
               ) : (
-                <p className="mt-9 rounded-card border border-ink-700 bg-ink-900/60 px-5 py-4 text-xs/relaxed text-slate-muted">
-                  WhatsApp will be enabled here as soon as the academy number is confirmed. Set{' '}
-                  <code className="text-mist">VITE_WHATSAPP_NUMBER</code> to activate it.
+                /* Visitor copy only. Set VITE_WHATSAPP_NUMBER to enable the button. */
+                <p className="mt-9 rounded-card border border-line bg-surface px-5 py-4 text-sm/relaxed text-subtle shadow-soft">
+                  WhatsApp will be available here once the academy number is confirmed. In the meantime, send an
+                  enquiry and a counsellor will get back to you.
                 </p>
               )}
 
               {activeSocials.length > 0 ? (
                 <div className="mt-9">
-                  <h3 className="font-display text-sm font-semibold text-chalk">Follow the work</h3>
+                  <h3 className="font-display text-sm font-semibold text-ink">Follow the work</h3>
                   <ul className="mt-4 flex flex-wrap gap-2.5">
                     {activeSocials.map((social) => {
                       const Icon = socialIcons[social.icon] ?? Instagram;
@@ -150,7 +151,7 @@ export default function Contact() {
                             target="_blank"
                             rel="noreferrer noopener"
                             aria-label={`${siteConfig.shortName} on ${social.label}`}
-                            className="inline-flex size-11 items-center justify-center rounded-full border border-ink-700 text-mist transition-colors hover:border-ember-500/50 hover:bg-ember-500/10 hover:text-ember-300"
+                            className="inline-flex size-11 items-center justify-center rounded-full border border-line text-body transition-colors hover:border-ember-500/50 hover:bg-ember-500/10 hover:text-ember-700"
                           >
                             <Icon aria-hidden="true" className="size-4" />
                           </a>
@@ -173,15 +174,15 @@ export default function Contact() {
       </section>
 
       {/* Map */}
-      <section className="section border-t border-ink-800/80 pt-0" aria-labelledby="map-heading">
+      <section className="section border-t border-line/80 pt-0" aria-labelledby="map-heading">
         <div className="container-page pt-14">
-          <h2 id="map-heading" className="text-title text-chalk">
+          <h2 id="map-heading" className="text-title text-ink">
             Find the campus
           </h2>
 
           <Reveal delay={0.06} className="mt-7">
             {siteConfig.contact.mapEmbedUrl ? (
-              <div className="overflow-hidden rounded-panel border border-ink-700">
+              <div className="overflow-hidden rounded-panel border border-line">
                 <iframe
                   src={siteConfig.contact.mapEmbedUrl}
                   title={`Map showing the location of ${siteConfig.name}`}
@@ -192,15 +193,16 @@ export default function Contact() {
                 />
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center gap-4 rounded-panel border border-dashed border-ink-600 bg-ink-900/40 px-6 py-20 text-center">
-                <span className="inline-flex size-12 items-center justify-center rounded-full bg-ink-800 text-slate-muted">
+              <div className="flex flex-col items-center justify-center gap-4 rounded-panel border border-dashed border-line-strong bg-raised px-6 py-20 text-center">
+                <span className="inline-flex size-12 items-center justify-center rounded-full bg-raised text-subtle">
                   <MapPin aria-hidden="true" className="size-5" />
                 </span>
                 <div>
-                  <p className="font-display text-lg font-semibold text-chalk">Map coming soon</p>
-                  <p className="mx-auto mt-1.5 max-w-md text-sm text-mist">
-                    Once the campus address is confirmed, paste the Google Maps embed URL into{' '}
-                    <code className="text-slate-muted">VITE_MAP_EMBED_URL</code> and the map will appear here.
+                  <p className="font-display text-lg font-semibold text-ink">Map coming soon</p>
+                  {/* To publish the map, set VITE_MAP_EMBED_URL — see .env.example. */}
+                  <p className="mx-auto mt-1.5 max-w-md text-sm text-body">
+                    We will publish directions and a map here once the campus address is confirmed. Send an enquiry
+                    and we will share directions with you directly.
                   </p>
                 </div>
               </div>

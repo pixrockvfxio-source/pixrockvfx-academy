@@ -15,7 +15,7 @@ export function TestimonialsSection() {
   if (testimonials.length === 0) return null;
 
   return (
-    <section className="section border-t border-ink-800/80 bg-ink-900/40" aria-labelledby="testimonials-heading">
+    <section className="section border-t border-line/80 bg-raised" aria-labelledby="testimonials-heading">
       <div className="container-page">
         <SectionTitle
           id="testimonials-heading"

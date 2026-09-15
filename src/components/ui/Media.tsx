@@ -26,7 +26,7 @@ export function Media({ media, className, aspect = 'aspect-video', priority = fa
   const showImage = Boolean(media.src) && !failed;
 
   return (
-    <div className={cn('relative overflow-hidden bg-ink-850', aspect, className)}>
+    <div className={cn('relative overflow-hidden bg-raised', aspect, className)}>
       {showImage ? (
         <picture>
           {media.srcModern ? <source srcSet={media.srcModern} type="image/avif" /> : null}

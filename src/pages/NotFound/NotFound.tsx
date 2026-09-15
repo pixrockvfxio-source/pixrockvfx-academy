@@ -26,8 +26,8 @@ export default function NotFound() {
             404
           </p>
 
-          <h1 className="mt-4 text-display text-chalk">Lost in the render?</h1>
-          <p className="mx-auto mt-5 max-w-lg text-base/relaxed text-mist sm:text-lg/relaxed">
+          <h1 className="mt-4 text-display text-ink">Lost in the render?</h1>
+          <p className="mx-auto mt-5 max-w-lg text-base/relaxed text-body sm:text-lg/relaxed">
             This frame did not resolve. The page you were looking for has either moved, been renamed, or never
             existed in this version of the comp.
           </p>
@@ -44,13 +44,13 @@ export default function NotFound() {
           </div>
 
           <nav aria-label="Site sections" className="mt-14">
-            <p className="text-xs tracking-[0.2em] text-slate-muted uppercase">Or try one of these</p>
+            <p className="text-xs tracking-[0.2em] text-subtle uppercase">Or try one of these</p>
             <ul className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-3">
               {navItems.map((item) => (
                 <li key={item.to}>
                   <Link
                     to={item.to}
-                    className="text-sm text-mist underline-offset-4 transition-colors hover:text-ember-300 hover:underline"
+                    className="text-sm text-body underline-offset-4 transition-colors hover:text-ember-700 hover:underline"
                   >
                     {item.label}
                   </Link>

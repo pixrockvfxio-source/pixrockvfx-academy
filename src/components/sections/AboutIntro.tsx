@@ -22,7 +22,7 @@ const pillars = [
 
 export function AboutIntro() {
   return (
-    <section className="section border-t border-ink-800/80" aria-labelledby="about-intro-heading">
+    <section className="section border-t border-line/80" aria-labelledby="about-intro-heading">
       <div className="container-page grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Layered visual */}
         <Reveal className="relative order-last lg:order-first">
@@ -31,14 +31,14 @@ export function AboutIntro() {
               media={media.aboutStudio}
               aspect="aspect-[4/3]"
               sizes="(min-width: 1024px) 45vw, 92vw"
-              className="rounded-panel border border-ink-700 shadow-lift"
+              className="rounded-panel border border-line shadow-lift"
             />
             <div className="absolute -right-4 -bottom-8 w-40 sm:-right-8 sm:w-52">
               <Media
                 media={media.aboutCraft}
                 aspect="aspect-square"
                 sizes="200px"
-                className="rounded-card border border-ink-600 shadow-lift"
+                className="rounded-card border border-line-strong shadow-lift"
               />
             </div>
             <div
@@ -80,8 +80,8 @@ We are a <span className="text-grade">studio first</span>
                     aria-hidden="true"
                     className="mt-2 size-1.5 shrink-0 rounded-full bg-ember-500 ring-4 ring-ember-500/15"
                   />
-                  <p className="text-sm/relaxed text-mist">
-                    <span className="font-semibold text-chalk">{pillar.label}.</span> {pillar.detail}
+                  <p className="text-sm/relaxed text-body">
+                    <span className="font-semibold text-ink">{pillar.label}.</span> {pillar.detail}
                   </p>
                 </li>
               ))}

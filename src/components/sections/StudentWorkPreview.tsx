@@ -19,7 +19,7 @@ export function StudentWorkPreview() {
   if (projects.length === 0) return null;
 
   return (
-    <section className="section border-t border-ink-800/80" aria-labelledby="work-heading">
+    <section className="section border-t border-line/80" aria-labelledby="work-heading">
       <div className="container-page">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionTitle

@@ -3,10 +3,12 @@ import { SectionTitle } from '@/components/SectionTitle/SectionTitle';
 import { Reveal } from '@/components/ui/Reveal';
 import { cn } from '@/lib/cn';
 
-const statusStyles: Record<string, string> = {
-  core: 'border-ember-500/35 text-ember-300',
-  elective: 'border-signal-500/35 text-signal-300',
-  exposure: 'border-ink-600 text-slate-muted',
+import type { Tool } from '@/types/content';
+
+const statusStyles: Record<Tool['status'], string> = {
+  core: 'border-ember-600/30 bg-ember-50 text-ember-700',
+  supporting: 'border-signal-500/30 bg-signal-50 text-signal-600',
+  onHold: 'border-line-strong bg-raised text-subtle',
 };
 
 export function SoftwareTools() {
@@ -27,11 +29,11 @@ export function SoftwareTools() {
         <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {tools.map((tool, index) => (
             <Reveal as="li" key={tool.name} index={index % 3}>
-              <div className="flex h-full flex-col rounded-card border border-ink-700 bg-ink-900/60 p-5 transition-colors duration-300 hover:border-ink-600 hover:bg-ink-850">
+              <div className="flex h-full flex-col rounded-card border border-line bg-surface shadow-soft p-5 transition-colors duration-300 hover:border-line-strong hover:shadow-lift">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <h3 className="font-display text-base font-semibold text-chalk">{tool.name}</h3>
-                    <p className="mt-0.5 text-xs tracking-wide text-slate-muted uppercase">{tool.discipline}</p>
+                    <h3 className="font-display text-base font-semibold text-ink">{tool.name}</h3>
+                    <p className="mt-0.5 text-xs tracking-wide text-subtle uppercase">{tool.discipline}</p>
                   </div>
                   <span
                     className={cn(
@@ -42,14 +44,14 @@ export function SoftwareTools() {
                     {toolStatusLabels[tool.status]}
                   </span>
                 </div>
-                <p className="mt-3 text-sm/relaxed text-mist">{tool.note}</p>
+                <p className="mt-3 text-sm/relaxed text-body">{tool.note}</p>
               </div>
             </Reveal>
           ))}
         </ul>
 
         <Reveal delay={0.1}>
-          <p className="mt-8 max-w-2xl text-xs/relaxed text-slate-muted">
+          <p className="mt-8 max-w-2xl text-xs/relaxed text-subtle">
             Tool availability is confirmed for your batch at admission. We list software as taught hands-on only where
             the programme genuinely provides teaching time for it.
           </p>

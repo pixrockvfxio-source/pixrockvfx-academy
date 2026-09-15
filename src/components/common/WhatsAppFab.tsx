@@ -14,9 +14,9 @@ export function WhatsAppFab() {
       href={href}
       target="_blank"
       rel="noreferrer noopener"
-      className="group fixed right-4 bottom-4 z-40 inline-flex items-center gap-2.5 rounded-full border border-signal-500/40 bg-ink-900/90 py-3 pr-4 pl-3 text-sm font-medium text-chalk shadow-lift backdrop-blur-md transition-all duration-200 hover:border-signal-400 hover:bg-ink-850 sm:right-6 sm:bottom-6"
+      className="group fixed right-4 bottom-4 z-40 inline-flex items-center gap-2.5 rounded-full border border-signal-500/40 bg-surface/95 py-3 pr-4 pl-3 text-sm font-medium text-ink shadow-lift backdrop-blur-md transition-all duration-200 hover:border-signal-400 hover:shadow-lift sm:right-6 sm:bottom-6"
     >
-      <span className="inline-flex size-8 items-center justify-center rounded-full bg-signal-500/15 text-signal-300">
+      <span className="inline-flex size-8 items-center justify-center rounded-full bg-signal-50 text-signal-600">
         <MessageCircle aria-hidden="true" className="size-4" />
       </span>
       <span className="hidden sm:inline">Chat with us</span>

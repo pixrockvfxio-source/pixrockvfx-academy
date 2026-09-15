@@ -76,12 +76,12 @@ export default function Careers() {
         <div className="container-page">
           <Reveal className="rounded-panel border border-ember-500/30 bg-ember-500/5 p-6 sm:p-9">
             <div className="flex gap-4">
-              <Info aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-ember-400" />
+              <Info aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-ember-600" />
               <div>
-                <h2 id="founding-heading" className="font-display text-lg font-semibold text-chalk">
+                <h2 id="founding-heading" className="font-display text-lg font-semibold text-ink">
                   On our first batch
                 </h2>
-                <p className="mt-3 max-w-3xl text-base/relaxed text-mist">{placementAssistance.foundingBatch}</p>
+                <p className="mt-3 max-w-3xl text-base/relaxed text-body">{placementAssistance.foundingBatch}</p>
               </div>
             </div>
           </Reveal>
@@ -92,17 +92,17 @@ export default function Careers() {
       <section className="section pt-0" aria-labelledby="assistance-heading">
         <div className="container-page grid gap-10 lg:grid-cols-2 lg:gap-14">
           <Reveal>
-            <h2 id="assistance-heading" className="text-title text-chalk">
+            <h2 id="assistance-heading" className="text-title text-ink">
               What placement assistance includes
             </h2>
-            <p className="mt-4 text-base/relaxed text-mist">{placementAssistance.statement}</p>
+            <p className="mt-4 text-base/relaxed text-body">{placementAssistance.statement}</p>
             <ul className="mt-7 space-y-3.5">
               {placementAssistance.includes.map((item) => (
                 <li
                   key={item}
-                  className="flex gap-3.5 rounded-card border border-ink-700 bg-ink-900/60 px-5 py-4 text-sm/relaxed text-mist"
+                  className="flex gap-3.5 rounded-card border border-line bg-surface shadow-soft px-5 py-4 text-sm/relaxed text-body"
                 >
-                  <Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-signal-400" />
+                  <Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-signal-500" />
                   {item}
                 </li>
               ))}
@@ -110,8 +110,8 @@ export default function Careers() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <h2 className="text-title text-chalk">Eligibility</h2>
-            <p className="mt-4 text-base/relaxed text-mist">
+            <h2 className="text-title text-ink">Eligibility</h2>
+            <p className="mt-4 text-base/relaxed text-body">
               Assistance is earned, not automatic. These conditions appear in the enrollment agreement you sign, and
               we apply them consistently.
             </p>
@@ -119,7 +119,7 @@ export default function Careers() {
               {placementAssistance.eligibility.map((item) => (
                 <li
                   key={item}
-                  className="flex gap-3.5 rounded-card border border-ink-700 bg-ink-900/60 px-5 py-4 text-sm/relaxed text-chalk"
+                  className="flex gap-3.5 rounded-card border border-line bg-surface shadow-soft px-5 py-4 text-sm/relaxed text-ink"
                 >
                   <span
                     aria-hidden="true"
@@ -129,13 +129,13 @@ export default function Careers() {
                 </li>
               ))}
             </ul>
-            <p className="mt-5 text-xs/relaxed text-slate-muted">{placementAssistance.eligibilityNote}</p>
+            <p className="mt-5 text-xs/relaxed text-subtle">{placementAssistance.eligibilityNote}</p>
           </Reveal>
         </div>
       </section>
 
       {/* Journey */}
-      <section className="section border-y border-ink-800/80 bg-ink-900/40" aria-labelledby="path-heading">
+      <section className="section border-y border-line/80 bg-raised" aria-labelledby="path-heading">
         <div className="container-page">
           <SectionTitle
             id="path-heading"
@@ -151,12 +151,12 @@ export default function Careers() {
           <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {learningJourney.map((stage, index) => (
               <Reveal as="li" key={stage.step} index={index % 3}>
-                <div className="h-full rounded-card border border-ink-700 bg-ink-950/60 p-6">
-                  <span className="inline-flex size-11 items-center justify-center rounded-full border border-ink-600 bg-ink-950 font-display text-sm font-bold text-ember-400">
+                <div className="h-full rounded-card border border-line bg-raised p-6">
+                  <span className="inline-flex size-11 items-center justify-center rounded-full border border-line-strong bg-canvas font-display text-sm font-bold text-ember-600">
                     {stage.step}
                   </span>
-                  <h3 className="mt-4 font-display text-lg font-semibold text-chalk">{stage.title}</h3>
-                  <p className="mt-2 text-sm/relaxed text-mist">{stage.description}</p>
+                  <h3 className="mt-4 font-display text-lg font-semibold text-ink">{stage.title}</h3>
+                  <p className="mt-2 text-sm/relaxed text-body">{stage.description}</p>
                 </div>
               </Reveal>
             ))}
@@ -174,35 +174,35 @@ export default function Careers() {
             description="Each course is built around a role studios actually staff. These are the positions the training prepares you to apply for."
           />
 
-          <div className="mt-12 overflow-x-auto rounded-panel border border-ink-700">
+          <div className="mt-12 overflow-x-auto rounded-panel border border-line">
             <table className="w-full min-w-[36rem] border-collapse text-left text-sm">
               <caption className="sr-only">Courses and the roles they prepare you for</caption>
               <thead>
-                <tr className="bg-ink-850">
-                  <th scope="col" className="px-5 py-4 font-display text-sm font-semibold text-chalk">
+                <tr className="bg-raised">
+                  <th scope="col" className="px-5 py-4 font-display text-sm font-semibold text-ink">
                     Course
                   </th>
-                  <th scope="col" className="px-5 py-4 font-display text-sm font-semibold text-chalk">
+                  <th scope="col" className="px-5 py-4 font-display text-sm font-semibold text-ink">
                     Roles it targets
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {roleMap.map((row) => (
-                  <tr key={row.slug} className="border-t border-ink-800 transition-colors hover:bg-ink-900/70">
-                    <th scope="row" className="px-5 py-4 align-top font-medium text-chalk">
+                  <tr key={row.slug} className="border-t border-line transition-colors hover:bg-surface shadow-soft">
+                    <th scope="row" className="px-5 py-4 align-top font-medium text-ink">
                       <Button to={`/courses/${row.slug}`} variant="ghost" size="sm" className="-ml-3">
                         {row.title}
                       </Button>
                     </th>
-                    <td className="px-5 py-4 align-top text-mist">{row.roles.join(' · ')}</td>
+                    <td className="px-5 py-4 align-top text-body">{row.roles.join(' · ')}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
 
-          <p className="mt-6 max-w-2xl text-xs/relaxed text-slate-muted">
+          <p className="mt-6 max-w-2xl text-xs/relaxed text-subtle">
             These are target roles, not offers. Hiring depends on your portfolio, the studio and the market at the
             time you apply.
           </p>
@@ -210,7 +210,7 @@ export default function Careers() {
       </section>
 
       {/* FAQ */}
-      <section className="section border-t border-ink-800/80" aria-labelledby="career-faq-heading">
+      <section className="section border-t border-line/80" aria-labelledby="career-faq-heading">
         <div className="container-page max-w-3xl">
           <SectionTitle id="career-faq-heading" eyebrow="Honest answers" title="Questions families actually ask" />
           <Reveal delay={0.08} className="mt-9">

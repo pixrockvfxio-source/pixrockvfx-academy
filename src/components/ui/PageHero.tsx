@@ -22,7 +22,7 @@ type Props = {
  */
 export function PageHero({ eyebrow, title, description, crumbs, actions, children, className }: Props) {
   return (
-    <section className={cn('relative isolate overflow-hidden border-b border-ink-800', className)}>
+    <section className={cn('relative isolate overflow-hidden border-b border-line', className)}>
       <div aria-hidden="true" className="absolute inset-0 -z-10">
         <div className="grid-lines absolute inset-0 opacity-25 mask-fade-b" />
         <div className="absolute -top-32 left-1/4 size-[28rem] rounded-full bg-ember-600/12 blur-[120px]" />
@@ -32,15 +32,15 @@ export function PageHero({ eyebrow, title, description, crumbs, actions, childre
       <div className="container-page pt-32 pb-14 lg:pt-40 lg:pb-20">
         {crumbs && crumbs.length > 0 ? (
           <nav aria-label="Breadcrumb" className="mb-7">
-            <ol className="flex flex-wrap items-center gap-1.5 text-xs text-slate-muted">
+            <ol className="flex flex-wrap items-center gap-1.5 text-xs text-subtle">
               {crumbs.map((crumb, index) => (
                 <li key={`${crumb.label}-${index}`} className="flex items-center gap-1.5">
                   {crumb.to ? (
-                    <Link to={crumb.to} className="transition-colors hover:text-ember-300">
+                    <Link to={crumb.to} className="transition-colors hover:text-ember-700">
                       {crumb.label}
                     </Link>
                   ) : (
-                    <span aria-current="page" className="text-mist">
+                    <span aria-current="page" className="text-body">
                       {crumb.label}
                     </span>
                   )}
@@ -55,11 +55,11 @@ export function PageHero({ eyebrow, title, description, crumbs, actions, childre
 
         <Reveal className="max-w-3xl">
           {eyebrow ? (
-            <p className="mb-4 text-xs font-semibold tracking-[0.24em] text-ember-400 uppercase">{eyebrow}</p>
+            <p className="mb-4 text-xs font-semibold tracking-[0.24em] text-ember-600 uppercase">{eyebrow}</p>
           ) : null}
-          <h1 className="text-display text-chalk">{title}</h1>
+          <h1 className="text-display text-ink">{title}</h1>
           {description ? (
-            <div className="mt-5 text-base/relaxed text-mist sm:text-lg/relaxed">{description}</div>
+            <div className="mt-5 text-base/relaxed text-body sm:text-lg/relaxed">{description}</div>
           ) : null}
           {actions ? <div className="mt-8 flex flex-wrap gap-3">{actions}</div> : null}
         </Reveal>

@@ -29,7 +29,7 @@ export function Footer() {
   const activeSocials = siteConfig.socials.filter((social) => social.href);
 
   return (
-    <footer className="relative mt-auto border-t border-ink-800 bg-ink-950">
+    <footer className="relative mt-auto border-t border-line bg-canvas">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-ember-500/50 to-transparent"
@@ -40,7 +40,7 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-4">
             <Logo />
-            <p className="mt-5 max-w-sm text-sm/relaxed text-mist">
+            <p className="mt-5 max-w-sm text-sm/relaxed text-body">
               The training arm of PixRock — a TPN Gold+ certified VFX studio in Salem. You train on the
               studio&rsquo;s own pipeline, taught by artists on live production.
             </p>
@@ -56,7 +56,7 @@ export function Footer() {
                         target="_blank"
                         rel="noreferrer noopener"
                         aria-label={`${siteConfig.shortName} on ${social.label}`}
-                        className="inline-flex size-10 items-center justify-center rounded-full border border-ink-700 text-mist transition-colors hover:border-ember-500/50 hover:bg-ember-500/10 hover:text-ember-300"
+                        className="inline-flex size-10 items-center justify-center rounded-full border border-line text-body transition-colors hover:border-ember-500/50 hover:bg-ember-500/10 hover:text-ember-700"
                       >
                         <Icon aria-hidden="true" className="size-4" />
                       </a>
@@ -65,7 +65,7 @@ export function Footer() {
                 })}
               </ul>
             ) : (
-              <p className="mt-6 text-xs text-slate-muted">
+              <p className="mt-6 text-xs text-subtle">
                 Social profiles will be listed here once they are confirmed.
               </p>
             )}
@@ -73,11 +73,11 @@ export function Footer() {
 
           {/* Quick links */}
           <nav aria-label="Footer" className="lg:col-span-2">
-            <h2 className="text-sm font-semibold tracking-wide text-chalk">Quick links</h2>
+            <h2 className="text-sm font-semibold tracking-wide text-ink">Quick links</h2>
             <ul className="mt-4 space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.to}>
-                  <Link to={link.to} className="text-sm text-mist transition-colors hover:text-ember-300">
+                  <Link to={link.to} className="text-sm text-body transition-colors hover:text-ember-700">
                     {link.label}
                   </Link>
                 </li>
@@ -87,13 +87,13 @@ export function Footer() {
 
           {/* Courses */}
           <div className="lg:col-span-3">
-            <h2 className="text-sm font-semibold tracking-wide text-chalk">Courses</h2>
+            <h2 className="text-sm font-semibold tracking-wide text-ink">Courses</h2>
             <ul className="mt-4 space-y-2.5">
               {publishedCourses.map((course) => (
                 <li key={course.slug}>
                   <Link
                     to={`/courses/${course.slug}`}
-                    className="text-sm text-mist transition-colors hover:text-ember-300"
+                    className="text-sm text-body transition-colors hover:text-ember-700"
                   >
                     {course.shortTitle}
                   </Link>
@@ -104,10 +104,10 @@ export function Footer() {
 
           {/* Contact */}
           <div className="lg:col-span-3">
-            <h2 className="text-sm font-semibold tracking-wide text-chalk">Get in touch</h2>
-            <ul className="mt-4 space-y-3.5 text-sm text-mist">
+            <h2 className="text-sm font-semibold tracking-wide text-ink">Get in touch</h2>
+            <ul className="mt-4 space-y-3.5 text-sm text-body">
               <li className="flex gap-3">
-                <MapPin aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-ember-400" />
+                <MapPin aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-ember-600" />
                 {address.length > 0 ? (
                   <address className="not-italic">
                     {address.map((line) => (
@@ -117,59 +117,59 @@ export function Footer() {
                     ))}
                   </address>
                 ) : (
-                  <span className="text-slate-muted">Campus address to be announced.</span>
+                  <span className="text-subtle">Campus address to be announced.</span>
                 )}
               </li>
               <li className="flex gap-3">
-                <Phone aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-ember-400" />
+                <Phone aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-ember-600" />
                 {tel ? (
-                  <a href={tel} className="transition-colors hover:text-ember-300">
+                  <a href={tel} className="transition-colors hover:text-ember-700">
                     {siteConfig.contact.phone}
                   </a>
                 ) : (
-                  <span className="text-slate-muted">Phone number coming soon.</span>
+                  <span className="text-subtle">Phone number coming soon.</span>
                 )}
               </li>
               <li className="flex gap-3">
-                <Mail aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-ember-400" />
+                <Mail aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-ember-600" />
                 {mail ? (
-                  <a href={mail} className="break-all transition-colors hover:text-ember-300">
+                  <a href={mail} className="break-all transition-colors hover:text-ember-700">
                     {siteConfig.contact.email}
                   </a>
                 ) : (
-                  <span className="text-slate-muted">Email address coming soon.</span>
+                  <span className="text-subtle">Email address coming soon.</span>
                 )}
               </li>
               {whatsapp ? (
                 <li className="flex gap-3">
-                  <MessageCircle aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-ember-400" />
+                  <MessageCircle aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-ember-600" />
                   <a
                     href={whatsapp}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="transition-colors hover:text-ember-300"
+                    className="transition-colors hover:text-ember-700"
                   >
                     Chat with us on WhatsApp
                   </a>
                 </li>
               ) : null}
             </ul>
-            <p className="mt-4 text-xs text-slate-muted">{siteConfig.contact.officeHours}</p>
+            <p className="mt-4 text-xs text-subtle">{siteConfig.contact.officeHours}</p>
           </div>
         </div>
 
         <div className="hairline mt-12 flex flex-col gap-4 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-slate-muted">
+          <p className="text-xs text-subtle">
             © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-slate-muted">
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-subtle">
             <li>
-              <Link to="/privacy-policy" className="transition-colors hover:text-mist">
+              <Link to="/privacy-policy" className="transition-colors hover:text-body">
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link to="/terms" className="transition-colors hover:text-mist">
+              <Link to="/terms" className="transition-colors hover:text-body">
                 Terms &amp; Conditions
               </Link>
             </li>

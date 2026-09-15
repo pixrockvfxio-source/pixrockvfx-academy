@@ -77,7 +77,7 @@ export function TestimonialSlider({ testimonials }: Props) {
           onClick={() => scrollByCard(-1)}
           disabled={atStart}
           aria-label="Previous testimonials"
-          className="inline-flex size-11 items-center justify-center rounded-full border border-ink-600 text-chalk transition-colors hover:border-ember-500/50 hover:bg-ember-500/10 disabled:pointer-events-none disabled:opacity-35"
+          className="inline-flex size-11 items-center justify-center rounded-full border border-line-strong text-ink transition-colors hover:border-ember-500/50 hover:bg-ember-500/10 disabled:pointer-events-none disabled:opacity-35"
         >
           <ChevronLeft aria-hidden="true" className="size-5" />
         </button>
@@ -86,11 +86,11 @@ export function TestimonialSlider({ testimonials }: Props) {
           onClick={() => scrollByCard(1)}
           disabled={atEnd}
           aria-label="Next testimonials"
-          className="inline-flex size-11 items-center justify-center rounded-full border border-ink-600 text-chalk transition-colors hover:border-ember-500/50 hover:bg-ember-500/10 disabled:pointer-events-none disabled:opacity-35"
+          className="inline-flex size-11 items-center justify-center rounded-full border border-line-strong text-ink transition-colors hover:border-ember-500/50 hover:bg-ember-500/10 disabled:pointer-events-none disabled:opacity-35"
         >
           <ChevronRight aria-hidden="true" className="size-5" />
         </button>
-        <p className="ml-1 text-xs text-slate-muted">Scroll or swipe for more</p>
+        <p className="ml-1 text-xs text-subtle">Scroll or swipe for more</p>
       </div>
     </div>
   );

@@ -3,14 +3,21 @@ import { cn } from '@/lib/cn';
 
 type Props = {
   children: ReactNode;
-  tone?: 'neutral' | 'ember' | 'signal';
+  tone?: 'neutral' | 'ember' | 'signal' | 'onMedia';
   className?: string;
 };
 
+/**
+ * Badges appear in two very different places: on paper, and on top of dark
+ * artwork. A single palette cannot serve both — tinted text that reads well on
+ * white disappears over an image, and vice versa. `onMedia` is the variant for
+ * anything sitting over a picture.
+ */
 const tones = {
-  neutral: 'border-ink-600 bg-ink-800/70 text-mist',
-  ember: 'border-ember-500/35 bg-ember-500/10 text-ember-300',
-  signal: 'border-signal-500/35 bg-signal-500/10 text-signal-300',
+  neutral: 'border-line bg-raised text-body',
+  ember: 'border-ember-600/25 bg-ember-50 text-ember-700',
+  signal: 'border-signal-500/25 bg-signal-50 text-signal-600',
+  onMedia: 'border-white/25 bg-black/45 text-white backdrop-blur-sm',
 };
 
 export function Badge({ children, tone = 'neutral', className }: Props) {

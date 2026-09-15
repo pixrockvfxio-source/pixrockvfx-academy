@@ -53,7 +53,7 @@ export default function About() {
         <div className="container-page grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-7">
             <SectionTitle id="story-heading" eyebrow="Our story" title="Why PixRock exists" />
-            <Reveal delay={0.08} className="mt-6 space-y-5 text-base/relaxed text-mist">
+            <Reveal delay={0.08} className="mt-6 space-y-5 text-base/relaxed text-body">
               {academyStory.story.map((paragraph) => (
                 <p key={paragraph.slice(0, 32)}>{paragraph}</p>
               ))}
@@ -65,33 +65,33 @@ export default function About() {
               media={media.aboutMentors}
               aspect="aspect-[4/5]"
               sizes="(min-width: 1024px) 38vw, 92vw"
-              className="rounded-panel border border-ink-700 shadow-lift"
+              className="rounded-panel border border-line shadow-lift"
             />
           </Reveal>
         </div>
       </section>
 
       {/* Vision & mission */}
-      <section className="section border-y border-ink-800/80 bg-ink-900/40" aria-labelledby="vision-heading">
+      <section className="section border-y border-line/80 bg-raised" aria-labelledby="vision-heading">
         <div className="container-page">
           <h2 id="vision-heading" className="sr-only">
             Our vision and mission
           </h2>
           <div className="grid gap-6 md:grid-cols-2">
-            <Reveal className="rounded-panel border border-ink-700 bg-ink-950/60 p-8 sm:p-10">
-              <span className="inline-flex size-12 items-center justify-center rounded-xl border border-ember-500/30 bg-ember-500/10 text-ember-400">
+            <Reveal className="rounded-panel border border-line bg-raised p-8 sm:p-10">
+              <span className="inline-flex size-12 items-center justify-center rounded-xl border border-ember-500/30 bg-ember-500/10 text-ember-600">
                 <Eye aria-hidden="true" className="size-5" />
               </span>
-              <h3 className="mt-6 font-display text-xl font-bold text-chalk">Our vision</h3>
-              <p className="mt-3 text-base/relaxed text-mist">{academyStory.vision}</p>
+              <h3 className="mt-6 font-display text-xl font-bold text-ink">Our vision</h3>
+              <p className="mt-3 text-base/relaxed text-body">{academyStory.vision}</p>
             </Reveal>
 
-            <Reveal index={1} className="rounded-panel border border-ink-700 bg-ink-950/60 p-8 sm:p-10">
-              <span className="inline-flex size-12 items-center justify-center rounded-xl border border-signal-500/30 bg-signal-500/10 text-signal-400">
+            <Reveal index={1} className="rounded-panel border border-line bg-raised p-8 sm:p-10">
+              <span className="inline-flex size-12 items-center justify-center rounded-xl border border-signal-500/30 bg-signal-500/10 text-signal-500">
                 <Target aria-hidden="true" className="size-5" />
               </span>
-              <h3 className="mt-6 font-display text-xl font-bold text-chalk">Our mission</h3>
-              <p className="mt-3 text-base/relaxed text-mist">{academyStory.mission}</p>
+              <h3 className="mt-6 font-display text-xl font-bold text-ink">Our mission</h3>
+              <p className="mt-3 text-base/relaxed text-body">{academyStory.mission}</p>
             </Reveal>
           </div>
         </div>
@@ -114,12 +114,12 @@ export default function About() {
           <ul className="mt-12 grid gap-6 md:grid-cols-3">
             {experience.map((item, index) => (
               <Reveal as="li" key={item.title} index={index}>
-                <div className="h-full rounded-card border border-ink-700 bg-ink-900/60 p-6">
-                  <span className="inline-flex size-10 items-center justify-center rounded-lg border border-ink-600 bg-ink-850 text-ember-400">
+                <div className="h-full rounded-card border border-line bg-surface shadow-soft p-6">
+                  <span className="inline-flex size-10 items-center justify-center rounded-lg border border-line-strong bg-raised text-ember-600">
                     <Film aria-hidden="true" className="size-4" />
                   </span>
-                  <h3 className="mt-5 font-display text-lg font-semibold text-chalk">{item.title}</h3>
-                  <p className="mt-2.5 text-sm/relaxed text-mist">{item.detail}</p>
+                  <h3 className="mt-5 font-display text-lg font-semibold text-ink">{item.title}</h3>
+                  <p className="mt-2.5 text-sm/relaxed text-body">{item.detail}</p>
                 </div>
               </Reveal>
             ))}
@@ -128,7 +128,7 @@ export default function About() {
       </section>
 
       {/* Training philosophy */}
-      <section className="section border-t border-ink-800/80" aria-labelledby="philosophy-heading">
+      <section className="section border-t border-line/80" aria-labelledby="philosophy-heading">
         <div className="container-page">
           <SectionTitle
             id="philosophy-heading"
@@ -136,14 +136,14 @@ export default function About() {
             title="Four rules we do not bend"
           />
 
-          <ol className="mt-12 grid gap-px overflow-hidden rounded-panel border border-ink-700 bg-ink-700 sm:grid-cols-2">
+          <ol className="mt-12 grid gap-px overflow-hidden rounded-panel border border-line bg-line sm:grid-cols-2">
             {academyStory.philosophy.map((rule, index) => (
-              <Reveal as="li" key={rule.title} index={index} className="bg-ink-900 p-7 sm:p-9">
-                <span className="font-display text-sm font-bold text-ember-500">
+              <Reveal as="li" key={rule.title} index={index} className="bg-surface p-7 sm:p-9">
+                <span className="font-display text-sm font-bold text-ember-700">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <h3 className="mt-3 font-display text-lg font-semibold text-chalk">{rule.title}</h3>
-                <p className="mt-2.5 text-sm/relaxed text-mist">{rule.description}</p>
+                <h3 className="mt-3 font-display text-lg font-semibold text-ink">{rule.title}</h3>
+                <p className="mt-2.5 text-sm/relaxed text-body">{rule.description}</p>
               </Reveal>
             ))}
           </ol>
@@ -151,7 +151,7 @@ export default function About() {
       </section>
 
       {/* Why students choose us */}
-      <section className="section border-t border-ink-800/80 bg-ink-900/40" aria-labelledby="choose-heading">
+      <section className="section border-t border-line/80 bg-raised" aria-labelledby="choose-heading">
         <div className="container-page">
           <SectionTitle
             id="choose-heading"
@@ -167,12 +167,12 @@ Four things a franchise <span className="text-grade">cannot offer</span>
           <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {differentiators.map((feature, index) => (
               <Reveal as="li" key={feature.title} index={index % 4}>
-                <div className="h-full rounded-card border border-ink-700 bg-ink-950/60 p-6">
-                  <span className="inline-flex size-10 items-center justify-center rounded-lg border border-ink-600 bg-ink-850 text-signal-400">
+                <div className="h-full rounded-card border border-line bg-raised p-6">
+                  <span className="inline-flex size-10 items-center justify-center rounded-lg border border-line-strong bg-raised text-signal-500">
                     <FeatureIcon name={feature.icon} className="size-4" />
                   </span>
-                  <h3 className="mt-5 font-display text-base font-semibold text-chalk">{feature.title}</h3>
-                  <p className="mt-2 text-sm/relaxed text-mist">{feature.description}</p>
+                  <h3 className="mt-5 font-display text-base font-semibold text-ink">{feature.title}</h3>
+                  <p className="mt-2 text-sm/relaxed text-body">{feature.description}</p>
                 </div>
               </Reveal>
             ))}

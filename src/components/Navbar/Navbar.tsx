@@ -58,13 +58,13 @@ export function Navbar() {
       className={cn(
         'fixed inset-x-0 top-0 z-50 transition-all duration-300',
         scrolled || open
-          ? 'border-b border-ink-700/80 bg-ink-950/85 backdrop-blur-xl'
+          ? 'border-b border-line bg-canvas/85 shadow-soft backdrop-blur-xl'
           : 'border-b border-transparent bg-transparent',
       )}
     >
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-ember-500 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-ink-950"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-ember-500 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
       >
         Skip to main content
       </a>
@@ -84,7 +84,7 @@ export function Navbar() {
                   className={({ isActive }) =>
                     cn(
                       'relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-200',
-                      isActive ? 'text-chalk' : 'text-mist hover:text-chalk',
+                      isActive ? 'text-ink' : 'text-body hover:text-ink',
                     )
                   }
                 >
@@ -117,7 +117,7 @@ export function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? 'Close menu' : 'Open menu'}
-            className="inline-flex size-11 items-center justify-center rounded-full border border-ink-600 bg-ink-850/80 text-chalk transition-colors hover:border-ink-500 hover:bg-ink-800 lg:hidden"
+            className="inline-flex size-11 items-center justify-center rounded-full border border-line-strong bg-raised/80 text-ink transition-colors hover:border-line-strong hover:shadow-lift lg:hidden"
           >
             {open ? <X aria-hidden="true" className="size-5" /> : <Menu aria-hidden="true" className="size-5" />}
           </button>
@@ -133,7 +133,7 @@ export function Navbar() {
             animate={reduceMotion ? {} : { height: 'auto', opacity: 1 }}
             exit={reduceMotion ? {} : { height: 0, opacity: 0 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-ink-800 bg-ink-950/95 lg:hidden"
+            className="overflow-hidden border-t border-line bg-surface shadow-lift lg:hidden"
           >
             <ul className="container-page flex flex-col gap-1 py-5">
               {navItems.map((item) => (
@@ -144,7 +144,7 @@ export function Navbar() {
                     className={({ isActive }) =>
                       cn(
                         'flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium transition-colors',
-                        isActive ? 'bg-ink-800 text-chalk' : 'text-mist hover:bg-ink-850 hover:text-chalk',
+                        isActive ? 'bg-raised text-ink' : 'text-body hover:shadow-lift hover:text-ink',
                       )
                     }
                   >

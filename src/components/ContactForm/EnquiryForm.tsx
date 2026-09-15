@@ -133,18 +133,21 @@ export function EnquiryForm({ defaultCourse, className, title = 'Enquire about a
         role="status"
         aria-live="polite"
       >
-        <span className="mx-auto inline-flex size-14 items-center justify-center rounded-full bg-signal-500/15 text-signal-300">
+        <span className="mx-auto inline-flex size-14 items-center justify-center rounded-full bg-signal-50 text-signal-600">
           <CheckCircle2 aria-hidden="true" className="size-7" />
         </span>
-        <h3 className="mt-5 text-title text-chalk">Enquiry received</h3>
-        <p className="mx-auto mt-3 max-w-md text-sm/relaxed text-mist sm:text-base/relaxed">
+        <h3 className="mt-5 text-title text-ink">Enquiry received</h3>
+        <p className="mx-auto mt-3 max-w-md text-sm/relaxed text-body sm:text-base/relaxed">
           Thank you, {values.name.trim().split(' ')[0] || 'and welcome'}. A counsellor will get back to you within one
           working day to talk through the programme, batch timings and next steps.
         </p>
+        {/* Only reachable when no endpoint is configured — local development, or
+            a deploy where VITE_ENQUIRY_ENDPOINT was not set. Worded for a
+            visitor rather than a developer, because that is who would see it. */}
         {!siteConfig.enquiryEndpoint ? (
-          <p className="mx-auto mt-5 max-w-md rounded-xl border border-ink-700 bg-ink-900/70 px-4 py-3 text-xs text-slate-muted">
-            Preview mode: no enquiry endpoint is configured yet, so this submission was validated locally and not
-            transmitted. Set <code className="text-mist">VITE_ENQUIRY_ENDPOINT</code> to connect it to your server.
+          <p className="mx-auto mt-5 max-w-md rounded-xl border border-line bg-surface px-4 py-3 text-xs text-subtle shadow-soft">
+            This is a preview of the enquiry form, so nothing was sent. Please contact the academy directly and we
+            will pick things up from there.
           </p>
         ) : null}
         <div className="mt-7 flex flex-wrap justify-center gap-3">
@@ -171,14 +174,14 @@ export function EnquiryForm({ defaultCourse, className, title = 'Enquire about a
     <form
       noValidate
       onSubmit={handleSubmit}
-      className={cn('relative rounded-panel border border-ink-700 bg-ink-900/60 p-6 sm:p-8', className)}
+      className={cn('relative rounded-panel border border-line bg-surface shadow-soft p-6 sm:p-8', className)}
       aria-labelledby={`${formId}-title`}
     >
-      <h2 id={`${formId}-title`} className="font-display text-xl font-bold text-chalk sm:text-2xl">
+      <h2 id={`${formId}-title`} className="font-display text-xl font-bold text-ink sm:text-2xl">
         {title}
       </h2>
-      <p className="mt-2 text-sm text-mist">
-        Fields marked <span className="text-ember-400">*</span> are required. We use these details only to respond to
+      <p className="mt-2 text-sm text-body">
+        Fields marked <span className="text-ember-600">*</span> are required. We use these details only to respond to
         your enquiry.
       </p>
 
@@ -287,18 +290,18 @@ export function EnquiryForm({ defaultCourse, className, title = 'Enquire about a
       </div>
 
       <div className="mt-6">
-        <label className="flex cursor-pointer items-start gap-3 text-sm text-mist">
+        <label className="flex cursor-pointer items-start gap-3 text-sm text-body">
           <input
             type="checkbox"
             checked={values.consent}
             onChange={(event) => update('consent', event.target.checked)}
             aria-invalid={errors.consent ? true : undefined}
             aria-describedby={errors.consent ? `${formId}-consent-error` : undefined}
-            className="mt-0.5 size-4 shrink-0 rounded border-ink-500 bg-ink-900 accent-ember-500"
+            className="mt-0.5 size-4 shrink-0 rounded border-line-strong bg-surface accent-ember-500"
           />
           <span>
             I agree to be contacted by {siteConfig.name} about this enquiry.
-            <span className="ml-1 text-ember-400" aria-hidden="true">
+            <span className="ml-1 text-ember-600" aria-hidden="true">
               *
             </span>
           </span>
@@ -345,7 +348,7 @@ export function EnquiryForm({ defaultCourse, className, title = 'Enquire about a
             </>
           )}
         </Button>
-        <p className="text-xs text-slate-muted">We reply within one working day.</p>
+        <p className="text-xs text-subtle">We reply within one working day.</p>
       </div>
       <p aria-live="polite" className="sr-only">
         {submitting ? 'Submitting your enquiry' : ''}

@@ -64,7 +64,7 @@ export default function Courses() {
             <div
               role="group"
               aria-label="Filter courses by tier"
-              className="flex flex-wrap gap-2.5 border-b border-ink-800 pb-6"
+              className="flex flex-wrap gap-2.5 border-b border-line pb-6"
             >
               {filters.map((option) => {
                 const active = track === option;
@@ -77,8 +77,8 @@ export default function Courses() {
                     className={cn(
                       'rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200',
                       active
-                        ? 'border-ember-500/60 bg-ember-500/12 text-ember-200'
-                        : 'border-ink-600 text-mist hover:border-ink-500 hover:text-chalk',
+                        ? 'border-ember-600/50 bg-ember-50 text-ember-700'
+                        : 'border-line-strong text-body hover:border-line-strong hover:text-ink',
                     )}
                   >
                     {option}
@@ -88,7 +88,7 @@ export default function Courses() {
             </div>
           </Reveal>
 
-          <p className="mt-6 text-sm text-slate-muted" aria-live="polite">
+          <p className="mt-6 text-sm text-subtle" aria-live="polite">
             Showing {filtered.length} of {publishedCourses.length} courses
           </p>
 
@@ -101,7 +101,7 @@ export default function Courses() {
       </section>
 
       {/* Admissions process */}
-      <section className="section border-t border-ink-800/80 bg-ink-900/40" aria-labelledby="admissions-heading">
+      <section className="section border-t border-line/80 bg-raised" aria-labelledby="admissions-heading">
         <div className="container-page">
           <SectionTitle
             id="admissions-heading"
@@ -113,10 +113,10 @@ export default function Courses() {
           <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {admissionSteps.map((step, index) => (
               <Reveal as="li" key={step.step} index={index}>
-                <div className="h-full rounded-card border border-ink-700 bg-ink-950/60 p-6">
-                  <span className="font-display text-sm font-bold text-ember-500">{step.step}</span>
-                  <h3 className="mt-3 font-display text-lg font-semibold text-chalk">{step.title}</h3>
-                  <p className="mt-2 text-sm/relaxed text-mist">{step.description}</p>
+                <div className="h-full rounded-card border border-line bg-raised p-6">
+                  <span className="font-display text-sm font-bold text-ember-700">{step.step}</span>
+                  <h3 className="mt-3 font-display text-lg font-semibold text-ink">{step.title}</h3>
+                  <p className="mt-2 text-sm/relaxed text-body">{step.description}</p>
                 </div>
               </Reveal>
             ))}

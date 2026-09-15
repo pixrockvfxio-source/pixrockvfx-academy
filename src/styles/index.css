@@ -1,72 +1,86 @@
 @import 'tailwindcss';
 
 /* ==========================================================================
-   PixRock VFX Academy — Design System
+   PixRock Academy — Design System
+
    Single source of truth for colour, type, spacing, radius and elevation.
-   Components must consume these tokens rather than declaring one-off values.
+   Components consume these tokens and never declare a one-off value.
+
+   Tokens are named by ROLE, not by appearance: `surface`, `line`, `ink`,
+   `body`. Restyling the site — including a future dark mode — is a matter of
+   redefining this block, not of editing components.
    ========================================================================== */
 
 @theme {
-  /* --- Colour: cinematic "orange & teal" grade on a deep neutral base ----- */
-  --color-ink-950: #07080b;
-  --color-ink-900: #0b0d12;
-  --color-ink-850: #0f1218;
-  --color-ink-800: #141821;
-  --color-ink-700: #1c212c;
-  --color-ink-600: #262c39;
-  --color-ink-500: #3a4252;
+  /* --- Neutrals ---------------------------------------------------------
+     A warm paper base rather than pure white. #FFFFFF under a full page of
+     text is glary and reads as "unfinished template"; a few points of warmth
+     makes the ink sit calmly and gives white cards something to lift off. */
+  --color-canvas: #faf9f7;   /* page background */
+  --color-surface: #ffffff;  /* cards, panels, inputs */
+  --color-raised: #f4f2ee;   /* alternating sections, chips */
+  --color-sunken: #ebe8e2;   /* wells, image placeholders */
 
-  --color-ember-50: #fff3ec;
-  --color-ember-100: #ffe0cd;
-  --color-ember-300: #ffab7a;
-  --color-ember-400: #ff8b4d;
-  --color-ember-500: #ff6a2b;
-  --color-ember-600: #ed4f0d;
-  --color-ember-700: #c33c07;
+  --color-line: #e6e2da;         /* hairlines, card borders */
+  --color-line-strong: #d3cec3;  /* inputs, emphasised edges */
 
-  --color-signal-300: #6ff0e3;
-  --color-signal-400: #2fdccb;
-  --color-signal-500: #14c3b2;
-  --color-signal-600: #0d9a8d;
+  --color-ink: #16181c;      /* headings, high-emphasis text */
+  --color-body: #474c54;     /* paragraphs — 8.1:1 on canvas */
+  --color-subtle: #61666e;   /* meta, captions — 5.6:1 on canvas, 5.2:1 on raised */
 
-  --color-chalk: #f6f7f9;
-  --color-mist: #b7bfcd;
-  --color-slate-muted: #8a93a5;
+  /* --- Ember (primary accent) -------------------------------------------
+     Deepened for light backgrounds. The bright orange used on the dark theme
+     carries only ~2.9:1 against white, so it is kept for decoration while
+     600/700 do the work wherever contrast is required. */
+  --color-ember-50: #fff6f1;
+  --color-ember-100: #ffe8da;
+  --color-ember-200: #ffd0b5;
+  --color-ember-300: #ff9e6b;
+  --color-ember-400: #ff7a3d;
+  --color-ember-500: #ef5a14;   /* decorative fills, hovers */
+  --color-ember-600: #c2400a;   /* buttons — 5.4:1 with white */
+  --color-ember-700: #9c3207;   /* links and eyebrows — 7.4:1 on canvas */
+
+  /* --- Signal (secondary accent) ---------------------------------------- */
+  --color-signal-50: #eaf8f6;
+  --color-signal-100: #cdeeea;
+  --color-signal-300: #5fcfc3;
+  --color-signal-400: #16a99b;
+  --color-signal-500: #0b8478;  /* 4.6:1 on canvas */
+  --color-signal-600: #0a6f66;
+  --color-signal-700: #075149;
 
   /* --- Typography -------------------------------------------------------- */
   --font-display: 'Sora', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  --text-hero: clamp(2.5rem, 1.4rem + 4.6vw, 5.25rem);
-  --text-hero--line-height: 1.02;
-  --text-hero--letter-spacing: -0.03em;
+  --text-hero: clamp(2.5rem, 1.4rem + 4.6vw, 5rem);
+  --text-hero--line-height: 1.04;
+  --text-hero--letter-spacing: -0.033em;
 
-  --text-display: clamp(2rem, 1.3rem + 2.9vw, 3.5rem);
-  --text-display--line-height: 1.08;
-  --text-display--letter-spacing: -0.025em;
+  --text-display: clamp(1.9rem, 1.25rem + 2.7vw, 3.25rem);
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.027em;
 
-  --text-title: clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem);
-  --text-title--line-height: 1.15;
+  --text-title: clamp(1.4rem, 1.15rem + 1.1vw, 2rem);
+  --text-title--line-height: 1.18;
   --text-title--letter-spacing: -0.02em;
 
   /* --- Radius ------------------------------------------------------------ */
-  --radius-card: 1.125rem;
-  --radius-panel: 1.75rem;
+  --radius-card: 1rem;
+  --radius-panel: 1.5rem;
 
-  /* --- Elevation --------------------------------------------------------- */
-  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.5);
-  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.35), 0 24px 48px -20px rgb(0 0 0 / 0.65);
-  --shadow-glow: 0 0 0 1px --alpha(var(--color-ember-500) / 30%), 0 18px 60px -24px --alpha(var(--color-ember-500) / 45%);
+  /* --- Elevation ---------------------------------------------------------
+     Light UI needs restraint. Depth comes mostly from the hairline; the
+     shadow only lifts the edge. Heavy drop shadows on pale surfaces read as
+     dirt, not elevation. */
+  --shadow-soft: 0 1px 2px rgb(22 24 28 / 0.05), 0 1px 3px rgb(22 24 28 / 0.04);
+  --shadow-lift: 0 2px 4px rgb(22 24 28 / 0.05), 0 12px 28px -12px rgb(22 24 28 / 0.16);
+  --shadow-glow: 0 2px 6px rgb(194 64 10 / 0.18), 0 14px 32px -14px rgb(194 64 10 / 0.34);
 
   /* --- Motion ------------------------------------------------------------ */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
-  --animate-drift: drift 18s var(--ease-out-soft) infinite alternate;
   --animate-sheen: sheen 2.6s linear infinite;
-}
-
-@keyframes drift {
-  from { transform: translate3d(-2%, -1%, 0) scale(1.02); }
-  to { transform: translate3d(2%, 2%, 0) scale(1.08); }
 }
 
 @keyframes sheen {
@@ -80,18 +94,19 @@
 
 @layer base {
   * {
-    border-color: var(--color-ink-700);
+    border-color: var(--color-line);
   }
 
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     scroll-padding-top: 6rem;
+    color-scheme: light;
   }
 
   body {
-    background-color: var(--color-ink-950);
-    color: var(--color-chalk);
+    background-color: var(--color-canvas);
+    color: var(--color-body);
     font-family: var(--font-sans);
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
@@ -102,6 +117,7 @@
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     font-weight: 700;
+    color: var(--color-ink);
     text-wrap: balance;
   }
 
@@ -111,19 +127,18 @@
 
   /* A single, consistent focus treatment across every interactive element. */
   :focus-visible {
-    outline: 2px solid var(--color-ember-400);
+    outline: 2px solid var(--color-ember-600);
     outline-offset: 3px;
     border-radius: 4px;
   }
 
   ::selection {
-    background-color: --alpha(var(--color-ember-500) / 35%);
-    color: var(--color-chalk);
+    background-color: --alpha(var(--color-ember-300) / 45%);
+    color: var(--color-ink);
   }
 
-  /* Firefox */
   * {
-    scrollbar-color: var(--color-ink-600) var(--color-ink-950);
+    scrollbar-color: var(--color-line-strong) var(--color-canvas);
   }
 
   ::-webkit-scrollbar {
@@ -131,14 +146,14 @@
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--color-ink-950);
+    background: var(--color-canvas);
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-ink-600);
+    background: var(--color-line-strong);
     border-radius: 999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-ink-500);
+    background: var(--color-subtle);
   }
 
   img,
@@ -157,7 +172,7 @@
   .container-page {
     width: 100%;
     margin-inline: auto;
-    max-width: 84rem;
+    max-width: 82rem;
     padding-inline: 1.25rem;
   }
 
@@ -170,32 +185,29 @@
   }
 
   .section {
-    padding-block: clamp(3.5rem, 2rem + 6vw, 7rem);
+    padding-block: clamp(3.5rem, 2rem + 6vw, 6.5rem);
   }
 
-  /* Frosted panel used for cards, nav and overlays. */
+  /* Frosted panel for nav and overlays. */
   .glass {
-    background-color: --alpha(var(--color-ink-850) / 72%);
+    background-color: --alpha(var(--color-surface) / 82%);
     backdrop-filter: blur(14px) saturate(140%);
     -webkit-backdrop-filter: blur(14px) saturate(140%);
-    border: 1px solid --alpha(var(--color-ink-600) / 80%);
+    border: 1px solid var(--color-line);
   }
 
   .hairline {
-    border-top: 1px solid --alpha(var(--color-ink-600) / 70%);
+    border-top: 1px solid var(--color-line);
   }
 
-  /* Emphasis gradient for headline words.
-     Deliberately warm-only: ramping all the way to the cool accent turned the
-     middle of short words (a three-letter word gets the whole ramp) into a
-     muddy grey-green. The ember/signal duality lives in backdrops, badges and
-     icons instead, where it has room to read. */
+  /* Warm gradient for the emphasised word in a heading. Stays inside the
+     ember range so it holds contrast at every point of the ramp. */
   .text-grade {
     background-image: linear-gradient(
       100deg,
-      var(--color-ember-600) 0%,
-      var(--color-ember-500) 34%,
-      var(--color-ember-300) 100%
+      var(--color-ember-700) 0%,
+      var(--color-ember-600) 45%,
+      var(--color-ember-500) 100%
     );
     background-clip: text;
     -webkit-background-clip: text;
@@ -205,9 +217,9 @@
   .skeleton {
     background-image: linear-gradient(
       100deg,
-      --alpha(var(--color-ink-800) / 100%) 20%,
-      --alpha(var(--color-ink-700) / 100%) 45%,
-      --alpha(var(--color-ink-800) / 100%) 70%
+      var(--color-raised) 20%,
+      var(--color-sunken) 45%,
+      var(--color-raised) 70%
     );
     background-size: 220% 100%;
     animation: var(--animate-sheen);
@@ -220,17 +232,17 @@
 
 @utility grid-lines {
   background-image:
-    linear-gradient(to right, --alpha(var(--color-ink-600) / 45%) 1px, transparent 1px),
-    linear-gradient(to bottom, --alpha(var(--color-ink-600) / 45%) 1px, transparent 1px);
+    linear-gradient(to right, --alpha(var(--color-line-strong) / 55%) 1px, transparent 1px),
+    linear-gradient(to bottom, --alpha(var(--color-line-strong) / 55%) 1px, transparent 1px);
   background-size: 64px 64px;
 }
 
 @utility mask-fade-b {
-  mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 45%, transparent 100%);
 }
 
 /* ==========================================================================
-   Reduced motion — honour the user's OS preference everywhere.
+   Reduced motion — honour the visitor's OS preference everywhere.
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
