@@ -35,6 +35,9 @@ return [
     'mail_from'      => 'website@pixrockvfxacademy.in',
     'mail_from_name' => 'PixRock Academy Website',
 
+    // Signed at the end of the confirmation email sent to each registrant.
+    'academy_name'   => 'PixRock Academy',
+
     // --- Abuse protection ---------------------------------------------------
     // Maximum submissions accepted from one IP within the window.
     'rate_limit_max'     => 5,

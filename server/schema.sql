@@ -1,34 +1,38 @@
--- PixRock Academy — enquiry storage
+-- PixRock Academy — registration storage
 --
 -- Run once, in hPanel → Databases → phpMyAdmin → your database → SQL tab.
 -- Paste this whole file and press Go.
+--
+-- If you already created the previous `enquiries` table, do NOT run this.
+-- Run migrate-2-registration.sql instead, which alters it in place and keeps
+-- anything already collected.
 
 CREATE TABLE IF NOT EXISTS `enquiries` (
-  `id`                INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `submitted_at`      DATETIME     NOT NULL,
+  `id`            INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `submitted_at`  DATETIME     NOT NULL,
 
-  `name`              VARCHAR(120) NOT NULL,
-  `phone`             VARCHAR(32)  NOT NULL,
-  `email`             VARCHAR(190) NOT NULL,
-  `course`            VARCHAR(64)  NOT NULL,
-  `course_label`      VARCHAR(120) NULL,
-  `qualification`     VARCHAR(120) NULL,
-  `city`              VARCHAR(80)  NULL,
-  `preferred_contact` VARCHAR(16)  NOT NULL DEFAULT 'phone',
-  `message`           TEXT         NULL,
+  -- The only two details asked for.
+  `email`         VARCHAR(190) NOT NULL,
+  `phone`         VARCHAR(32)  NOT NULL,
 
-  -- Kept for abuse prevention and to answer "did this actually send?".
-  -- Disclosed in the privacy policy.
-  `ip_address`        VARCHAR(45)  NULL,
-  `user_agent`        VARCHAR(255) NULL,
+  -- Context captured from the page, not asked of the visitor.
+  `course`        VARCHAR(64)  NULL,
+  `course_label`  VARCHAR(120) NULL,
+  `source_path`   VARCHAR(190) NULL,
 
-  -- Set once the notification email has gone out, so a failed send is visible
-  -- rather than silent. NULL means the enquiry is stored but not yet emailed.
-  `notified_at`       DATETIME     NULL,
+  -- Kept for abuse prevention. Disclosed in the privacy policy.
+  `ip_address`    VARCHAR(45)  NULL,
+  `user_agent`    VARCHAR(255) NULL,
 
-  -- Simple workflow tracking for the counselling team.
-  `status`            ENUM('new','contacted','enrolled','closed') NOT NULL DEFAULT 'new',
-  `notes`             TEXT         NULL,
+  -- Set when the internal notification goes out, and when the registrant's
+  -- automated confirmation goes out. NULL means that email did not send —
+  -- which is visible and fixable rather than silent.
+  `notified_at`   DATETIME     NULL,
+  `confirmed_at`  DATETIME     NULL,
+
+  -- Follow-up workflow: register → call → WhatsApp.
+  `status`        ENUM('new','called','whatsapp','enrolled','closed') NOT NULL DEFAULT 'new',
+  `notes`         TEXT         NULL,
 
   PRIMARY KEY (`id`),
   KEY `idx_submitted_at` (`submitted_at`),

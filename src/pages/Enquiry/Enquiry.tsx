@@ -2,7 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import { ShieldCheck, Clock3, UserCheck } from 'lucide-react';
 import { Seo } from '@/components/Seo/Seo';
 import { PageHero } from '@/components/ui/PageHero';
-import { EnquiryForm } from '@/components/ContactForm/EnquiryForm';
+import { RegisterForm } from '@/components/RegisterForm/RegisterForm';
 import { Reveal } from '@/components/ui/Reveal';
 import { admissionSteps } from '@/data/academy';
 import { getCourseBySlug } from '@/data/courses';
@@ -88,7 +88,7 @@ export default function Enquiry() {
 
           <div className="lg:col-span-7">
             <Reveal delay={0.08}>
-              <EnquiryForm defaultCourse={preselected} />
+              <RegisterForm courseSlug={preselected} />
             </Reveal>
           </div>
         </div>

@@ -19,7 +19,7 @@ import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
 import { Accordion } from '@/components/ui/Accordion';
 import { CourseCard } from '@/components/CourseCard/CourseCard';
-import { EnquiryForm } from '@/components/ContactForm/EnquiryForm';
+import { RegisterForm } from '@/components/RegisterForm/RegisterForm';
 import { siteConfig } from '@/config/site';
 
 export default function CourseDetails() {
@@ -373,7 +373,7 @@ export default function CourseDetails() {
             Enquire about {course.title}
           </h2>
           <Reveal>
-            <EnquiryForm defaultCourse={course.slug} title={`Enquire about ${course.title}`} />
+            <RegisterForm courseSlug={course.slug} title={`Register for ${course.shortTitle}`} />
           </Reveal>
         </div>
       </section>

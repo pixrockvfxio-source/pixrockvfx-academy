@@ -1,11 +1,16 @@
-# Enquiry form — server setup
+# Registration form — server setup
 
 Four steps. Roughly fifteen minutes in hPanel.
 
-Every enquiry is written to a MySQL table and a notification email is sent.
-The database is the record; the email is only the alert. If email delivery
-fails the enquiry is still saved, and `notified_at` stays `NULL` so you can see
-it happened — an enquiry is never lost to a mail problem.
+Every registration is written to a MySQL table, then two emails go out: an
+internal notification so the team can start calling, and an automated
+confirmation to the registrant.
+
+The database is the record; email is only the alert. If either send fails the
+registration is still saved, and `notified_at` / `confirmed_at` stay `NULL` so
+you can see which one failed. A registration is never lost to a mail problem.
+
+The funnel: register (email + contact number) → phone call → WhatsApp.
 
 ---
 
@@ -26,8 +31,13 @@ They are prefixed with your account number, e.g. `u722218362_pixrock`.
 
 hPanel → **Databases → phpMyAdmin** → select your database → **SQL** tab.
 
-Paste the whole of `schema.sql` and press **Go**. You should see the
-`enquiries` table appear in the left-hand list.
+**Fresh install:** paste the whole of `schema.sql` and press **Go**. The
+`enquiries` table should appear in the left-hand list.
+
+**If you already created the table from the earlier schema:** run
+`migrate-2-registration.sql` instead. It alters the table in place, keeps every
+row already collected, and only makes the old columns optional — nothing is
+dropped.
 
 ## 3. Upload the two PHP files
 
@@ -36,9 +46,12 @@ Paste the whole of `schema.sql` and press **Go**. You should see the
 | `enquiry.php` | `domains/pixrockvfxacademy.in/public_html/` — next to `index.html` |
 | `enquiry-config.php` | **One level above** `public_html`, i.e. `domains/pixrockvfxacademy.in/` |
 
-Open `enquiry-config.php` in File Manager's editor first and fill in the
-database name, user and password from step 1, plus the email address that
-should receive notifications.
+Open `enquiry-config.php` in File Manager's editor first and fill in:
+
+- `db_name`, `db_user`, `db_pass` — from step 1
+- `mail_to` — where internal notifications should arrive
+- `mail_from` — the mailbox on your own domain (see below)
+- `academy_name` — signed at the end of the confirmation email
 
 **Why above `public_html`:** nothing above the web root can be requested by a
 browser, so the database password cannot be served even if PHP is ever
@@ -51,10 +64,11 @@ second line of defence, which is good but not as good.
 hPanel → **Emails** → create a mailbox on your own domain, e.g.
 `website@pixrockvfxacademy.in`, and use it as `mail_from`.
 
-This matters. Email sent "from" the enquirer's own address fails SPF and DMARC
-checks and will be filtered as spam or rejected outright. The endpoint sets
-`From:` to your own domain and `Reply-To:` to the enquirer, so hitting reply in
-your inbox still replies to the student.
+This matters, and it matters twice now that a confirmation goes to the
+registrant. Email sent "from" someone else's address fails SPF and DMARC and is
+filtered as spam or rejected outright. Both messages are sent `From:` your own
+domain, with `Reply-To:` set so replies land in the right place: the internal
+notification replies to the registrant, the confirmation replies to you.
 
 ## 4. Replace index.html
 
@@ -75,26 +89,27 @@ ORDER BY id DESC
 LIMIT 10;
 ```
 
-- **A row appears, `notified_at` has a time** — everything works.
-- **A row appears, `notified_at` is NULL** — storage is fine, email is not.
-  Check the mailbox in `mail_from` exists, and look in hPanel's error log.
+- **Row present, both timestamps set** — everything works. Check the
+  registrant's inbox for the confirmation too.
+- **Row present, one or both NULL** — storage is fine, that email is not.
+  Check the `mail_from` mailbox exists, then hPanel's PHP error log.
 - **No row appears** — check the browser's Network tab. `500` means the
   database credentials are wrong or `enquiry-config.php` is not where the
   script looks; the real reason is in hPanel → **Advanced → PHP Error Log**.
 
 ## Reading enquiries day to day
 
-phpMyAdmin → `enquiries` → **Browse**. The `status` column
-(`new` / `contacted` / `enrolled` / `closed`) and the `notes` column are there
-for the counselling team to track follow-ups.
+phpMyAdmin → `enquiries` → **Browse**. The `status` column tracks the funnel
+(`new` → `called` → `whatsapp` → `enrolled` / `closed`) and `notes` is free
+text for the counselling team.
 
 To export for a spreadsheet: select the table → **Export** → CSV.
 
 ## What is stored
 
-Name, phone, email, course, qualification, city, preferred contact method,
-message, timestamp — plus IP address and browser user-agent, kept for abuse
-prevention. All of that is disclosed on the site's Privacy Policy page. If you
+Email address, contact number and timestamp — plus the course page the person
+registered from (captured automatically, never asked for), and IP address and
+browser user-agent kept for abuse prevention. All of that is disclosed on the site's Privacy Policy page. If you
 would rather not keep IP addresses, drop those two columns and remove them from
 the `INSERT` in `enquiry.php`.
 

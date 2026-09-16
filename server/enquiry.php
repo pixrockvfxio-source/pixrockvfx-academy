@@ -130,15 +130,12 @@ if (field($data, 'website', 200) !== '') {
 }
 
 $enquiry = [
-    'name'              => field($data, 'name', 120),
-    'phone'             => field($data, 'phone', 32),
-    'email'             => field($data, 'email', 190),
-    'course'            => field($data, 'course', 64),
-    'course_label'      => field($data, 'courseLabel', 120),
-    'qualification'     => field($data, 'qualification', 120),
-    'city'              => field($data, 'city', 80),
-    'preferred_contact' => field($data, 'preferredContact', 16),
-    'message'           => field($data, 'message', 4000),
+    'email'        => field($data, 'email', 190),
+    'phone'        => field($data, 'phone', 32),
+    // Context captured from the page, never asked of the visitor.
+    'course'       => field($data, 'course', 64),
+    'course_label' => field($data, 'courseLabel', 120),
+    'source_path'  => field($data, 'sourcePath', 190),
 ];
 
 // -----------------------------------------------------------------------------
@@ -146,25 +143,13 @@ $enquiry = [
 // -----------------------------------------------------------------------------
 $errors = [];
 
-if (mb_strlen($enquiry['name']) < 2) {
-    $errors['name'] = 'Please give your name.';
-}
-
-$digits = preg_replace('/\D/', '', $enquiry['phone']) ?? '';
-if (strlen($digits) < 8 || strlen($digits) > 15) {
-    $errors['phone'] = 'Enter a valid phone number including area code.';
-}
-
 if (!filter_var($enquiry['email'], FILTER_VALIDATE_EMAIL)) {
     $errors['email'] = 'That email address does not look right.';
 }
 
-if ($enquiry['course'] === '') {
-    $errors['course'] = 'Choose the course you are interested in.';
-}
-
-if (!in_array($enquiry['preferred_contact'], ['phone', 'whatsapp', 'email'], true)) {
-    $enquiry['preferred_contact'] = 'phone';
+$digits = preg_replace('/\D/', '', $enquiry['phone']) ?? '';
+if (strlen($digits) < 8 || strlen($digits) > 15) {
+    $errors['phone'] = 'Enter a valid contact number including country or area code.';
 }
 
 if ($errors) {
@@ -220,89 +205,136 @@ try {
 try {
     $insert = $pdo->prepare(
         'INSERT INTO enquiries
-            (submitted_at, name, phone, email, course, course_label, qualification,
-             city, preferred_contact, message, ip_address, user_agent)
+            (submitted_at, email, phone, course, course_label, source_path, ip_address, user_agent)
          VALUES
-            (NOW(), :name, :phone, :email, :course, :course_label, :qualification,
-             :city, :preferred_contact, :message, :ip, :ua)'
+            (NOW(), :email, :phone, :course, :course_label, :source_path, :ip, :ua)'
     );
     $insert->execute([
-        ':name'              => $enquiry['name'],
-        ':phone'             => $enquiry['phone'],
-        ':email'             => $enquiry['email'],
-        ':course'            => $enquiry['course'],
-        ':course_label'      => $enquiry['course_label'] ?: null,
-        ':qualification'     => $enquiry['qualification'] ?: null,
-        ':city'              => $enquiry['city'] ?: null,
-        ':preferred_contact' => $enquiry['preferred_contact'],
-        ':message'           => $enquiry['message'] ?: null,
-        ':ip'                => $ip ?: null,
-        ':ua'                => $userAgent ?: null,
+        ':email'        => $enquiry['email'],
+        ':phone'        => $enquiry['phone'],
+        ':course'       => $enquiry['course'] ?: null,
+        ':course_label' => $enquiry['course_label'] ?: null,
+        ':source_path'  => $enquiry['source_path'] ?: null,
+        ':ip'           => $ip ?: null,
+        ':ua'           => $userAgent ?: null,
     ]);
-    $enquiryId = (int) $pdo->lastInsertId();
+    $registrationId = (int) $pdo->lastInsertId();
 } catch (Throwable $e) {
     log_problem('insert failed', $e);
     respond(500, ['ok' => false, 'error' => 'We could not save your enquiry just now. Please try again shortly.']);
 }
 
 // -----------------------------------------------------------------------------
-// 6. Notification email
+// 6. Email
 //
-// The enquiry is already safely stored. A mail failure is logged and leaves
-// notified_at NULL, but the visitor still gets a success response.
+// Two messages go out: an internal notification so the team can start calling,
+// and an automated confirmation to the registrant.
+//
+// The registration is already stored, so neither send can fail the request. A
+// failure is logged and leaves notified_at / confirmed_at NULL, which is
+// queryable — a silent mail outage is visible instead of invisible.
+//
+// From: must be on our own domain or SPF and DMARC will reject the message.
+// Nothing user-supplied ever reaches a header: the address is validated by
+// FILTER_VALIDATE_EMAIL and control characters are stripped on input, so
+// header injection has no surface here.
 // -----------------------------------------------------------------------------
-$mailed = false;
+$fromName = str_replace(["\r", "\n"], '', (string) ($config['mail_from_name'] ?? 'PixRock Academy'));
+$fromAddr = (string) ($config['mail_from'] ?? '');
+$academy  = (string) ($config['academy_name'] ?? 'PixRock Academy');
+$courseLabel = $enquiry['course_label'] !== '' ? $enquiry['course_label'] : null;
+
+/** Sends a plain-text UTF-8 message. Returns false rather than throwing. */
+function send_mail(string $to, string $subject, string $body, array $extraHeaders, string $fromAddr): bool
+{
+    if ($to === '' || $fromAddr === '') {
+        return false;
+    }
+
+    $headers = array_merge([
+        'MIME-Version: 1.0',
+        'Content-Type: text/plain; charset=UTF-8',
+        'X-Mailer: PixRock Academy Website',
+    ], $extraHeaders);
+
+    return @mail($to, $subject, $body, implode("\r\n", $headers), '-f' . $fromAddr);
+}
+
+// --- 6a. Internal notification ------------------------------------------------
+$notified = false;
 
 try {
     $to = implode(', ', (array) ($config['mail_to'] ?? []));
 
-    if ($to !== '') {
-        $courseLabel = $enquiry['course_label'] !== '' ? $enquiry['course_label'] : $enquiry['course'];
+    $subject = sprintf('New registration #%d — %s', $registrationId, $enquiry['phone']);
 
-        $subject = sprintf('New enquiry #%d — %s (%s)', $enquiryId, $enquiry['name'], $courseLabel);
+    $body = "A new registration came in from the website.\n\n"
+        . str_repeat('-', 52) . "\n"
+        . 'Registration ID : ' . $registrationId . "\n"
+        . 'Received        : ' . date('d M Y, H:i') . "\n"
+        . str_repeat('-', 52) . "\n"
+        . 'Email           : ' . $enquiry['email'] . "\n"
+        . 'Contact number  : ' . $enquiry['phone'] . "\n"
+        . 'Course interest : ' . ($courseLabel ?? 'Not specified — registered from ' . ($enquiry['source_path'] ?: 'the site')) . "\n"
+        . str_repeat('-', 52) . "\n\n"
+        . "Next step: call this number to verify interest, then move the\n"
+        . "conversation to WhatsApp.\n\n"
+        . "Reply to this email to reach the registrant directly.\n";
 
-        $body = "A new enquiry was submitted on the website.\n\n"
-            . str_repeat('-', 52) . "\n"
-            . 'Enquiry ID       : ' . $enquiryId . "\n"
-            . 'Received         : ' . date('d M Y, H:i') . "\n"
-            . str_repeat('-', 52) . "\n"
-            . 'Name             : ' . $enquiry['name'] . "\n"
-            . 'Phone            : ' . $enquiry['phone'] . "\n"
-            . 'Email            : ' . $enquiry['email'] . "\n"
-            . 'Course           : ' . $courseLabel . "\n"
-            . 'Qualification    : ' . ($enquiry['qualification'] ?: '—') . "\n"
-            . 'City             : ' . ($enquiry['city'] ?: '—') . "\n"
-            . 'Prefers contact  : ' . $enquiry['preferred_contact'] . "\n"
-            . str_repeat('-', 52) . "\n"
-            . "Message:\n" . ($enquiry['message'] ?: '—') . "\n"
-            . str_repeat('-', 52) . "\n\n"
-            . "Reply directly to this email to respond to the enquirer.\n";
+    $notified = send_mail($to, $subject, $body, [
+        'From: ' . sprintf('%s <%s>', $fromName, $fromAddr),
+        'Reply-To: ' . $enquiry['email'],
+    ], $fromAddr);
 
-        // From must be on our own domain or SPF/DMARC will reject it.
-        // Reply-To carries the enquirer, so replying just works.
-        $fromName = str_replace(["\r", "\n"], '', (string) ($config['mail_from_name'] ?? 'Website'));
-        $fromAddr = (string) ($config['mail_from'] ?? '');
-
-        $headers = [
-            'MIME-Version: 1.0',
-            'Content-Type: text/plain; charset=UTF-8',
-            'From: ' . sprintf('%s <%s>', $fromName, $fromAddr),
-            'Reply-To: ' . sprintf('%s <%s>', str_replace(["\r", "\n"], '', $enquiry['name']), $enquiry['email']),
-            'X-Mailer: PixRock Academy Website',
-        ];
-
-        $mailed = mail($to, $subject, $body, implode("\r\n", $headers), '-f' . $fromAddr);
-
-        if ($mailed) {
-            $pdo->prepare('UPDATE enquiries SET notified_at = NOW() WHERE id = :id')
-                ->execute([':id' => $enquiryId]);
-        } else {
-            error_log('[enquiry] mail() returned false for enquiry #' . $enquiryId);
-        }
+    if ($notified) {
+        $pdo->prepare('UPDATE enquiries SET notified_at = NOW() WHERE id = :id')->execute([':id' => $registrationId]);
+    } else {
+        error_log('[enquiry] internal notification failed for #' . $registrationId);
     }
 } catch (Throwable $e) {
-    log_problem('notification failed for enquiry #' . $enquiryId, $e);
+    log_problem('notification failed for #' . $registrationId, $e);
 }
 
-// The enquiry is stored either way, so the visitor is told it succeeded.
-respond(200, ['ok' => true, 'id' => $enquiryId, 'notified' => $mailed]);
+// --- 6b. Automated confirmation to the registrant -----------------------------
+// Deliberately says nothing about fees, outcomes or placement: the brochure
+// forbids implying a record the academy does not have, and fees are a
+// counselling conversation.
+$confirmed = false;
+
+try {
+    $subject = $courseLabel
+        ? sprintf('Registration confirmed: %s', $courseLabel)
+        : 'Your registration with ' . $academy;
+
+    $reply = (array) ($config['mail_to'] ?? []);
+    $replyTo = $reply[0] ?? $fromAddr;
+
+    $body = "Thank you for registering with " . $academy . ".\n\n"
+        . ($courseLabel ? 'Course of interest: ' . $courseLabel . "\n\n" : '')
+        . "What happens next\n"
+        . str_repeat('-', 52) . "\n"
+        . "1. A counsellor will call you on " . $enquiry['phone'] . " within one\n"
+        . "   working day to answer your questions.\n"
+        . "2. After that call we will continue on WhatsApp, so you can reach us\n"
+        . "   easily whenever something comes up.\n\n"
+        . "If the number above is wrong, or a different time suits you better,\n"
+        . "just reply to this email and let us know.\n\n"
+        . $academy . "\n";
+
+    $confirmed = send_mail($enquiry['email'], $subject, $body, [
+        'From: ' . sprintf('%s <%s>', $fromName, $fromAddr),
+        'Reply-To: ' . $replyTo,
+        'Auto-Submitted: auto-replied',
+    ], $fromAddr);
+
+    if ($confirmed) {
+        $pdo->prepare('UPDATE enquiries SET confirmed_at = NOW() WHERE id = :id')->execute([':id' => $registrationId]);
+    } else {
+        error_log('[enquiry] confirmation email failed for #' . $registrationId);
+    }
+} catch (Throwable $e) {
+    log_problem('confirmation failed for #' . $registrationId, $e);
+}
+
+// The registration is stored either way, so the visitor is told it succeeded.
+respond(200, ['ok' => true, 'id' => $registrationId, 'notified' => $notified, 'confirmed' => $confirmed]);

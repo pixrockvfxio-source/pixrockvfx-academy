@@ -1,63 +1,52 @@
-/** Field-level validators shared by the enquiry and contact forms. */
+/**
+ * Registration validation.
+ *
+ * The form deliberately asks for two things only — email and contact number.
+ * Every extra field costs completions, and the funnel is designed so the rest
+ * of the conversation happens on the phone and then on WhatsApp.
+ *
+ * The course a visitor registered from is captured from the page itself, not
+ * asked for, so it adds context without adding a field.
+ */
 
-export type EnquiryValues = {
-  name: string;
-  phone: string;
+export type RegistrationValues = {
   email: string;
-  course: string;
-  qualification: string;
-  city: string;
-  preferredContact: 'phone' | 'whatsapp' | 'email';
-  message: string;
+  phone: string;
   consent: boolean;
-  /** Honeypot — must stay empty. Hidden from real users. */
+  /** Honeypot — must stay empty. Hidden from real people. */
   website: string;
 };
 
-export type EnquiryErrors = Partial<Record<keyof EnquiryValues, string>>;
+export type RegistrationErrors = Partial<Record<keyof RegistrationValues, string>>;
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
 
-export const initialEnquiry: EnquiryValues = {
-  name: '',
-  phone: '',
+export const initialRegistration: RegistrationValues = {
   email: '',
-  course: '',
-  qualification: '',
-  city: '',
-  preferredContact: 'phone',
-  message: '',
+  phone: '',
   consent: false,
   website: '',
 };
 
-export function validateEnquiry(values: EnquiryValues): EnquiryErrors {
-  const errors: EnquiryErrors = {};
-
-  const name = values.name.trim();
-  if (!name) errors.name = 'Please tell us your name.';
-  else if (name.length < 2) errors.name = 'That name looks too short.';
-  else if (name.length > 80) errors.name = 'Please keep this under 80 characters.';
-
-  const digits = values.phone.replace(/\D/g, '');
-  if (!values.phone.trim()) errors.phone = 'A phone number helps us call you back.';
-  else if (digits.length < 8 || digits.length > 15) errors.phone = 'Enter a valid phone number including area code.';
+export function validateRegistration(values: RegistrationValues): RegistrationErrors {
+  const errors: RegistrationErrors = {};
 
   const email = values.email.trim();
-  if (!email) errors.email = 'We need an email address to reply.';
+  if (!email) errors.email = 'We need an email address to confirm your registration.';
   else if (!EMAIL.test(email)) errors.email = 'That email address does not look right.';
+  else if (email.length > 190) errors.email = 'That email address is too long.';
 
-  if (!values.course) errors.course = 'Choose the course you are interested in.';
+  const digits = values.phone.replace(/\D/g, '');
+  if (!values.phone.trim()) errors.phone = 'We call every registration, so we need a number.';
+  else if (digits.length < 8 || digits.length > 15) {
+    errors.phone = 'Enter a valid contact number including country or area code.';
+  }
 
-  if (values.city.trim().length > 60) errors.city = 'Please keep this under 60 characters.';
-  if (values.qualification.trim().length > 80) errors.qualification = 'Please keep this under 80 characters.';
-  if (values.message.trim().length > 1200) errors.message = 'Please keep your message under 1200 characters.';
-
-  if (!values.consent) errors.consent = 'Please confirm we may contact you about this enquiry.';
+  if (!values.consent) errors.consent = 'Please confirm we may contact you about this registration.';
 
   return errors;
 }
 
-export function hasErrors(errors: EnquiryErrors): boolean {
+export function hasErrors(errors: RegistrationErrors): boolean {
   return Object.keys(errors).length > 0;
 }

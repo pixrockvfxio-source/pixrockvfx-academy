@@ -3,7 +3,7 @@ import type { LucideIcon } from 'lucide-react';
 import { Seo, organisationJsonLd } from '@/components/Seo/Seo';
 import { PageHero } from '@/components/ui/PageHero';
 import { Reveal } from '@/components/ui/Reveal';
-import { EnquiryForm } from '@/components/ContactForm/EnquiryForm';
+import { RegisterForm } from '@/components/RegisterForm/RegisterForm';
 import { Button } from '@/components/ui/Button';
 import { siteConfig, formattedAddress, whatsappLink, telLink, mailtoLink } from '@/config/site';
 
@@ -167,7 +167,7 @@ export default function Contact() {
           {/* Form */}
           <div className="lg:col-span-7">
             <Reveal delay={0.08}>
-              <EnquiryForm title="Send us a message" />
+              <RegisterForm title="Register your interest" />
             </Reveal>
           </div>
         </div>
