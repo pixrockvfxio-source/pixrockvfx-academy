@@ -100,6 +100,15 @@ if (isset($_GET['selftest'])) {
         }
     }
 
+    // Checked separately: a password must never be echoed back, even to
+    // whoever holds the token.
+    $pw = (string) ($config['db_pass'] ?? '');
+    if ($pw === '' || str_starts_with($pw, 'REPLACE_WITH')) {
+        $fail('config: db_pass', 'still empty or left as the placeholder');
+    } else {
+        $pass('config: db_pass', 'set (' . strlen($pw) . ' characters)');
+    }
+
     $to = (array) ($config['mail_to'] ?? []);
     if (!$to || !$to[0]) {
         $fail('config: mail_to', 'no notification address set');
