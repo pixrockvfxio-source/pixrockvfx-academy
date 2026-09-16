@@ -205,7 +205,7 @@ for the fifteen-minute Hostinger setup.
 | `server/enquiry.php` | The endpoint. Goes in `public_html` next to `index.html`. |
 | `server/enquiry-config.example.php` | Credentials template. Copy to `enquiry-config.php`, fill in, and place **above** `public_html`. Never committed. |
 | `server/schema.sql` | The `enquiries` table. Run once in phpMyAdmin. |
-| `server/migrate-2-registration.sql` | Alters an existing table to the registration shape, keeping every row. |
+| `server/rebuild-table.sql` | Rebuilds an existing table into the registration shape, keeping every row in `enquiries_old`. |
 
 The database is the record and email is only the notification: the insert
 happens first, and a failed send leaves `notified_at` or `confirmed_at` NULL

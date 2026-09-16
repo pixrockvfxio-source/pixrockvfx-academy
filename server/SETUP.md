@@ -34,16 +34,20 @@ hPanel → **Databases → phpMyAdmin** → select your database → **SQL** tab
 **Fresh install:** paste the whole of `schema.sql` and press **Go**. The
 `enquiries` table should appear in the left-hand list.
 
-**If you already created the table from the earlier schema:** run
-`migrate-2-registration.sql` instead. It alters the table in place, keeps every
-row already collected, and only makes the old columns optional — nothing is
-dropped.
+**If the table already exists in any form:** run `rebuild-table.sql` instead.
 
-The migration is safe to run more than once, and safe to run from any state —
-original table, half-migrated, or already done. Each step checks the table
-first and skips whatever is already there, so a re-run is a no-op rather than a
-"duplicate column" error. It finishes by printing the table's columns so you
-can see the result.
+It does not try to alter the table. Hostinger denies your database user access
+to `information_schema`, so no script can inspect the table before changing it
+— which rules out any conditional migration. Instead it renames the existing
+table to `enquiries_old`, creates a clean one, and copies across the columns
+the two have in common.
+
+Nothing is deleted. `enquiries_old` stays in phpMyAdmin until you choose to
+drop it. It uses only plain SQL, so it works the same on MySQL and MariaDB, and
+finishes by printing how many rows were carried across.
+
+If you run it a second time it will stop with "table already exists" — rename
+or drop `enquiries_old` first.
 
 ## 3. Upload the two PHP files
 
