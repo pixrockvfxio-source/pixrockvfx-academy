@@ -88,6 +88,27 @@ the previous one discarded submissions.
 
 ---
 
+## Is it set up correctly? Ask the endpoint
+
+Open this in a browser, using the `selftest_token` from your config:
+
+```
+https://pixrockvfxacademy.in/enquiry.php?selftest=pixrock-check-2027
+```
+
+It reports, line by line: whether the config was found and filled in, whether
+the database connects, whether the table exists, whether every expected column
+is present, and — the usual cause of a failed save — whether any leftover
+NOT NULL column would block an insert.
+
+A wrong or missing token returns "Not found", and an empty `selftest_token`
+disables the check completely, so it cannot be probed on a site that has not
+opted in. Change the token to something only you know.
+
+This exists because the message a visitor sees when a save fails is
+deliberately vague — a database error must never reach a browser — which
+otherwise leaves the real cause in a log file you may not be able to reach.
+
 ## Checking it works
 
 Submit a test enquiry through the live form, then in phpMyAdmin run:

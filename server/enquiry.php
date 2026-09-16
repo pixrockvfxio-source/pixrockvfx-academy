@@ -63,6 +63,104 @@ if (!is_array($config)) {
 }
 
 // -----------------------------------------------------------------------------
+// 1b. Self-test
+//
+// GET /enquiry.php?selftest=<token> reports exactly which part of the setup is
+// broken. Without it the only visible symptom is the generic "could not save"
+// message a visitor sees — deliberately vague, since a database error must
+// never reach a browser — which leaves the real cause in a log file the person
+// deploying may not know how to reach.
+//
+// Requires `selftest_token` in the config. Unset means disabled, so it cannot
+// be probed on a site that has not opted in.
+// -----------------------------------------------------------------------------
+if (isset($_GET['selftest'])) {
+    $token = (string) ($config['selftest_token'] ?? '');
+
+    if ($token === '' || !hash_equals($token, (string) $_GET['selftest'])) {
+        respond(404, ['ok' => false, 'error' => 'Not found.']);
+    }
+
+    $checks = [];
+    $fail = static function (string $name, string $detail) use (&$checks): void {
+        $checks[] = ['check' => $name, 'status' => 'FAIL', 'detail' => $detail];
+    };
+    $pass = static function (string $name, string $detail = '') use (&$checks): void {
+        $checks[] = ['check' => $name, 'status' => 'pass', 'detail' => $detail];
+    };
+
+    $pass('config file', 'loaded');
+
+    foreach (['db_name', 'db_user', 'mail_from'] as $key) {
+        $value = (string) ($config[$key] ?? '');
+        if ($value === '' || str_starts_with($value, 'REPLACE_WITH')) {
+            $fail('config: ' . $key, 'still empty or left as the placeholder');
+        } else {
+            $pass('config: ' . $key, $value);
+        }
+    }
+
+    $to = (array) ($config['mail_to'] ?? []);
+    if (!$to || !$to[0]) {
+        $fail('config: mail_to', 'no notification address set');
+    } else {
+        $pass('config: mail_to', implode(', ', $to));
+    }
+
+    try {
+        $db = new PDO(
+            sprintf('mysql:host=%s;dbname=%s;charset=utf8mb4', $config['db_host'], $config['db_name']),
+            $config['db_user'],
+            $config['db_pass'],
+            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+        );
+        $pass('database connection', 'connected to ' . $config['db_name']);
+    } catch (Throwable $e) {
+        $fail('database connection', $e->getMessage());
+        respond(200, ['ok' => false, 'checks' => $checks]);
+    }
+
+    // SHOW COLUMNS works without information_schema access, which shared hosts
+    // routinely deny to the site's own database user.
+    try {
+        $cols = $db->query('SHOW COLUMNS FROM `enquiries`')->fetchAll(PDO::FETCH_ASSOC);
+        $pass('table `enquiries`', count($cols) . ' columns');
+    } catch (Throwable $e) {
+        $fail('table `enquiries`', 'not found — run schema.sql or rebuild-table.sql');
+        respond(200, ['ok' => false, 'checks' => $checks]);
+    }
+
+    $byName = [];
+    foreach ($cols as $c) {
+        $byName[$c['Field']] = $c;
+    }
+
+    foreach (['email', 'phone', 'course', 'course_label', 'source_path', 'notified_at', 'confirmed_at'] as $needed) {
+        isset($byName[$needed])
+            ? $pass('column ' . $needed)
+            : $fail('column ' . $needed, 'missing — run rebuild-table.sql');
+    }
+
+    // The real cause of "could not save" on a half-migrated table: a leftover
+    // NOT NULL column the registration form no longer sends.
+    $supplied = ['submitted_at', 'email', 'phone', 'course', 'course_label', 'source_path', 'ip_address', 'user_agent'];
+    $blocking = [];
+    foreach ($cols as $c) {
+        $isAuto = str_contains($c['Extra'] ?? '', 'auto_increment');
+        if ($c['Null'] === 'NO' && $c['Default'] === null && !$isAuto && !in_array($c['Field'], $supplied, true)) {
+            $blocking[] = $c['Field'];
+        }
+    }
+    $blocking
+        ? $fail('insertable', 'these columns are NOT NULL but the form does not send them: '
+            . implode(', ', $blocking) . ' — run rebuild-table.sql')
+        : $pass('insertable', 'no column blocks an insert');
+
+    $ok = !array_filter($checks, static fn ($c) => $c['status'] === 'FAIL');
+    respond(200, ['ok' => $ok, 'checks' => $checks]);
+}
+
+// -----------------------------------------------------------------------------
 // 2. Request guards
 // -----------------------------------------------------------------------------
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {

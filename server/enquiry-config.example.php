@@ -38,6 +38,15 @@ return [
     // Signed at the end of the confirmation email sent to each registrant.
     'academy_name'   => 'PixRock Academy',
 
+    // --- Setup check --------------------------------------------------------
+    // Visit https://yourdomain/enquiry.php?selftest=THIS-VALUE to get a plain
+    // report of what is and is not working: config, database connection, table
+    // shape, and whether anything would block an insert.
+    //
+    // Change it to something only you know. Leave it empty to disable the
+    // check entirely — with no token the URL simply returns "not found".
+    'selftest_token' => 'pixrock-check-2027',
+
     // --- Abuse protection ---------------------------------------------------
     // Maximum submissions accepted from one IP within the window.
     'rate_limit_max'     => 5,
