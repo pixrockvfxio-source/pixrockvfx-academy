@@ -39,6 +39,12 @@ hPanel → **Databases → phpMyAdmin** → select your database → **SQL** tab
 row already collected, and only makes the old columns optional — nothing is
 dropped.
 
+The migration is safe to run more than once, and safe to run from any state —
+original table, half-migrated, or already done. Each step checks the table
+first and skips whatever is already there, so a re-run is a no-op rather than a
+"duplicate column" error. It finishes by printing the table's columns so you
+can see the result.
+
 ## 3. Upload the two PHP files
 
 | File | Where it goes |
